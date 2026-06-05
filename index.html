@@ -191,31 +191,6 @@
             margin: 0 auto;
             position: relative;
             z-index: 1;
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 60px;
-            align-items: center;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero-canvas-wrap {
-            width: 100%;
-            height: 440px;
-            position: relative;
-            z-index: 2;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        #opcCanvas {
-            width: 100%;
-            height: 100%;
-            display: block;
         }
 
         .hero-eyebrow {
@@ -829,12 +804,6 @@
         /* 响应式 */
         @media (max-width: 768px) {
             .topnav-center, .topnav-search { display: none; }
-            .hero-inner {
-                grid-template-columns: 1fr;
-            }
-            .hero-canvas-wrap {
-                display: none;
-            }
             .hero h1, .join h2 { font-size: 36px; }
             .stats-inner, .matrix-inner { flex-wrap: wrap; }
             .stat-item, .matrix-item {
@@ -893,22 +862,17 @@
     <!-- 英雄区 -->
     <section class="hero">
         <div class="hero-inner">
-            <div class="hero-content">
-                <div class="hero-eyebrow">
-                    <span class="hero-eyebrow-text">超级个体的战略合伙人</span>
-                </div>
-                <h1>OPC创业汇</h1>
-                <div style="display:inline-block;background:rgba(184,149,106,0.15);border:1px solid var(--brass);padding:8px 20px;margin-bottom:24px;">
-                    <span style="font-size:14px;color:var(--brass);font-weight:600;letter-spacing:2px;">网站建设中</span>
-                </div>
-                <div class="hero-subtitle">
-                    <p>我们不做堆满政策解读和申报指南的"工具箱"。</p>
-                    <p>我们跟踪全国OPC政策，只交付经过验证的实操路径。</p>
-                    <p>我们不交付信息，只交付彼此信任的人。</p>
-                </div>
+            <div class="hero-eyebrow">
+                <span class="hero-eyebrow-text">超级个体的战略合伙人</span>
             </div>
-            <div class="hero-canvas-wrap">
-                <canvas id="opcCanvas"></canvas>
+            <h1>OPC创业汇</h1>
+            <div style="display:inline-block;background:rgba(184,149,106,0.15);border:1px solid var(--brass);padding:8px 20px;margin-bottom:24px;">
+                <span style="font-size:14px;color:var(--brass);font-weight:600;letter-spacing:2px;">网站建设中</span>
+            </div>
+            <div class="hero-subtitle">
+                <p>我们不做堆满政策解读和申报指南的"工具箱"。</p>
+                <p>我们跟踪全国OPC政策，只交付经过验证的实操路径。</p>
+                <p>我们不交付信息，只交付彼此信任的人。</p>
             </div>
         </div>
     </section>
@@ -1209,119 +1173,6 @@
             </div>
         </div>
     </footer>
-
-<script>
-(function() {
-    const canvas = document.getElementById('opcCanvas');
-    const ctx = canvas.getContext('2d');
-
-    let width, height;
-    const nodeCount = 36;
-    const radius = 140;
-    const nodes = [];
-
-    const GOLD = '201, 169, 110';
-    const GOLD_LIGHT = '232, 213, 183';
-
-    function resize() {
-        const rect = canvas.parentElement.getBoundingClientRect();
-        const dpr = window.devicePixelRatio || 1;
-        width = rect.width;
-        height = rect.height;
-        canvas.width = width * dpr;
-        canvas.height = height * dpr;
-        ctx.scale(dpr, dpr);
-        initNodes();
-    }
-
-    function initNodes() {
-        nodes.length = 0;
-        for (let i = 0; i < nodeCount; i++) {
-            nodes.push({
-                angle: (i / nodeCount) * Math.PI * 2,
-                speed: 0.0003 + Math.random() * 0.0002,
-                baseSize: 3,
-                pulseSize: 0,
-                targetPulse: 0,
-                phase: Math.random() * Math.PI * 2,
-                brightness: 0.5,
-                lastPulse: 0
-            });
-        }
-    }
-
-    function update(time) {
-        const cx = width / 2;
-        const cy = height / 2;
-
-        nodes.forEach((node, i) => {
-            node.angle += node.speed;
-            node.x = cx + Math.cos(node.angle) * radius;
-            node.y = cy + Math.sin(node.angle) * radius;
-
-            node.targetPulse = Math.sin(time * 0.001 + node.phase) * 0.5 + 0.5;
-
-            const wavePos = (time * 0.0005 + i / nodeCount) % 1;
-            if (wavePos < 0.1) {
-                node.targetPulse = 1.0;
-            }
-
-            node.pulseSize += (node.targetPulse - node.pulseSize) * 0.1;
-            node.targetPulse *= 0.98;
-        });
-    }
-
-    function draw() {
-        ctx.clearRect(0, 0, width, height);
-
-        for (let i = 0; i < nodes.length; i++) {
-            const next = (i + 1) % nodes.length;
-            const pulseAvg = (nodes[i].pulseSize + nodes[next].pulseSize) / 2;
-
-            ctx.strokeStyle = `rgba(${GOLD}, ${0.15 + pulseAvg * 0.35})`;
-            ctx.lineWidth = 1 + pulseAvg * 2;
-            ctx.beginPath();
-            ctx.moveTo(nodes[i].x, nodes[i].y);
-            ctx.lineTo(nodes[next].x, nodes[next].y);
-            ctx.stroke();
-        }
-
-        nodes.forEach(node => {
-            const size = node.baseSize + node.pulseSize * 10;
-            const alpha = node.brightness + node.pulseSize * 0.5;
-
-            if (node.pulseSize > 0.3) {
-                ctx.fillStyle = `rgba(${GOLD}, ${node.pulseSize * 0.2})`;
-                ctx.beginPath();
-                ctx.arc(node.x, node.y, size * 2, 0, Math.PI * 2);
-                ctx.fill();
-            }
-
-            ctx.fillStyle = `rgba(${node.pulseSize > 0.7 ? GOLD_LIGHT : GOLD}, ${alpha})`;
-            ctx.beginPath();
-            ctx.arc(node.x, node.y, size, 0, Math.PI * 2);
-            ctx.fill();
-
-            if (node.pulseSize > 0.8) {
-                ctx.fillStyle = `rgba(255, 255, 255, ${(node.pulseSize - 0.8) * 0.8})`;
-                ctx.beginPath();
-                ctx.arc(node.x, node.y, size * 0.3, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        });
-    }
-
-    function animate(time) {
-        update(time);
-        draw();
-        requestAnimationFrame(animate);
-    }
-
-    resize();
-    window.addEventListener('resize', resize);
-    requestAnimationFrame(animate);
-})();
-</script>
 
 </body>
 </html>
