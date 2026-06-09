@@ -1,4 +1,4 @@
-layout: post title: "蒸汽、钢铁与无限心智：当AI超越"副驾驶"" date: 2026-05-15 00:00:00 +0800 category: 原文速递 read_time: 20 views: [待确认] original_url: https://www.notion.com/blog/steam-steel-and-infinite-minds-ai description: "Notion CEO Ivan Zhao以钢铁与蒸汽为隐喻，重新审视AI对知识工作、组织架构与全球经济的深层变革——我们仍在"替换水车"的阶段，而思想的工厂尚未建成。" tags: ["Notion", "AI智能体", "知识工作", "组织变革", "历史隐喻", "Ivan Zhao"]
+layout: post title: "蒸汽、钢铁与无限心智"" date: 2026-05-15 00:00:00 +0800 category: 原文速递 read_time: 20 views: [待确认] original_url: https://www.notion.com/blog/steam-steel-and-infinite-minds-ai description: "Notion CEO Ivan Zhao以钢铁与蒸汽为隐喻，重新审视AI对知识工作、组织架构与全球经济的深层变革——我们仍在"替换水车"的阶段，而思想的工厂尚未建成。" tags: ["Notion", "AI智能体", "知识工作", "组织变革", "历史隐喻", "Ivan Zhao"]
 原文标题：Steam, Steel, and Infinite Minds
 作者：Ivan Zhao（Notion CEO）
 来源：Notion Blog
