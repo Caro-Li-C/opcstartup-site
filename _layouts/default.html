@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+  <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+  <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <div class="nav-container">
+      <a href="/" class="nav-logo">OPC创业汇</a>
+      <div class="nav-links">
+        <a href="/">首页</a>
+        <a href="/policy/">政策</a>
+        <a href="/posts/">文章</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="site-main">
+    {{ content }}
+  </main>
+
+  <footer class="site-footer">
+    <p>OPC创业汇 · 超级个体的战略合伙人</p>
+  </footer>
+</body>
+</html>
