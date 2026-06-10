@@ -214,7 +214,3 @@ source: "公众号OPC创业汇"
 <p>"Steel. Steam. Infinite minds. The next skyline is there, waiting for us to build it."</p>
 <p>"钢铁，蒸汽，无限心智。下一幅城市天际线就在前方，等待我们亲手筑就。"</p>
 </blockquote>
-
-<div class="post-source">
-<a href="https://www.notion.com/blog/steam-steel-and-infinite-minds-ai" target="_blank">→ 查看原文</a>
-</div>
