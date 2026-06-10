@@ -369,7 +369,3 @@ source: "公众号OPC创业汇"
 <p class="en-text">In the coming months, we will organize conversations where policymakers, researchers, civil society, and other AI companies can help answer some of the questions this piece raises, especially around full recursive self-improvement and how to create better options for coordination and deliberation. We'll publish what comes out of it. The window to investigate the questions together is here, and people outside AI companies should be involved in this deliberation.</p>
 <p class="zh-text">在接下来的几个月里，我们将组织对话，让政策制定者、研究人员、公民社会和其他AI公司能够帮助回答本文提出的一些问题，尤其是围绕完全递归自我改进，以及如何创造更好的协调与审议选项。我们将发布从中产生的成果。共同探讨这些问题的窗口期就在当下，AI公司之外的人们应该参与到这一审议中来。</p>
 </div>
-
-<div class="post-source">
-<a href="[待补充]" target="_blank">→ 查看原文</a>
-</div>
