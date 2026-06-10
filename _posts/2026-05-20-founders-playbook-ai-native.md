@@ -359,7 +359,3 @@ source: "公众号OPC创业汇"
 <p class="en-text">Tutorials: claude.com/resources/tutorials offers a searchable list of hands-on walkthroughs for specific topics.</p>
 <p class="zh-text">教程：claude.com/resources/tutorials 提供可搜索的特定主题实践演练列表。</p>
 </div>
-
-<div class="post-source">
-<a href="https://www.anthropic.com/founders-playbook" target="_blank">→ 查看原文</a>
-</div>
