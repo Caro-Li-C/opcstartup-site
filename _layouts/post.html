@@ -2,29 +2,23 @@
 layout: default
 ---
 
-<<article class="post">
+<article class="post">
   <header class="post-header">
     <div class="post-meta">
       <span class="post-category">{{ page.category }}</span>
       <span class="post-date">{{ page.date | date: "%Y-%m-%d" }}</span>
-      {% if page.read_time %}<<span class="post-read-time">{{ page.read_time }} 分钟阅读</span>{% endif %}
+      {% if page.read_time %}<span class="post-read-time">{{ page.read_time }} 分钟阅读</span>{% endif %}
     </div>
     <h1 class="post-title">{{ page.title }}</h1>
-    {% if page.description %}<<p class="post-description">{{ page.description }}</p>{% endif %}
+    {% if page.description %}<p class="post-description">{{ page.description }}</p>{% endif %}
     {% if page.tags %}
     <div class="post-tags">
-      {% for tag in page.tags %}<<span class="post-tag">{{ tag }}</span>{% endfor %}
+      {% for tag in page.tags %}
+      <span class="post-tag">{{ tag }}</span>
+      {% endfor %}
     </div>
     {% endif %}
   </header>
-
-  {% if page.original_url %}
-  <div class="post-source-info">
-    <strong>原文：</strong>{{ page.title }} | 
-    {% if page.author %}{{ page.author }} | {% endif %}
-    {{ page.source }}
-  </div>
-  {% endif %}
 
   <div class="post-content">
     {{ content }}
