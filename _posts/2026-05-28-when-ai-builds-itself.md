@@ -1,181 +1,375 @@
-layout: post title: "When AI Builds Itself: Our Progress Toward Recursive Self-Improvement" date: 2026-05-28 00:00:00 +0800 category: 原文速递 read_time: 25 views: [待确认] original_url: [待补充] description: "Anthropic研究所关于AI递归式自我迭进的深度长文：从编码智能体到自主研究，Claude正在加速Claude自身的开发。" tags: ["Anthropic", "递归自我改进", "Claude", "AI安全", "编码智能体"]
-来源：Anthropic Institute
-作者：Marina Favaro & Jack Clark
-原文标题：When AI Builds Itself: Our Progress Toward Recursive Self-Improvement
-When AI builds itself
-当AI自我构建
-For most of AI's history, humans drove every step in its development cycle. But at Anthropic, we are delegating a growing share of AI development to AI systems themselves, which is speeding up our work.
-在AI历史的大部分时间里，人类主导了其开发周期的每一个环节。但在Anthropic，我们正将越来越多的AI开发工作委托给AI系统本身，这正在加速我们的工作。
-Taken far enough, and given enough compute, that trend points to an AI system capable of fully autonomously designing and developing its own successor. This is called recursive self-improvement. We are not there yet, and recursive self-improvement is not inevitable. But it could come sooner than most institutions are prepared for.
-如果这种趋势发展到极致，再配以充足的算力，就意味着 AI 系统将具备完全自主地设计并开发下一代系统的能力。这被称为递归式自我迭代。我们尚未达到那个阶段，递归式自我迭代也并非不可避免。但它可能在大多数机构尚未做好准备之前就已到来。
-Using public benchmarks and previously unreported data from within Anthropic, The Anthropic Institute is showing that AI is already accelerating the development of AI systems. To take just one example: today, Anthropic engineers on average ship 8x as much code per quarter as they did from 2021-2025.
-利用公开基准测试和来自Anthropic内部此前未报告的数据，Anthropic研究所展示了AI已在加速AI系统的开发。仅举一个例子：如今，Anthropic工程师平均每季度交付的代码量是他们2021年至2025年期间的8倍。
-The technical trends discussed in this piece suggest that AI systems are going to become much more capable in coming years. These trends have huge implications. AI that can build itself would be a major development in the history of technology—one that could bring enormous good for the world in science, healthcare, and beyond. But full recursive self-improvement also might increase the risks of humans losing control over AI systems. If systems are capable of fully building their own successors, the ways we secure them, monitor them, and shape their behavior all grow much more important.
-本文讨论的技术趋势表明，AI系统在未来几年将变得强大得多。这些趋势具有巨大的影响。能够自我构建的AI将是技术史上的一项重大发展——它可能为世界在科学、医疗保健等领域带来巨大福祉。但完全的递归自我改进也可能增加人类对AI系统失控的风险。如果系统能够完全构建自己的下一代，我们如何保护它们、监控它们以及塑造它们行为的方式，都将变得更加重要。
-2021–2023: Building the first Claude
-2021–2023：构建初代Claude
-In the early days, work at Anthropic looked like work at any other tech company: people writing code and docs on laptops.
-早期，Anthropic的工作看起来和其他任何科技公司一样：人们在笔记本电脑上编写代码和文档。
-2023–2025: Chatbots
-2023–2025：聊天机器人
-People used early chatbots to help with parts of the process, like generating short code snippets and copying the output into text editors.
-人们使用早期的聊天机器人来辅助部分流程，比如生成简短的代码片段并将输出复制到文本编辑器中。
-2025–2026: Coding agents
-2025–2026：编码智能体
-As the agents became more capable, they were able to write and edit code on their own, sometimes entire files.
-随着智能体变得更强大，它们能够自行编写和编辑代码，有时是整份文件。
-Today: Autonomous agents
-今天：自主智能体
-Agents can now run code themselves and delegate hours of work to other agents.
-智能体现在可以自己运行代码，并将数小时的工作委托给其他智能体。
-20XX? Closing the loop
-20XX年？闭环形成
-In the future, agents could become capable enough to build and train models themselves. If this happens, future versions of Claude could be continuously improved by Claude itself.
-未来，智能体可能变得足够强大，能够自行构建和训练模型。如果这成为现实，未来版本的Claude可能由Claude自身持续改进。
-Evidence from the outside world
-来自外界的证据
-The rate at which AI models improve is accelerating. The length of tasks that they can reliably complete on their own has been doubling roughly every four months, up from an earlier trend of doubling every seven months. In March 2024, Claude Opus 3 could complete software tasks that take humans about four minutes to complete. A year later, Claude Sonnet 3.7 managed tasks that took about an hour and a half. A year after that, Claude Opus 4.6 managed 12-hour tasks.¹ If this trend holds, tasks that take a skilled person days could come into range this year. In 2027, AI systems could be capable of tasks that take a person weeks.
-AI模型改进的速度正在加快。它们能够独自可靠完成的任务时长大约每四个月翻一番，而更早的记录是每七个月翻一番。2024年3月，Claude Opus 3能完成人类大约需要四分钟的软件任务。一年后，Claude Sonnet 3.7能完成大约一个半小时的任务。又过了一年，Claude Opus 4.6能完成12小时的任务。¹ 如果这一趋势持续，需要熟练人员花几天完成的任务今年就可能进入其能力范围。到2027年，AI系统可能能够完成需要一人耗费数周的任务。
-The same pattern appears on coding and research benchmarks. Benchmarks measure the performance of models in a given domain, and they're "saturated" when models achieve close to 100% performance.² SWE-bench is a standard test of real-world software engineering: it hands a model an actual open-source codebase and a real bug report, and asks it to write a code change that fixes the issue and passes the project's own tests. Models have gone from scoring in the low single digits to saturating the benchmark in two years.
-同样的模式也出现在编码和研究基准测试上。基准测试用以衡量模型在特定领域的表现，当模型达到接近100%的表现时，就算该基准已"饱和"。² SWE-bench是一个标准的真实软件工程测试：它给模型一个实际的开源代码库和一份真实的错误报告，要求它编写代码更改来修复问题并通过项目自己的测试。模型在两年内完成得分仅有低个位数到使该基准饱和。
-CORE-Bench tests whether a model can reproduce existing research, a prerequisite for them to conduct original research. It gives an AI model the code and data behind a published paper, and asks it to rerun everything and confirm it can replicate the paper's results. AI systems went from succeeding at reproducing the results roughly 20% of the time in 2024 to saturating the benchmark fifteen months later. METR, which runs the benchmark measuring how well models can complete long-duration tasks, found that Claude Mythos Preview could work for "at least" 16 hours and was "at the upper end of what [METR] can measure without new tasks."
-CORE-Bench测试模型能否复现已有研究，这是它们进行原创研究的前提。它给AI模型一篇已发表论文背后的代码和数据，要求它重新运行所有内容并确认能复现该论文的结果。AI系统在2024年成功复现结果的概率约为20%，十五个月后便使该基准饱和。运营衡量模型完成长时任务能力的基准测试机构METR发现，Claude Mythos Preview可以工作"至少"16小时，并且处于"[METR]在没有新任务的情况下所能测量的上限"。
-Public benchmarks say a lot about the capabilities of these systems. But they can't reveal the impact AI systems are having on speeding up AI development itself. For that, we need direct evidence from within AI companies like Anthropic.
-公开基准测试能说明这些系统能力的很多方面。但它们无法揭示AI系统对加速AI开发本身的影响。为此，我们需要来自像Anthropic这样的AI公司内部的直接证据。
-Evidence from within Anthropic
-来自Anthropic内部的证据
-Building a frontier model takes two broad categories of work. There is engineering: writing the code, standing up the infrastructure, and overseeing the model training. And there is research: deciding what experiments to run, interpreting what comes back, and figuring out which ideas to try next.
-构建一个前沿模型需要两大类工作。其一是工程：编写代码、搭建基础设施以及监督模型训练。其二是研究：决定运行哪些实验，解读返回的结果，并弄清楚接下来要尝试哪些想法。
-Across both engineering and research, the picture is consistent. In engineering, Claude can be handed an underspecified problem and figure out how to solve it; humans supply the goal, but they no longer need to supply the method. In research, Claude can already match or outperform skilled humans at executing a well-specified experiment. However, large performance gaps persist when it comes to Claude exercising judgement in choosing goals in both engineering and research. That's the gap between AI today and a future system that could autonomously design its own successor.
-在工程和研究两个领域，情况是一致的。在工程方面，可以将一个定义不明确的问题交给Claude并由其找出解决方法；人类提供目标，但不再需要提供方法。在研究方面，Claude在执行设定清晰的实验时，已经能与熟练的人类持平或更优。然而，当涉及Claude在工程和研究中选择目标时运用判断力时，仍存在巨大的表现差距。这就是当今AI与未来能够自主设计自身后继者的系统之间的差距。
-It's common for employees at Anthropic to receive more open-ended and important tasks as they gain more experience. Early on, they execute a task someone else specified, like, "The export button isn't working, please fix it." With experience, they're handed a goal and design the approach themselves, such as, "Investigate why the network slows down under heavy load." At the most senior levels, they are deciding which problems are worth working on at all: "What should the team build next quarter?" We can use internal Anthropic data to see how far Claude has come in being able to handle these different kinds of tasks.
-随着经验增长，Anthropic的员工通常会接到更开放、更重要的任务。早期，他们执行别人指定的任务，比如"导出按钮不起作用了，请修复它。"有了经验后，他们会收到一个目标并自行设计方案，例如"调查一下为什么网络在高负载下变慢。"在最高级别，他们要决定哪些问题值得去解决："团队下个季度应该构建什么？"我们可以利用Anthropic的内部数据来看Claude在处理这些不同类型任务方面进展到了什么程度。
-Claude writes a significant proportion of Anthropic's code
-Anthropic 的代码库中，已有相当比例来自 Claude
-As of May 2026, more than 80% of the code we merge into Anthropic's codebase was authored by Claude.³ Before Claude Code launched in research preview in February 2025, this number was in the low single digits. That shift also shows up in the amount of output per engineer. Lines of code merged per engineer per day stayed constant through Anthropic's first four years (2021-2024), then began to climb upward in 2025 when Claude began to run code rather than just suggesting it for an engineer to copy and paste. The slope steepened again in 2026 when models began to work autonomously over longer time horizons. These two inflection points are shown in the chart below. In the second quarter of 2026, the typical engineer was merging 8× as much code per day as they were in 2024.⁴ This is because much of the code is written by Claude, with the engineer directing and reviewing, rather than typing it themselves.
-截至2026年5月，我们合入到Anthropic代码库中的代码超过80%是由Claude编写的。³ 在2025年2月Claude Code开放内测之前，这个数字还只有低个位数。这一转变也体现在每名工程师的产出量上。在Anthropic的头四年（2021-2024），每名工程师每天合入的代码行数保持恒定，然后在2025年开始攀升，当时Claude开始自己运行代码，而不仅仅是建议代码让工程师复制粘贴。到2026年，随着模型开始在更长时间范围内自主工作，这一斜率再次陡升。这两个拐点显示在下方的图表中。在2026年第二季度，典型工程师每天合入的代码量是他们在2024年的8倍。⁴ 这是因为大部分代码由Claude编写，工程师负责指导和审查，而非亲自敲代码。
-A caveat: Lines of code is an imperfect measure, as it measures quantity over quality. So 8 × lines of code/engineer/day in the second quarter of 2026 is almost certainly an overstatement of the true productivity gain. Nonetheless, it indicates an acceleration. At Anthropic, we don't reward people for how many lines of code they write; rather, team members are producing more code simply because they're using AI systems to write more code.
-一个需要注意的地方：代码行数是一种不完美的衡量标准，因为它衡量的是数量而非质量。因此，2026年第二季度每名工程师每天8倍的代码行数几乎肯定高估了真实的生产力提升。尽管如此，它确实表明了加速。在Anthropic，我们不会因人们写了多少行代码而奖励他们；团队成员产出更多代码仅仅是因为他们使用了AI系统。
-The increase in lines of code written lines up with subjective impressions of large productivity increases. In a March 2026 poll of 130 employees from across Anthropic research teams, the median respondent estimated that they produced around 4x as much output with Mythos Preview as they would have without access to any AI models, on the kinds of projects they would have been working on regardless.⁵ We expect that the true degree of uplift in March was somewhat lower.⁶ Nevertheless, we find the overall claim plausible, and in line with our other observations: a significant fraction of Anthropic technical staff is accomplishing their core work multiple times faster than they could without AI assistance.
-代码行数的增长，与团队成员主观感受到的效率大幅提升相互印证。在2026年3月对Anthropic各研究团队130名员工进行的一项调查中，按中位数计算，受访者估计自己的产出达到了使用 Mythos Preview 前的约 4 倍。⁵ 我们预计3月份真实的提升程度要略低一些。⁶ 尽管如此，我们认为这一总体说法是合理的，并与我们的其他观察一致：Anthropic技术人员的相当一部分，其完成核心工作的速度是没有AI辅助时的数倍。
-We also see evidence that people at Anthropic are using Claude to do work that simply wouldn't have happened otherwise, like building exploratory tooling and addressing long-deferred cleanup. For example, in April 2026, Claude shipped over 800 fixes that reduced a class of API errors by a factor of one thousand. The engineer overseeing Claude estimated that a human would have taken four years to complete this work; solving other people's bugs is slow and painstaking, and humans struggle to hold that much unfamiliar context in their head at once.
-我们还看到证据表明，Anthropic的员工正在使用Claude来完成那些原本根本不会发生的工作，比如构建探索性工具和处理长期拖延的清理工作。例如，在2026年4月，Claude交付了800多个修复程序，将某一类API错误减少了千倍。监督Claude的工程师估计，人类完成这项工作需要四年时间；解决别人的bug既缓慢又费力，人类很难一次性在脑中记住那么多陌生的上下文。
-"I started leaning hard into Claudifying about a year ago. That's been a crazy adventure and it's now been ~5 months since I last wrote any code myself."
-— Anthropic employee*
-"大约一年前，我开始全面'Claude化'。那是一段疯狂的冒险，到现在我已经大约5个月没亲自写过任何代码了。"
-——Anthropic员工*
-The code that Claude writes is "good" and improving
-Claude编写的代码"不错"并且正在改进中
-"Good code" means two things: it works, and it is written in a manner that allows another engineer to understand it and build upon it. On the first criterion, the evidence is clear. The rate at which Anthropic staff correct, redirect, or take over mid-task from Claude has been falling steadily for a year, including on the most complex and open-ended tasks. This means problems with no clear specification, where the engineer isn't sure what the answer looks like. This is evident in Claude's success rate over time on tasks of different difficulties, as shown in the graph below. Claude writes code that works.
-"好代码"意味着两点：它能正常工作，并且其编写方式能让另一位工程师理解并在此基础上继续开发。关于第一点标准，证据很清晰Anthropic 员工对 Claude 纠错、纠偏或中途接管的频率，一年来持续走低——即便在最复杂、最开放的任务上也是如此。这类任务需求本身模糊，工程师自己也说不清正确答案该长什么样。这在Claude随时间推移在不同难度任务上的成功率变化中显而易见，如下图所示。Claude编写的代码是有效的。
-读图指南：任务执行成功与否由一位Claude评判员判定；如果Claude Code智能体明确完成了用户的任务且无需纠正，则该任务被视为成功。工作负载的变化可能导致成功率的短期波动。
-On the most open-ended tasks, Claude's success rate reached 76% in May 2026, up 50 percentage points in six months. To give an example of tasks in this difficulty tier, a routine upgrade began crashing tens of thousands of training jobs. An engineer pointed Claude at the live incident with little more than some text content and cluster access. Working through the running jobs and testing one environment setting at a time, Claude isolated the single obscure debugging flag that was triggering the crash, reproduced it reliably, and confirmed a fix. In about two hours, Claude delivered what would normally be two to three days of work.
-在最具开放性的任务上，Claude的成功率在2026年5月达到76%，六个月内提升了50个百分点。以一个这个难度级别的任务为例：一次常规升级导致了数万个训练任务开始崩溃。一位工程师只给了Claude一些文本内容和集群访问权限，就让它去处理这个正在发生的故障。Claude逐一排查正在运行的任务并测试环境设置，最终隔离出了一个不起眼的导致崩溃的调试标志，可靠地重现了问题，并确认了修复方案。在大约两小时内，Claude完成了通常需要两到三天的工作。
-The second criterion is writing code that another engineer can understand and build on. Here the gap between humans and AI persists, but is closing fast. There isn't full consensus among staff at Anthropic, but many believe that the Claude-written code was still worse in quality than human-written code at Anthropic in late 2025, and is roughly at parity today. We expect it to be better within the year.
-第二点标准是编写的代码能被其他工程师理解并继续开发。在这一点上，人类与AI之间的差距仍然存在，但正在迅速缩小。Anthropic员工尚未达成完全共识，但许多人认为，在2025年末，Claude编写的代码质量仍不如Anthropic的人类编写代码，而如今已大致持平。我们预计在一年内它会变得更好。
-This has changed the way that Anthropic now reviews its own code. Proposed changes to our codebase are now read by an automated Claude reviewer that looks for bugs, security flaws, and other defects before it can merge. Using this tool, we ran a retrospective analysis, and found that an automated Claude review of every change to our codebase would have caught roughly a third of the bugs behind past incidents on claude.ai before they ever reached production. The engineers who wrote that code are among the best in the world at building these systems. Claude is now catching the mistakes that they missed.
-这改变了Anthropic现在审查自己代码的方式。对我们代码库的拟议更改，现在在合入前会由一位自动化的Claude审查员阅读，寻找错误、安全漏洞和其他缺陷。借助这一工具，我们做了回溯审计：若用 Claude 自动审查当时的每一次代码变更，claude.ai 过去事故中约三分之一的 bug，本可在上线前就被拦截。编写那些代码的工程师，是该领域全球最顶尖的人才。Claude现在正在捕捉他们遗漏的错误。
-"Claude-written code was somewhat worse than human-written code at Anthropic in late 2025, is roughly at parity today, and we expect it to be strictly better within the year."
-"Claude编写的代码在2025年末比Anthropic的人类编写代码稍差一些，如今大致持平，我们预计在一年内它会明显更优。"
-Claude is good at running experiments to hit a goal that someone else has set
-Claude擅长通过运行实验来达到他人设定的目标
-Every time Anthropic releases a model, we run the same test: we give Claude some code that trains a small AI model, and ask it to make that code run as fast as possible while still passing the same correctness checks. The goal and the success metrics are fixed in advance, so Claude's job is to find speedups by rewriting the code, running it, timing it, and repeating. It's a miniature version of an experimental research loop. In May 2025, Claude Opus 4 averaged a ~3x speedup over the starting code. By April 2026, Claude Mythos Preview was achieving ~52x. For calibration, a skilled human researcher would need four to eight hours to reach 4x.⁷ In this part of the research workflow—optimizing steps within a clearly defined experiment—Claude has gone from super helpful to superhuman in under a year.
-每次Anthropic发布模型，我们都会进行同样的测试：我们给Claude一些训练小型AI模型的代码，并要求它让该代码运行得尽可能快，同时仍能通过相同的正确性检查。目标和成功指标是预先设定好的，所以Claude的工作是通过重写代码、运行、计时并反复迭代来寻找加速方法。这是一个实验研究循环的微缩版。2025年5月，Claude Opus 4平均将初始代码提速约3倍。到2026年4月，Claude Mythos Preview达到了约52倍的提速。作为校准，一名熟练的人类研究员需要四到八小时才能达到4倍的提速。⁷ 在研究工作流的这一部分——在一个清晰定义的实验中优化步骤——Claude在不到一年的时间里从超级有用进化到了超越人类。
-"The shape of stuff today is roughly 'humans have ideas, and the models are able to implement, test and evaluate them an [order of magnitude] faster than before.'"
-"如今工作的大致形态是'人类有想法，模型能够比以前快[一个数量级]地实现、测试和评估它们。'"
-Claude is getting better at proposing its own experiments
-Claude在提出自己的实验方面正变得更好
-In April 2026, Anthropic published the first demonstration of Claude running an open-ended research project end to end. Claude-powered agents were given an open problem in AI safety—roughly, can a weaker model reliably supervise a stronger one?—and were left to solve it. This involved proposing hypotheses, testing them, sharing findings with parallel agents, and iterating. The task has a clear performance "floor" and "ceiling": the floor is how well the weak supervisor would do on its own; the ceiling is how the strong model does when trained on correct answers. Two human researchers, over about a week, recovered roughly 23% of that gap; the agents recovered 97% over 800 cumulative hours and used roughly $18,000 in compute. There are some caveats to this work; the result didn't transfer cleanly to production-scale models, and humans still chose the problem and created the scoring rubric. But within those bounds, the agents designed every experiment themselves. Direction-setting was the only meaningful role a human played.
-2026年4月，Anthropic首次展示了Claude全流程主导一项开放性研究项目。以Claude为核心的智能体群被抛给一个AI安全领域的开放问题——大致是：较弱模型能否可靠地监督较强模型？——然后被放任自解。整个过程包括提出假设、验证假设、与并行智能体共享发现、循环往复。该任务设有明确的性能兜底基准与理论天花板：兜底基准是弱监督者独自表现的水平；天花板是强模型在正确答案上训练后的表现。两名人类研究者耗时约一周，将这一差距弥合了约23%；智能体群在800累计小时内将差距弥合了97%，消耗约18,000美元算力。此项工作尚有若干限定：结果未能无损耗地迁移到生产规模模型，且问题本身与评分标准仍由人类选定。但在此边界之内，智能体群自主设计了每一个实验。人类唯一的实质性参与是确定方向。
-"Claude did all of this with pretty minimal help from me over the course of 1-2 days. I think if [a junior colleague] came back to me with results like this in the same span of time, I would be mildly impressed. The future is now."
-"Claude在我极少帮助下，用一两天时间就完成了这一切。我想，如果[一位初级同事]在同样时间内带回这样的结果，我会略感佩服。未来已来。"
-Claude is getting better at steering research sessions towards research findings
-Claude在引导研究过程取得研究发现方面正变得更好
-We examined real Claude Code sessions (between January and March 2026) where Anthropic researchers were working with Claude on an open-ended investigative problem, like figuring out why a training run kept crashing, or why a model scored poorly on a benchmark. In each case, we found a moment where the researcher took a detour: they pursued a direction that sent the session sideways before it eventually got back on track. We then showed various Claude models only the work from before the session went off-course and asked what it would do next. A separate Claude that was able to see how the session eventually turned out then judged whether the AI or the human suggested the better next step.⁸
-我们复盘了2026年1月至3月间的真实Claude Code会话，其中Anthropic研究人员正与Claude协作排查开放性探案式问题——例如，训练运行为何反复崩溃，或模型为何在基准测试中得分低迷。每一例中，我们都锁定了一个研究者走偏的时刻：他们 pursuit 了一个方向，让会话陷入僵局，最终才费周折回到正轨。随后，我们仅向不同版本的Claude展示会话跑偏之前的工作记录，问它下一步会怎么走。另有一个独立第三方Claude，开了全知视角（知晓会话最终如何收场），负责评判AI与人类，谁建议的下一步更优。⁸
-How to read this: The practical ceiling line measures an "ideal" answer written by a model that could see the whole session (including how it ended).
-读图指南：实际天花板线衡量的是一个能看到整个会话（包括其结局）的模型所写的"理想"答案。
-Because we deliberately picked moments (n=129) where we know the human's choice had room for improvement, this isn't a like-for-like comparison between model and human judgement. What these moments give us is a set of realistic, challenging situations where the right next step is not obvious, and where the human's choice serves as a useful yardstick to compare model performance over time. On this measure, our best model in November 2025 (Opus 4.5) beat the human choice 51% of the time; in April 2026 (Mythos Preview), this grew to 64%. The day-to-day work of research is largely a chain of these next-step decisions, making this a relevant measure of the model's ability to eventually run an investigation of its own. We view this result as an early signal that AI systems are getting better at making the kinds of judgement calls that AI research depends on.
-因为我们故意挑选了我们知道人类选择有改进余地的时刻（n=129），所以这并不是模型与人类判断的同条件比较。这些时刻为我们提供了一组现实且具有挑战性的情境，在这些情境中，正确的下一步并不明显，而人类的选择作为比较模型性能随时间变化的有效标尺。在这项衡量上，我们2025年11月的最佳模型（Opus 4.5）在51%的情况下优于人类选择；到2026年4月（Mythos Preview），这一比例增长到了64%。日常研究工作很大程度上就是这些下一步决策的链条，这使其成为衡量模型最终能否独自进行调研的相关指标。我们将这一结果视为一个早期信号，表明AI系统在进行AI研究所依赖的那种判断方面正变得更好。
-"The comparative advantage of humans as of right now is still in seeing the bigger picture and thinking beyond the confines of the immediate task."
-"目前，人类的比较优势仍在于看清大局，并超越眼前任务的局限进行思考。"
-What might the future of work at Anthropic look like?
-Anthropic未来的工作可能是什么样子？
-The evidence suggests that the human role is narrowing at each step in the AI development process. Once human- and AI-authored code quality reach parity, humans will stop writing code entirely, and shift to only reviewing it. But if they can't review code as quickly as Claude can generate it, human review will become the bottleneck to AI development. Similarly, once Claude can run experiments, the question shifts towards "Which of these experiments is worth running?" Put simply: the doing (i.e., writing the code, running the experiment, producing the result) now costs almost nothing in human time, even if it still has costs in compute.
-证据表明，在AI开发过程的每一步，人类的角色都在收窄。一旦AI和人类编写的代码质量达到同等水平，人类将完全停止编写代码，转而只进行审查。但如果他们审查代码的速度跟不上Claude生成代码的速度，人类审查将成为AI开发的瓶颈。类似地，一旦Claude能够运行实验，问题就转向了"这些实验中哪些值得运行？"简而言之："做"（即编写代码、运行实验、产生结果）现在几乎不消耗人类时间，即使它仍然消耗算力资源。
-An area of human comparative advantage, for now, is research taste and judgment, including choosing which problems matter, which results to trust, and when an approach is a dead end.
-目前，人类具有比较优势的一个领域是研究品味和判断力，包括选择哪些问题重要，哪些结果值得信赖，以及何时一条路径是死胡同。
-"Work (and life) ran on a gift economy of small favors between humans. 'Can you help me get this script running?' [...] each one created a little debt, a little mutual awareness. [Claude is] faster, it creates zero debt, but each of these is a lost bid for human collaboration."
-"工作（和生活）靠的是人与人之间小恩小惠的礼物经济。'你能帮我让这个脚本跑起来吗？'[…]每一次都创造了一点点人情债，一点点相互了解。[Claude]更快，它不产生人情债，但每一次这样的请求都是失去了一次人类合作的机会。"
-"On days where everything works well, I can't help but think nothing I do matters, everything is automated and better and faster than I ever will be. But then there are days where everything breaks and I don't understand why and I realize I have no idea what I've been up to anymore."
-"在一切运转良好的日子里，我不禁觉得我做什么都无关紧要了，一切都自动化了，比我做得更好更快。但也有那样一些日子，一切都崩溃了，我不明白为什么，我意识到我已经完全不知道自己在忙些什么了。"
-What if we're wrong?
-如果我们错了怎么办？
-A natural objection to the evidence presented above is that the work that is still in human hands—choosing which problems to work on—is what matters most. Without that judgment, Claude is a capable assistant, but not a system that could drive AI progress on its own.
-自然会有人质疑：真正起决定性作用的，仍是人类尚未脱手的那项工作——定什么题、攻什么关。没有这种决断力，Claude不过是得力助手，而非能自主驱动AI进步的引擎。
-It is genuinely unclear whether today's training methods and architectures could unlock that capacity. But AI is rarely advanced by "eureka!" moments. There have been a few of these in AI's recent history, like the Transformer architecture, or mixture-of-experts models, but paradigm-shifting ideas arrive years apart. In between, most progress is incremental: we scale something up, see what breaks, fix it, and try again. That is exactly the kind of workflow Claude now excels at. Edison said that genius is 1% inspiration and 99% perspiration. But we see perspiration becoming increasingly automated. It's becoming clear that much of what advances the frontier is automatable; large-scale research progress is mostly a function of tools and resources, which dictate how fast you can run experiments, how many you can run at once, and how quickly you can get results.
-目前尚不清楚如今的训练方法和架构能否解锁这种能力。但AI的进步很少靠"灵光一现"的时刻。在AI的近期历史中，确实有过一些这样的时刻，比如Transformer架构或专家混合模型，但范式转变的想法相隔数年才出现。在其间，大多数进步是渐进式的：我们扩大某样东西的规模，看哪里会出问题，修复它，然后再试。这正是Claude现在所擅长的那种工作流程。爱迪生说天才是1%的灵感加99%的汗水。但我们看到汗水正日益自动化。越来越清楚的是，推动前沿进步的许多工作都是可自动化的；大规模的研究进展主要是工具和资源的函数，这决定了你运行实验能多快、一次能跑多少个，以及能多快得到结果。
-Even if we suppose that Claude never achieves good research taste, a conservative reading of our evidence still implies compounding acceleration. If humans spend most of their time on the single-digit fraction of work that is direction-setting, while Claude handles the rest, that means each engineer or researcher is steering far more work than before. The evidence we see suggests that people at Anthropic are both moving faster and covering a broader surface. In practice, this means that AI already makes Anthropic move much faster than it did before the advent of effective AI tools.
-即使我们假设Claude永远无法获得良好的研究品味，对我们证据的保守解读仍暗示着复合式的加速。如果人类将大部分时间花在那百分之几的设定方向的工作上，而Claude处理其余部分，那意味着每名工程师或研究员所驾驭的工作量远超从前。我们看到的证据表明，Anthropic的员工既动作更快，又覆盖了更广的范围。实际上，这意味着AI已经让Anthropic的进展速度远超有效AI工具出现之前。
-The less conservative reading is that the early evidence on Claude's improving research judgment—narrow as it is today—is an indicator that this capability is improving as well. "Research taste" might be just another AI capability that AI systems fail at for a time, then get good at. We've seen a similar pattern with other qualitative skills, like AI systems being able to explain why a joke is funny, demonstrate theory of mind, and solve linguistic riddles.
-不那么保守的解读是，关于Claude研究判断力不断提升的早期证据——尽管目前还很狭窄——表明这种能力同样也在改善。"研究品味"可能只是另一种AI能力，AI系统会在一段时间内做不好，然后变得擅长。我们在其他定性技能上也看到过类似的模式，比如AI系统能够解释笑话为什么好笑、展示心智理论以及解决语言谜题。
-What happens next depends on two things: whether the trend continues, and what we choose to do if it does. We can imagine at least three future scenarios:
-接下来会发生什么取决于两件事：趋势是否会持续，以及如果持续我们选择做什么。我们可以想象至少三种未来情景：
-1. The trend stalls, but today's AI capabilities are widely diffused
-1. 趋势停滞，但当今的AI能力得到广泛普及
-This article features many exponential trajectories. But these trajectories may actually turn out to be S-curves. We may be approaching the bend in the curve, where returns to scale diminish and the line straightens, then flattens. The judgment that separates a competent researcher from a great one might be a capability that cannot come from scaling up training inputs like compute and data. If so, getting past this bottleneck would require a new idea, like an architectural approach that supplants the Transformer architecture that all current frontier models use.
-本文展示了许多指数级增长轨迹。但这些轨迹实际上可能是S曲线。我们可能正在接近曲线的拐点，规模收益递减，曲线趋于平缓然后变平。区分优秀研究员和伟大研究员的判断力，可能是一种无法通过扩大计算和数据等训练投入来获得的能力。如果是这样，要突破这一瓶颈就需要新的想法，比如一种取代当前所有前沿模型所用Transformer架构的新架构方法。
-Alternately, the binding constraint to AI progress could be in the supply chain, not the model: advancing and diffusing the frontier may require more energy and compute than presently exists. The pace of chip fabrication, grid expansion, or interconnect bandwidth may be the constraint, rather than intelligence itself. We also cannot rule out an exogenous shock to the AI ecosystem that dramatically slows things, like a sudden diminishment in the supply of compute or electricity, either of which would slow progress and make forward investment by labs more expensive. Or we may not be anticipating some other barrier to progress.
-或者，AI进步的关键约束可能在供应链而非模型本身：推进和普及前沿可能需要比现有更多的能源和算力。芯片制造、电网扩张或互联带宽的速度可能是约束，而非智能本身。我们也不能排除AI生态系统受到外源性冲击而大幅放缓，比如算力或电力供应的突然减少，这两者中的任何一种都会减缓进展并使实验室的前期投资更加昂贵。或者我们可能没有预见到其他某些进步障碍。
-Even if model capabilities were frozen at today's level, we would expect major changes to occur in the world. Project Glasswing is one early sign: in its first weeks, Mythos Preview found more than ten thousand high- and critical-severity software vulnerabilities across the world's most important systems—enough that the bottleneck in cyber defense has already shifted from finding vulnerabilities to patching them fast enough. And we are still early in the diffusion of today's models into the wider economy, where a 100-person company can increasingly do the work of a 1,000-person one, because each employee will sit atop a pyramid of agents.
-即使模型能力被冻结在今天的水平，我们预计世界仍将发生重大变化。Glasswing项目就是一个早期迹象：在最初几周内，Mythos Preview在全球最重要的系统中发现了一万多个高严重性和危急级别的软件漏洞——数量之多，使得网络防御的瓶颈已经从发现漏洞转变为足够快地修补它们。而且，当今模型向更广泛经济领域的普及仍处于早期阶段，在这个阶段，一家100人的公司越来越能做一家1000人公司的工作，因为每名员工都将坐拥一个智能体金字塔。
-We include this scenario for completeness, but we don't believe it's likely. Every capability we can measure, including those that feel "squishier," like quality of code and success on open-ended tasks, has so far followed the same curve. We have not yet seen that curve bend. Of the three futures we consider, this one would give governments and societies the most time to adapt. We are more worried about the next two, which would move faster and leave far less room for preparation.
-我们为求完整而纳入这一情景，但我们认为它不太可能发生。每一项我们能够衡量的能力，包括那些感觉"更软"的能力，如代码质量以及在开放性任务上的成功，迄今为止都遵循着同样的曲线。我们尚未看到那条曲线弯折。在我们考虑的三种未来中，这一种将给政府和社会最多的适应时间。我们更担心接下来的两种，它们将进展更快，留给准备的时间也少得多。
-2. AI labs continue to see compounding efficiency gains
-2. AI实验室继续看到复合式的效率提升
-In this scenario, AI development becomes substantially automated, but humans continue to set research directions and judge results. Organizations that use AI systems would become much more efficient as time goes on, so we could expect to see significant productivity multipliers on each person in this organization. 100-person companies could do the work of 10,000- or 100,000-person organizations. This would revolutionize knowledge work and government services, but could also be turned to harmful ends, from authoritarian surveillance of whole populations to influence operations that tailor manipulation to each individual and run at a scale no human team could match. The role of humans at companies like Anthropic would shift. People would partner with AI systems to scale up research and generate new insights, and together they would build the systems needed to verify that AI outputs can be trusted.
-在这一情景下，AI开发变得高度自动化，但人类继续设定研究方向并评判结果。使用AI系统的组织会随着时间的推移变得高效得多，因此我们可以预期这些组织中每个人的生产力倍数将显著提升。100人的公司可以做1万人甚至10万人组织的工作。这将彻底改变知识工作和政府服务，但也可能被用于有害目的，从对全体人口的威权式监控，到针对每个个体量身定制的操纵影响力行动，其规模是任何人类团队都无法企及的。在Anthropic这样的公司里，人类的角色将发生转变。人们将与AI系统合作，扩大研究规模并产生新洞见，共同构建验证AI输出可信所需的系统。
-The evidence we've laid out here suggests that we're likely heading into this scenario. But speeding up one part of a process often just shifts the bottleneck elsewhere: overall pace is capped by the parts that haven't sped up. In computing, this is known as Amdahl's law, and the same logic can apply to organizations. Anthropic has already encountered one signature of Amdahl's law: as we've begun to push more code around the organization, human code review has become a new bottleneck.
-我们在此展示的证据表明，我们很可能正走向这一情景。但加速流程的一部分往往只是把瓶颈转移到了别处：整体速度受限于那些尚未加速的部分。在计算领域，这被称为阿姆达尔定律，同样的逻辑也适用于组织。Anthropic已经遇到了阿姆达尔定律的一个标志：随着我们开始在组织内推送更多代码，人类代码审查已成为新的瓶颈。
-We've also encountered this friction outside engineering. There has been an explosion of new ideas, initiatives, tools, and simulations, as a result of Anthropic employees working with highly capable models—far more than we have the capacity to pursue. The rate at which organizations can spot and fix these bottlenecks may be a skill that improves over time, and it may become the most important skill for any organization.
-我们在工程领域之外也遇到了这种摩擦。由于Anthropic员工与能力极强的模型协作，新想法、新倡议、新工具和模拟出现了爆炸式增长——远远超出我们能够追踪的能力。组织发现并修复这些瓶颈的速度，可能是一种会随时间推移而提升的技能，它或许会成为任何组织最重要的技能。
-How the alignment problem gets solved—or not—in this future is something we are least certain about. Models could prove to be sufficiently aligned and capable enough of research taste that they discover and implement novel solutions that we have not yet reached. They could also be sufficiently wise to halt development if not. Alternatively, the rare occurrences of misalignment present in today's models could compound as the models build their successors, growing more frequent but less understood until we lose control of them. It's possible that we can't build, integrate, and verify the tools that we'd need to understand which trendline we are actually on.
-在这种未来中，对齐问题如何得到解决——或无法解决——是我们最不确定的事情。模型可能被证明是足够对齐的，并且具备足够的研究品味，能够发现并实施我们尚未触及的新颖解决方案。如果不满足条件，它们也可能有足够的智慧来停止发展。另一种可能是，当今模型中罕见的对齐失败案例，在模型构建其下一代时可能会复合并放大，变得越来越频繁且更不被理解，直至我们失去对它们的控制。我们可能无法构建、集成并验证那些我们用以理解自己实际上处于哪条趋势线上所需的工具。
-We do not have good intuitions for what this world would look like, because our economy is currently driven by humans and human-built tools. By its nature, a world driven by fast recursive self-improvement could become dominated by the self-improving model as its capabilities fully eclipse those of humans and the model proliferates across the broader economy. It is difficult to predict what the economy looks like if human labor stops being competitive.
-我们对这样一个世界会是什么样子没有很好的直觉，因为我们的经济目前是由人类和人类构建的工具驱动的。就其本质而言，一个由快速递归自我迭代驱动的世界，可能会被自我改进的模型所主导，因为其能力将完全超越人类，并且该模型将在整个经济中扩散。如果人类劳动力不再具有竞争力，很难预测经济会是什么样子。
-Even if model development became fully automated and recursive, we can't predict what that would mean for most humans' daily lives. Amdahl's law applies here as well. Recursive intelligence could lead to achieving many of the benefits outlined in Machines of Loving Grace, quickly in some domains. We expect that embodied intelligence (i.e., robotics) might quickly follow recursive intelligence, and follow a similar path of increasing returns at decreasing cost. More powerful intelligence might help us build things in the physical world more quickly, run more productive clinical trials of lifesaving drugs, and develop novel forms of coordination.
-即使模型开发变得完全自动化和递归化，我们也无法预测这对大多数人的日常生活意味着什么。阿姆达尔定律在此同样适用。递归智能可能带来《爱的机器恩典》中概述的诸多益处，在某些领域会很快实现。我们预计具身智能（即机器人技术）可能紧随着递归智能出现，并沿着类似的路径以递减成本获得递增回报。更强大的智能可能帮助我们更快地在物理世界建造东西，进行更高效的救命药物临床试验，并发展出新形式的协调合作。
-What should we do?
-我们应该做什么？
-If it were possible to effectively slow the development of this technology to give ourselves more time to deal with its immense implications, we think that would likely be a good thing. But if a slowdown simply lets the least cautious actors catch up technologically, it could leave everyone less safe. Without a global coordination mechanism, companies and governments will have to make difficult decisions about safety while under competitive and geopolitical pressures.
-如果有可能有效放缓这项技术的发展，以便给自己更多时间应对其巨大影响，我们认为这很可能是一件好事。但如果放缓只是让最不谨慎的行为体在技术上追赶上来，那可能会让所有人更不安全。没有全球协调机制，公司和政府将不得不在竞争和地缘政治压力下做出关于安全的艰难决定。
-We believe it would be good for the world to have the option to slow or temporarily pause frontier AI development to enable societal structures and alignment research to keep up with the advance of the technology. The Anthropic Institute will conduct research—in collaboration with many others—and take actions to help build the systems that a credible slowdown or pause would require. These systems would enable frontier AI developers to verify that others globally have actually stopped or slowed, and that a bad actor could not use the auspices of a coordinated slowdown to jump ahead in secret. If such systems existed, we expect that we would slow down or temporarily pause, if other developers at or near the frontier also did so in a verifiable manner.
-我们认为，如果世界能拥有放缓或暂时暂停前沿AI发展的选项，使社会结构和对齐研究能跟上技术进步的步伐，那将是好事。Anthropic研究所将——与众多合作者一道——展开研究并采取行动，帮助构建一次可信的放缓或暂停所需的体系。这些体系将使前沿AI开发者能够核实全球其他开发者确实已停止或放缓，且不良行为者无法利用协调放缓的幌子秘密超车。如果这样的体系存在，我们预期，如果其他处于或接近前沿的开发者也以可验证的方式这样做，我们将会放缓或暂时暂停。
-A meaningful slowdown or pause would require multiple well-resourced labs at or near the frontier, in multiple countries, agreeing to stop under the same conditions. It would also require that each can verify that the others have actually stopped. Due to the unique characteristics of AI systems, the detectability (a lower standard than verifiability) element of this arms control problem is much more challenging than with other technologies. Training runs are far easier to conceal than missile silos, their inputs are general-purpose, and the incentive to defect quietly is enormous, because whoever continues while others pause could inherit the lead. A credible pause also has to specify what triggers it, what lifts it, and who adjudicates.
-一次有意义的放缓或暂停，需要多个国家中多家资源充足、处于或接近前沿的实验室，在相同条件下同意停止。还需要每一方都能核实其他方确实已停止。由于AI系统的独特特性，这一军备控制问题中的可探测性（一个低于可验证性的标准）要素，比其他技术更具挑战性。训练运行远比导弹发射井更容易隐藏，其输入是通用的，而悄悄背叛的动机巨大，因为在他人暂停时继续前进的一方可以继承领先地位。一次可信的暂停还必须明确什么触发它，什么解除它，以及由谁来裁决。
-None of this is necessarily impossible in principle—the world has built verification regimes for other complex technologies (e.g., the Intermediate-Range Nuclear Forces Treaty)—but those regimes took decades to build both the infrastructure and the trust. We don't have that long. A unilateral pause by one lab, by contrast, is achievable immediately, but accomplishes much less: it would change who the front-runner is, but it would not create the wider deliberative process that is currently missing.
-所有这些在原则上并非完全不可能——世界曾为其他复杂技术建立过核查制度（例如《中程核力量条约》）——但这些制度花了几十年来建设基础设施和信任。我们没有那么长时间。相比之下，单个实验室的单边暂停可以立即实现，但收效甚微：它会改变谁是领跑者，但不会创造出当前所缺失的更广泛的审议进程。
-In the coming months, we will organize conversations where policymakers, researchers, civil society, and other AI companies can help answer some of the questions this piece raises, especially around full recursive self-improvement and how to create better options for coordination and deliberation. We'll publish what comes out of it. The window to investigate the questions together is here, and people outside AI companies should be involved in this deliberation.
-在接下来的几个月里，我们将组织对话，让政策制定者、研究人员、公民社会和其他AI公司能够帮助回答本文提出的一些问题，尤其是围绕完全递归自我改进，以及如何创造更好的协调与审议选项。我们将发布从中产生的成果。共同探讨这些问题的窗口期就在当下，AI公司之外的人们应该参与到这一审议中来。
-Marina Favaro and Jack Clark co-authored this piece, with editorial support from Santi Ruiz. Shan Carter, Romello Goodman, and Nikki Makagiansar created the visuals from data collected by Brian Calvert and Jun Shern Chan. Daniel Freeman, Jim Baker, Max Young, Sarah Pollack, Francesco Mosconi, Holden Karnofsky, Andy Jones, Kevin Troy, Anton Korinek, Meg Tong, Andrew Ho, Dan Altman, Drake Thomas, Jack Shen, Sasha de Marigny, and Avital Balwit provided feedback.
-本文由Marina Favaro和Jack Clark合著，Santi Ruiz提供编辑支持。Shan Carter、Romello Goodman和Nikki Makagiansar根据Brian Calvert和Jun Shern Chan收集的数据制作了图表。Daniel Freeman、Jim Baker、Max Young、Sarah Pollack、Francesco Mosconi、Holden Karnofsky、Andy Jones、Kevin Troy、Anton Korinek、Meg Tong、Andrew Ho、Dan Altman、Drake Thomas、Jack Shen、Sasha de Marigny和Avital Balwit提供了反馈。
-Footnotes
-脚注
-¹ METR's key measure tells you the time horizon over which AI systems can be 50% reliable at a basket of tasks, though the trendline looks the same at 80% reliability.
-¹ METR的关键衡量标准告诉你，AI系统在一组任务中能达到50%可靠性的时间范围，不过在80%可靠性下趋势线看起来是一样的。
-² Especially as they shift toward more open-ended formats and more difficult tasks (e.g., Olympiad-level mathematics), benchmarks often saturate below 100% due to errors in the question and answer sets like ambiguous problem statements and unsolvable questions.
-² 特别是当基准测试转向更开放的格式和更困难的任务（如奥林匹克级数学）时，由于问题和答案集中存在诸如问题陈述模糊、问题无解等错误，基准往往在低于100%时就饱和了。
-³ Anthropic leadership have publicly estimated that 90% or more of our code is written by Claude, including scripts and experimental code. Our >80% figure measures the share of lines merged to production that can be attributed to Claude. This is a more conservative measurement in two ways: our attribution pipeline has gaps, and the lines not attributed to Claude include auto-generated code and other artifacts that were not hand-written by humans either.
-³ Anthropic领导层曾公开估计，我们90%或更多的代码是由Claude编写的，包括脚本和实验代码。我们大于80%的数字衡量的是可以归因于Claude的、已合入生产环境的代码行数占比。这一衡量标准在两方面更为保守：我们的归因管线存在缺口，而未归因给Claude的代码行也包括自动生成的代码和其他并非由人类手工编写的产物。
-⁴ This surge in code production is straining the infrastructure everyone shares. GitHub—the platform most of the world's software is built on—saw roughly one billion code commits in all of 2025; by mid-2026 it saw 275 million a week, on pace for roughly 14 billion over the year. The company's COO has said that it is "pushing incredibly hard" on capacity just to keep up.
-⁴ 这种代码产出的激增正在给所有人共享的基础设施带来压力。GitHub——世界上大多数软件构建的平台——在2025年全年大约有10亿次代码提交；到2026年年中，每周达到2.75亿次，全年预计约140亿次。该公司首席运营官表示，为了跟上节奏，他们正在"极其努力地"推进容量扩展。
-⁵ Additional details on the methodology of this survey are discussed in section 2.3.5 of the Claude Opus 4.7 System Card.
-⁵ 关于该调查方法的更多细节，在Claude Opus 4.7系统卡的第2.3.5节中有讨论。
-⁶ Many respondents may not have thought carefully about how to account for various biases or subtleties in the question definition, and recent research by METR shows that developer estimates of AI productivity uplift can be overestimated.
-⁶ 许多受访者可能没有仔细思考如何解释问题定义中的各种偏差或细微之处，且METR最近的研究表明，开发者对AI生产力提升的估计可能偏高。
-⁷ How large the speedup gets depends heavily on how much room for improvement the starting code leaves, and it should not be read as a real-world training speedup. So the absolute multiple is not the figure to anchor on here. What is more informative is the like-for-like comparison that this experimental setup makes possible, both across models (~3x to ~52x over the past year) and against a skilled human (~4x in four to eight hours on the same task).
-⁷ 提速幅度很大程度上取决于起始代码留下了多少改进空间，不应被解读为真实世界的训练加速。所以，这里不应以绝对倍数作为锚定。更能说明问题的是，这种实验设置使得跨模型（过去一年从约3倍到约52倍）以及与熟练人类（同一任务在四到八小时内达到约4倍）的可比性对照成为可能。
-⁸ As a check on judge bias, we ran the same test on a separate set of 127 moments where the human's next move was already strong (as opposed to the original set, where the human's direction had room for improvement). There, the models' suggestions were judged better only about 20% of the time.
-⁸ 作为对评判员偏差的检验，我们对另一组127个时刻进行了同样的测试，这些时刻中人类的下一步行动原本就很出色（不同于原始集合中人类方向存在改进空间的情况）。在那组测试中，模型的建议被判定为更好的比例仅为20%左右。
-Quotes from Anthropic employees throughout this article are drawn from internal discussions and used with permission. They reflect individual views as of May 2026, not official company positions.
-本文中引自Anthropic员工的言论来自内部讨论，已获准使用。它们反映的是截至2026年5月的个人观点，并非公司官方立场。
+---
+layout: post
+title: "When AI Builds Itself: Our Progress Toward Recursive Self-Improvement"
+date: 2026-05-28 00:00:00 +0800
+category: 原文速递
+read_time: 25
+views: "[待确认]"
+original_url: "[待补充]"
+description: "Anthropic研究所关于AI递归式自我迭进的深度长文：从编码智能体到自主研究，Claude正在加速Claude自身的开发。"
+tags: ["Anthropic", "递归自我改进", "Claude", "AI安全", "编码智能体"]
+author: "OPC创业汇"
+source: "公众号OPC创业汇"
+---
+
+> **原文标题**：When AI Builds Itself: Our Progress Toward Recursive Self-Improvement  
+> **来源**：Anthropic Institute  
+> **作者**：Marina Favaro & Jack Clark
+
+---
+
+<div class="bilingual-block">
+<p class="en-text">For most of AI's history, humans drove every step in its development cycle. But at Anthropic, we are delegating a growing share of AI development to AI systems themselves, which is speeding up our work.</p>
+<p class="zh-text">在AI历史的大部分时间里，人类主导了其开发周期的每一个环节。但在Anthropic，我们正将越来越多的AI开发工作委托给AI系统本身，这正在加速我们的工作。</p>
+</div>
+
+<div class="bilingual-block">
+<p class="en-text">Taken far enough, and given enough compute, that trend points to an AI system capable of fully autonomously designing and developing its own successor. This is called recursive self-improvement. We are not there yet, and recursive self-improvement is not inevitable. But it could come sooner than most institutions are prepared for.</p>
+<p class="zh-text">如果这种趋势发展到极致，再配以充足的算力，就意味着 AI 系统将具备完全自主地设计并开发下一代系统的能力。这被称为递归式自我迭代。我们尚未达到那个阶段，递归式自我迭代也并非不可避免。但它可能在大多数机构尚未做好准备之前就已到来。</p>
+</div>
+
+<div class="bilingual-block">
+<p class="en-text">Using public benchmarks and previously unreported data from within Anthropic, The Anthropic Institute is showing that AI is already accelerating the development of AI systems. To take just one example: today, Anthropic engineers on average ship 8x as much code per quarter as they did from 2021-2025.</p>
+<p class="zh-text">利用公开基准测试和来自Anthropic内部此前未报告的数据，Anthropic研究所展示了AI已在加速AI系统的开发。仅举一个例子：如今，Anthropic工程师平均每季度交付的代码量是他们2021年至2025年期间的8倍。</p>
+</div>
+
+<div class="bilingual-block">
+<p class="en-text">The technical trends discussed in this piece suggest that AI systems are going to become much more capable in coming years. These trends have huge implications. AI that can build itself would be a major development in the history of technology—one that could bring enormous good for the world in science, healthcare, and beyond. But full recursive self-improvement also might increase the risks of humans losing control over AI systems. If systems are capable of fully building their own successors, the ways we secure them, monitor them, and shape their behavior all grow much more important.</p>
+<p class="zh-text">本文讨论的技术趋势表明，AI系统在未来几年将变得强大得多。这些趋势具有巨大的影响。能够自我构建的AI将是技术史上的一项重大发展——它可能为世界在科学、医疗保健等领域带来巨大福祉。但完全的递归自我改进也可能增加人类对AI系统失控的风险。如果系统能够完全构建自己的下一代，我们如何保护它们、监控它们以及塑造它们行为的方式，都将变得更加重要。</p>
+</div>
+
+## 2021–2023: Building the first Claude
+## 2021–2023：构建初代Claude
+
+<div class="bilingual-block">
+<p class="en-text">In the early days, work at Anthropic looked like work at any other tech company: people writing code and docs on laptops.</p>
+<p class="zh-text">早期，Anthropic的工作看起来和其他任何科技公司一样：人们在笔记本电脑上编写代码和文档。</p>
+</div>
+
+## 2023–2025: Chatbots
+## 2023–2025：聊天机器人
+
+<div class="bilingual-block">
+<p class="en-text">People used early chatbots to help with parts of the process, like generating short code snippets and copying the output into text editors.</p>
+<p class="zh-text">人们使用早期的聊天机器人来辅助部分流程，比如生成简短的代码片段并将输出复制到文本编辑器中。</p>
+</div>
+
+## 2025–2026: Coding agents
+## 2025–2026：编码智能体
+
+<div class="bilingual-block">
+<p class="en-text">As the agents became more capable, they were able to write and edit code on their own, sometimes entire files.</p>
+<p class="zh-text">随着智能体变得更强大，它们能够自行编写和编辑代码，有时是整份文件。</p>
+</div>
+
+## Today: Autonomous agents
+## 今天：自主智能体
+
+<div class="bilingual-block">
+<p class="en-text">Agents can now run code themselves and delegate hours of work to other agents.</p>
+<p class="zh-text">智能体现在可以自己运行代码，并将数小时的工作委托给其他智能体。</p>
+</div>
+
+## 20XX? Closing the loop
+## 20XX年？闭环形成
+
+<div class="bilingual-block">
+<p class="en-text">In the future, agents could become capable enough to build and train models themselves. If this happens, future versions of Claude could be continuously improved by Claude itself.</p>
+<p class="zh-text">未来，智能体可能变得足够强大，能够自行构建和训练模型。如果这成为现实，未来版本的Claude可能由Claude自身持续改进。</p>
+</div>
+
+## Evidence from the outside world
+## 来自外界的证据
+
+<div class="bilingual-block">
+<p class="en-text">The rate at which AI models improve is accelerating. The length of tasks that they can reliably complete on their own has been doubling roughly every four months, up from an earlier trend of doubling every seven months. In March 2024, Claude Opus 3 could complete software tasks that take humans about four minutes to complete. A year later, Claude Sonnet 3.7 managed tasks that took about an hour and a half. A year after that, Claude Opus 4.6 managed 12-hour tasks.¹ If this trend holds, tasks that take a skilled person days could come into range this year. In 2027, AI systems could be capable of tasks that take a person weeks.</p>
+<p class="zh-text">AI模型改进的速度正在加快。它们能够独自可靠完成的任务时长大约每四个月翻一番，而更早的记录是每七个月翻一番。2024年3月，Claude Opus 3能完成人类大约需要四分钟的软件任务。一年后，Claude Sonnet 3.7能完成大约一个半小时的任务。又过了一年，Claude Opus 4.6能完成12小时的任务。¹ 如果这一趋势持续，需要熟练人员花几天完成的任务今年就可能进入其能力范围。到2027年，AI系统可能能够完成需要一人耗费数周的任务。</p>
+</div>
+
+<div class="bilingual-block">
+<p class="en-text">The same pattern appears on coding and research benchmarks. Benchmarks measure the performance of models in a given domain, and they're "saturated" when models achieve close to 100% performance.² SWE-bench is a standard test of real-world software engineering: it hands a model an actual open-source codebase and a real bug report, and asks it to write a code change that fixes the issue and passes the project's own tests. Models have gone from scoring in the low single digits to saturating the benchmark in two years.</p>
+<p class="zh-text">同样的模式也出现在编码和研究基准测试上。基准测试用以衡量模型在特定领域的表现，当模型达到接近100%的表现时，就算该基准已"饱和"。² SWE-bench是一个标准的真实软件工程测试：它给模型一个实际的开源代码库和一份真实的错误报告，要求它编写代码更改来修复问题并通过项目自己的测试。模型在两年内完成得分仅有低个位数到使该基准饱和。</p>
+</div>
+
+<div class="bilingual-block">
+<p class="en-text">CORE-Bench tests whether a model can reproduce existing research, a prerequisite for them to conduct original research. It gives an AI model the code and data behind a published paper, and asks it to rerun everything and confirm it can replicate the paper's results. AI systems went from succeeding at reproducing the results roughly 20% of the time in 2024 to saturating the benchmark fifteen months later. METR, which runs the benchmark measuring how well models can complete long-duration tasks, found that Claude Mythos Preview could work for "at least" 16 hours and was "at the upper end of what [METR] can measure without new tasks."</p>
+<p class="zh-text">CORE-Bench测试模型能否复现已有研究，这是它们进行原创研究的前提。它给AI模型一篇已发表论文背后的代码和数据，要求它重新运行所有内容并确认能复现该论文的结果。AI系统在2024年成功复现结果的概率约为20%，十五个月后便使该基准饱和。运营衡量模型完成长时任务能力的基准测试机构METR发现，Claude Mythos Preview可以工作"至少"16小时，并且处于"[METR]在没有新任务的情况下所能测量的上限"。</p>
+</div>
+
+<div class="bilingual-block">
+<p class="en-text">Public benchmarks say a lot about the capabilities of these systems. But they can't reveal the impact AI systems are having on speeding up AI development itself. For that, we need direct evidence from within AI companies like Anthropic.</p>
+<p class="zh-text">公开基准测试能说明这些系统能力的很多方面。但它们无法揭示AI系统对加速AI开发本身的影响。为此，我们需要来自像Anthropic这样的AI公司内部的直接证据。</p>
+</div>
+
+## Evidence from within Anthropic
+## 来自Anthropic内部的证据
+
+<div class="bilingual-block">
+<p class="en-text">Building a frontier model takes two broad categories of work. There is engineering: writing the code, standing up the infrastructure, and overseeing the model training. And there is research: deciding what experiments to run, interpreting what comes back, and figuring out which ideas to try next.</p>
+<p class="zh-text">构建一个前沿模型需要两大类工作。其一是工程：编写代码、搭建基础设施以及监督模型训练。其二是研究：决定运行哪些实验，解读返回的结果，并弄清楚接下来要尝试哪些想法。</p>
+</div>
+
+<div class="bilingual-block">
+<p class="en-text">Across both engineering and research, the picture is consistent. In engineering, Claude can be handed an underspecified problem and figure out how to solve it; humans supply the goal, but they no longer need to supply the method. In research, Claude can already match or outperform skilled humans at executing a well-specified experiment. However, large performance gaps persist when it comes to Claude exercising judgement in choosing goals in both engineering and research. That's the gap between AI today and a future system that could autonomously design its own successor.</p>
+<p class="zh-text">在工程和研究两个领域，情况是一致的。在工程方面，可以将一个定义不明确的问题交给Claude并由其找出解决方法；人类提供目标，但不再需要提供方法。在研究方面，Claude在执行设定清晰的实验时，已经能与熟练的人类持平或更优。然而，当涉及Claude在工程和研究中选择目标时运用判断力时，仍存在巨大的表现差距。这就是当今AI与未来能够自主设计自身后继者的系统之间的差距。</p>
+</div>
+
+<div class="bilingual-block">
+<p class="en-text">It's common for employees at Anthropic to receive more open-ended and important tasks as they gain more experience. Early on, they execute a task someone else specified, like, "The export button isn't working, please fix it." With experience, they're handed a goal and design the approach themselves, such as, "Investigate why the network slows down under heavy load." At the most senior levels, they are deciding which problems are worth working on at all: "What should the team build next quarter?" We can use internal Anthropic data to see how far Claude has come in being able to handle these different kinds of tasks.</p>
+<p class="zh-text">随着经验增长，Anthropic的员工通常会接到更开放、更重要的任务。早期，他们执行别人指定的任务，比如"导出按钮不起作用了，请修复它。"有了经验后，他们会收到一个目标并自行设计方案，例如"调查一下为什么网络在高负载下变慢。"在最高级别，他们要决定哪些问题值得去解决："团队下个季度应该构建什么？"我们可以利用Anthropic的内部数据来看Claude在处理这些不同类型任务方面进展到了什么程度。</p>
+</div>
+
+## Claude writes a significant proportion of Anthropic's code
+## Anthropic 的代码库中，已有相当比例来自 Claude
+
+<div class="bilingual-block">
+<p class="en-text">As of May 2026, more than 80% of the code we merge into Anthropic's codebase was authored by Claude.³ Before Claude Code launched in research preview in February 2025, this number was in the low single digits. That shift also shows up in the amount of output per engineer. Lines of code merged per engineer per day stayed constant through Anthropic's first four years (2021-2024), then began to climb upward in 2025 when Claude began to run code rather than just suggesting it for an engineer to copy and paste. The slope steepened again in 2026 when models began to work autonomously over longer time horizons. These two inflection points are shown in the chart below. In the second quarter of 2026, the typical engineer was merging 8× as much code per day as they were in 2024.⁴ This is because much of the code is written by Claude, with the engineer directing and reviewing, rather than typing it themselves.</p>
+<p class="zh-text">截至2026年5月，我们合入到Anthropic代码库中的代码超过80%是由Claude编写的。³ 在2025年2月Claude Code开放内测之前，这个数字还只有低个位数。这一转变也体现在每名工程师的产出量上。在Anthropic的头四年（2021-2024），每名工程师每天合入的代码行数保持恒定，然后在2025年开始攀升，当时Claude开始自己运行代码，而不仅仅是建议代码让工程师复制粘贴。到2026年，随着模型开始在更长时间范围内自主工作，这一斜率再次陡升。这两个拐点显示在下方的图表中。在2026年第二季度，典型工程师每天合入的代码量是他们在2024年的8倍。⁴ 这是因为大部分代码由Claude编写，工程师负责指导和审查，而非亲自敲代码。</p>
+</div>
+
+<div class="image-placeholder">
+<div>[图片占位符]</div>
+<div class="img-label">图表：Anthropic工程师人均日合并代码行数变化趋势（2021-2026）</div>
+</div>
+
+<div class="bilingual-block">
+<p class="en-text">A caveat: Lines of code is an imperfect measure, as it measures quantity over quality. So 8 × lines of code/engineer/day in the second quarter of 2026 is almost certainly an overstatement of the true productivity gain. Nonetheless, it indicates an acceleration. At Anthropic, we don't reward people for how many lines of code they write; rather, team members are producing more code simply because they're using AI systems to write more code.</p>
+<p class="zh-text">一个需要注意的地方：代码行数是一种不完美的衡量标准，因为它衡量的是数量而非质量。因此，2026年第二季度每名工程师每天8倍的代码行数几乎肯定高估了真实的生产力提升。尽管如此，它确实表明了加速。在Anthropic，我们不会因人们写了多少行代码而奖励他们；团队成员产出更多代码仅仅是因为他们使用了AI系统。</p>
+</div>
+
+<div class="bilingual-block">
+<p class="en-text">The increase in lines of code written lines up with subjective impressions of large productivity increases. In a March 2026 poll of 130 employees from across Anthropic research teams, the median respondent estimated that they produced around 4x as much output with Mythos Preview as they would have without access to any AI models, on the kinds of projects they would have been working on regardless.⁵ We expect that the true degree of uplift in March was somewhat lower.⁶ Nevertheless, we find the overall claim plausible, and in line with our other observations: a significant fraction of Anthropic technical staff is accomplishing their core work multiple times faster than they could without AI assistance.</p>
+<p class="zh-text">代码行数的增长，与团队成员主观感受到的效率大幅提升相互印证。在2026年3月对Anthropic各研究团队130名员工进行的一项调查中，按中位数计算，受访者估计自己的产出达到了使用 Mythos Preview 前的约 4 倍。⁵ 我们预计3月份真实的提升程度要略低一些。⁶ 尽管如此，我们认为这一总体说法是合理的，并与我们的其他观察一致：Anthropic技术人员的相当一部分，其完成核心工作的速度是没有AI辅助时的数倍。</p>
+</div>
+
+<div class="bilingual-block">
+<p class="en-text">We also see evidence that people at Anthropic are using Claude to do work that simply wouldn't have happened otherwise, like building exploratory tooling and addressing long-deferred cleanup. For example, in April 2026, Claude shipped over 800 fixes that reduced a class of API errors by a factor of one thousand. The engineer overseeing Claude estimated that a human would have taken four years to complete this work; solving other people's bugs is slow and painstaking, and humans struggle to hold that much unfamiliar context in their head at once.</p>
+<p class="zh-text">我们还看到证据表明，Anthropic的员工正在使用Claude来完成那些原本根本不会发生的工作，比如构建探索性工具和处理长期拖延的清理工作。例如，在2026年4月，Claude交付了800多个修复程序，将某一类API错误减少了千倍。监督Claude的工程师估计，人类完成这项工作需要四年时间；解决别人的bug既缓慢又费力，人类很难一次性在脑中记住那么多陌生的上下文。</p>
+</div>
+
+<blockquote>
+<p>"I started leaning hard into Claudifying about a year ago. That's been a crazy adventure and it's now been ~5 months since I last wrote any code myself."</p>
+<p>"大约一年前，我开始全面'Claude化'。那是一段疯狂的冒险，到现在我已经大约5个月没亲自写过任何代码了。"</p>
+<p>——Anthropic员工*</p>
+</blockquote>
+
+## The code that Claude writes is "good" and improving
+## Claude编写的代码"不错"并且正在改进中
+
+<div class="bilingual-block">
+<p class="en-text">"Good code" means two things: it works, and it is written in a manner that allows another engineer to understand it and build upon it. On the first criterion, the evidence is clear. The rate at which Anthropic staff correct, redirect, or take over mid-task from Claude has been falling steadily for a year, including on the most complex and open-ended tasks. This means problems with no clear specification, where the engineer isn't sure what the answer looks like. This is evident in Claude's success rate over time on tasks of different difficulties, as shown in the graph below. Claude writes code that works.</p>
+<p class="zh-text">"好代码"意味着两点：它能正常工作，并且其编写方式能让另一位工程师理解并在此基础上继续开发。关于第一点标准，证据很清晰——Anthropic 员工对 Claude 纠错、纠偏或中途接管的频率，一年来持续走低——即便在最复杂、最开放的任务上也是如此。这类任务需求本身模糊，工程师自己也说不清正确答案该长什么样。这在Claude随时间推移在不同难度任务上的成功率变化中显而易见，如下图所示。Claude编写的代码是有效的。</p>
+</div>
+
+<div class="image-placeholder">
+<div>[图片占位符]</div>
+<div class="img-label">图表：Claude在不同难度任务上的成功率随时间变化（2025-2026）</div>
+</div>
+
+<div class="bilingual-block">
+<p class="en-text">On the most open-ended tasks, Claude's success rate reached 76% in May 2026, up 50 percentage points in six months. To give an example of tasks in this difficulty tier, a routine upgrade began crashing tens of thousands of training jobs. An engineer pointed Claude at the live incident with little more than some text content and cluster access. Working through the running jobs and testing one environment setting at a time, Claude isolated the single obscure debugging flag that was triggering the crash, reproduced it reliably, and confirmed a fix. In about two hours, Claude delivered what would normally be two to three days of work.</p>
+<p class="zh-text">在最具开放性的任务上，Claude的成功率在2026年5月达到76%，六个月内提升了50个百分点。以一个这个难度级别的任务为例：一次常规升级导致了数万个训练任务开始崩溃。一位工程师只给了Claude一些文本内容和集群访问权限，就让它去处理这个正在发生的故障。Claude逐一排查正在运行的任务并测试环境设置，最终隔离出了一个不起眼的导致崩溃的调试标志，可靠地重现了问题，并确认了修复方案。在大约两小时内，Claude完成了通常需要两到三天的工作。</p>
+</div>
+
+<div class="bilingual-block">
+<p class="en-text">The second criterion is writing code that another engineer can understand and build on. Here the gap between humans and AI persists, but is closing fast. There isn't full consensus among staff at Anthropic, but many believe that the Claude-written code was still worse in quality than human-written code at Anthropic in late 2025, and is roughly at parity today. We expect it to be better within the year.</p>
+<p class="zh-text">第二点标准是编写的代码能被其他工程师理解并继续开发。在这一点上，人类与AI之间的差距仍然存在，但正在迅速缩小。Anthropic员工尚未达成完全共识，但许多人认为，在2025年末，Claude编写的代码质量仍不如Anthropic的人类编写代码，而如今已大致持平。我们预计在一年内它会变得更好。</p>
+</div>
+
+<div class="bilingual-block">
+<p class="en-text">This has changed the way that Anthropic now reviews its own code. Proposed changes to our codebase are now read by an automated Claude reviewer that looks for bugs, security flaws, and other defects before it can merge. Using this tool, we ran a retrospective analysis, and found that an automated Claude review of every change to our codebase would have caught roughly a third of the bugs behind past incidents on claude.ai before they ever reached production. The engineers who wrote that code are among the best in the world at building these systems. Claude is now catching the mistakes that they missed.</p>
+<p class="zh-text">这改变了Anthropic现在审查自己代码的方式。对我们代码库的拟议更改，现在在合入前会由一位自动化的Claude审查员阅读，寻找错误、安全漏洞和其他缺陷。借助这一工具，我们做了回溯审计：若用 Claude 自动审查当时的每一次代码变更，claude.ai 过去事故中约三分之一的 bug，本可在上线前就被拦截。编写那些代码的工程师，是该领域全球最顶尖的人才。Claude现在正在捕捉他们遗漏的错误。</p>
+</div>
+
+<blockquote>
+<p>"Claude-written code was somewhat worse than human-written code at Anthropic in late 2025, is roughly at parity today, and we expect it to be strictly better within the year."</p>
+<p>"Claude编写的代码在2025年末比Anthropic的人类编写代码稍差一些，如今大致持平，我们预计在一年内它会明显更优。"</p>
+</blockquote>
+
+## Claude is good at running experiments to hit a goal that someone else has set
+## Claude擅长通过运行实验来达到他人设定的目标
+
+<div class="bilingual-block">
+<p class="en-text">Every time Anthropic releases a model, we run the same test: we give Claude some code that trains a small AI model, and ask it to make that code run as fast as possible while still passing the same correctness checks. The goal and the success metrics are fixed in advance, so Claude's job is to find speedups by rewriting the code, running it, timing it, and repeating. It's a miniature version of an experimental research loop. In May 2025, Claude Opus 4 averaged a ~3x speedup over the starting code. By April 2026, Claude Mythos Preview was achieving ~52x. For calibration, a skilled human researcher would need four to eight hours to reach 4x.⁷ In this part of the research workflow—optimizing steps within a clearly defined experiment—Claude has gone from super helpful to superhuman in under a year.</p>
+<p class="zh-text">每次Anthropic发布模型，我们都会进行同样的测试：我们给Claude一些训练小型AI模型的代码，并要求它让该代码运行得尽可能快，同时仍能通过相同的正确性检查。目标和成功指标是预先设定好的，所以Claude的工作是通过重写代码、运行、计时并反复迭代来寻找加速方法。这是一个实验研究循环的微缩版。2025年5月，Claude Opus 4平均将初始代码提速约3倍。到2026年4月，Claude Mythos Preview达到了约52倍的提速。作为校准，一名熟练的人类研究员需要四到八小时才能达到4倍的提速。⁷ 在研究工作流的这一部分——在一个清晰定义的实验中优化步骤——Claude在不到一年的时间里从超级有用进化到了超越人类。</p>
+</div>
+
+<blockquote>
+<p>"The shape of stuff today is roughly 'humans have ideas, and the models are able to implement, test and evaluate them an [order of magnitude] faster than before.'"</p>
+<p>"如今工作的大致形态是'人类有想法，模型能够比以前快[一个数量级]地实现、测试和评估它们。'"</p>
+</blockquote>
+
+## Claude is getting better at proposing its own experiments
+## Claude在提出自己的实验方面正变得更好
+
+<div class="bilingual-block">
+<p class="en-text">In April 2026, Anthropic published the first demonstration of Claude running an open-ended research project end to end. Claude-powered agents were given an open problem in AI safety—roughly, can a weaker model reliably supervise a stronger one?—and were left to solve it. This involved proposing hypotheses, testing them, sharing findings with parallel agents, and iterating. The task has a clear performance "floor" and "ceiling": the floor is how well the weak supervisor would do on its own; the ceiling is how the strong model does when trained on correct answers. Two human researchers, over about a week, recovered roughly 23% of that gap; the agents recovered 97% over 800 cumulative hours and used roughly $18,000 in compute. There are some caveats to this work; the result didn't transfer cleanly to production-scale models, and humans still chose the problem and created the scoring rubric. But within those bounds, the agents designed every experiment themselves. Direction-setting was the only meaningful role a human played.</p>
+<p class="zh-text">2026年4月，Anthropic首次展示了Claude全流程主导一项开放性研究项目。以Claude为核心的智能体群被抛给一个AI安全领域的开放问题——大致是：较弱模型能否可靠地监督较强模型？——然后被放任自解。整个过程包括提出假设、验证假设、与并行智能体共享发现、循环往复。该任务设有明确的性能兜底基准与理论天花板：兜底基准是弱监督者独自表现的水平；天花板是强模型在正确答案上训练后的表现。两名人类研究者耗时约一周，将这一差距弥合了约23%；智能体群在800累计小时内将差距弥合了97%，消耗约18,000美元算力。此项工作尚有若干限定：结果未能无损耗地迁移到生产规模模型，且问题本身与评分标准仍由人类选定。但在此边界之内，智能体群自主设计了每一个实验。人类唯一的实质性参与是确定方向。</p>
+</div>
+
+<blockquote>
+<p>"Claude did all of this with pretty minimal help from me over the course of 1-2 days. I think if [a junior colleague] came back to me with results like this in the same span of time, I would be mildly impressed. The future is now."</p>
+<p>"Claude在我极少帮助下，用一两天时间就完成了这一切。我想，如果[一位初级同事]在同样时间内带回这样的结果，我会略感佩服。未来已来。"</p>
+</blockquote>
+
+## Claude is getting better at steering research sessions towards research findings
+## Claude在引导研究过程取得研究发现方面正变得更好
+
+<div class="bilingual-block">
+<p class="en-text">We examined real Claude Code sessions (between January and March 2026) where Anthropic researchers were working with Claude on an open-ended investigative problem, like figuring out why a training run kept crashing, or why a model scored poorly on a benchmark. In each case, we found a moment where the researcher took a detour: they pursued a direction that sent the session sideways before it eventually got back on track. We then showed various Claude models only the work from before the session went off-course and asked what it would do next. A separate Claude that was able to see how the session eventually turned out then judged whether the AI or the human suggested the better next step.⁸</p>
+<p class="zh-text">我们复盘了2026年1月至3月间的真实Claude Code会话，其中Anthropic研究人员正与Claude协作排查开放性探案式问题——例如，训练运行为何反复崩溃，或模型为何在基准测试中得分低迷。每一例中，我们都锁定了一个研究者走偏的时刻：他们 pursuit 了一个方向，让会话陷入僵局，最终才费周折回到正轨。随后，我们仅向不同版本的Claude展示会话跑偏之前的工作记录，问它下一步会怎么走。另有一个独立第三方Claude，开了全知视角（知晓会话最终如何收场），负责评判AI与人类，谁建议的下一步更优。⁸</p>
+</div>
+
+<div class="image-placeholder">
+<div>[图片占位符]</div>
+<div class="img-label">图表：Claude vs 人类研究者在选择下一步行动时的胜率对比（2025-2026）</div>
+</div>
+
+<div class="bilingual-block">
+<p class="en-text">Because we deliberately picked moments (n=129) where we know the human's choice had room for improvement, this isn't a like-for-like comparison between model and human judgement. What these moments give us is a set of realistic, challenging situations where the right next step is not obvious, and where the human's choice serves as a useful yardstick to compare model performance over time. On this measure, our best model in November 2025 (Opus 4.5) beat the human choice 51% of the time; in April 2026 (Mythos Preview), this grew to 64%. The day-to-day work of research is largely a chain of these next-step decisions, making this a relevant measure of the model's ability to eventually run an investigation of its own. We view this result as an early signal that AI systems are getting better at making the kinds of judgement calls that AI research depends on.</p>
+<p class="zh-text">因为我们故意挑选了我们知道人类选择有改进余地的时刻（n=129），所以这并不是模型与人类判断的同条件比较。这些时刻为我们提供了一组现实且具有挑战性的情境，在这些情境中，正确的下一步并不明显，而人类的选择作为比较模型性能随时间变化的有效标尺。在这项衡量上，我们2025年11月的最佳模型（Opus 4.5）在51%的情况下优于人类选择；到2026年4月（Mythos Preview），这一比例增长到了64%。日常研究工作很大程度上就是这些下一步决策的链条，这使其成为衡量模型最终能否独自进行调研的相关指标。我们将这一结果视为一个早期信号，表明AI系统在进行AI研究所依赖的那种判断方面正变得更好。</p>
+</div>
+
+<blockquote>
+<p>"The comparative advantage of humans as of right now is still in seeing the bigger picture and thinking beyond the confines of the immediate task."</p>
+<p>"目前，人类的比较优势仍在于看清大局，并超越眼前任务的局限进行思考。"</p>
+</blockquote>
+
+## What might the future of work at Anthropic look like?
+## Anthropic未来的工作可能是什么样子？
+
+<div class="bilingual-block">
+<p class="en-text">The evidence suggests that the human role is narrowing at each step in the AI development process. Once human- and AI-authored code quality reach parity, humans will stop writing code entirely, and shift to only reviewing it. But if they can't review code as quickly as Claude can generate it, human review will become the bottleneck to AI development. Similarly, once Claude can run experiments, the question shifts towards "Which of these experiments is worth running?" Put simply: the doing (i.e., writing the code, running the experiment, producing the result) now costs almost nothing in human time, even if it still has costs in compute.</p>
+<p class="zh-text">证据表明，在AI开发过程的每一步，人类的角色都在收窄。一旦AI和人类编写的代码质量达到同等水平，人类将完全停止编写代码，转而只进行审查。但如果他们审查代码的速度跟不上Claude生成代码的速度，人类审查将成为AI开发的瓶颈。类似地，一旦Claude能够运行实验，问题就转向了"这些实验中哪些值得运行？"简而言之："做"（即编写代码、运行实验、产生结果）现在几乎不消耗人类时间，即使它仍然消耗算力资源。</p>
+</div>
+
+<div class="bilingual-block">
+<p class="en-text">An area of human comparative advantage, for now, is research taste and judgment, including choosing which problems matter, which results to trust, and when an approach is a dead end.</p>
+<p class="zh-text">目前，人类具有比较优势的一个领域是研究品味和判断力，包括选择哪些问题重要，哪些结果值得信赖，以及何时一条路径是死胡同。</p>
+</div>
+
+<blockquote>
+<p>"Work (and life) ran on a gift economy of small favors between humans. 'Can you help me get this script running?' [...] each one created a little debt, a little mutual awareness. [Claude is] faster, it creates zero debt, but each of these is a lost bid for human collaboration."</p>
+<p>"工作（和生活）靠的是人与人之间小恩小惠的礼物经济。'你能帮我让这个脚本跑起来吗？'[…]每一次都创造了一点点人情债，一点点相互了解。[Claude]更快，它不产生人情债，但每一次这样的请求都是失去了一次人类合作的机会。"</p>
+</blockquote>
+
+<blockquote>
+<p>"On days where everything works well, I can't help but think nothing I do matters, everything is automated and better and faster than I ever will be. But then there are days where everything breaks and I don't understand why and I realize I have no idea what I've been up to anymore."</p>
+<p>"在一切运转良好的日子里，我不禁觉得我做什么都无关紧要了，一切都自动化了，比我做得更好更快。但也有那样一些日子，一切都崩溃了，我不明白为什么，我意识到我已经完全不知道自己在忙些什么了。"</p>
+</blockquote>
+
+## What if we're wrong?
+## 如果我们错了怎么办？
+
+<div class="bilingual-block">
+<p class="en-text">A natural objection to the evidence presented above is that the work that is still in human hands—choosing which problems to work on—is what matters most. Without that judgment, Claude is a capable assistant, but not a system that could drive AI progress on its own.</p>
+<p class="zh-text">自然会有人质疑：真正起决定性作用的，仍是人类尚未脱手的那项工作——定什么题、攻什么关。没有这种决断力，Claude不过是得力助手，而非能自主驱动AI进步的引擎。</p>
+</div>
+
+<div class="bilingual-block">
+<p class="en-text">It is genuinely unclear whether today's training methods and architectures could unlock that capacity. But AI is rarely advanced by "eureka!" moments. There have been a few of these in AI's recent history, like the Transformer architecture, or mixture-of-experts models, but paradigm-shifting ideas arrive years apart. In between, most progress is incremental: we scale something up, see what breaks, fix it, and try again. That is exactly the kind of workflow Claude now excels at. Edison said that genius is 1% inspiration and 99% perspiration. But we see perspiration becoming increasingly automated. It's becoming clear that much of what advances the frontier is automatable; large-scale research progress is mostly a function of tools and resources, which dictate how fast you can run experiments, how many you can run at once, and how quickly you can get results.</p>
+<p class="zh-text">目前尚不清楚如今的训练方法和架构能否解锁这种能力。但AI的进步很少靠"灵光一现"的时刻。在AI的近期历史中，确实有过一些这样的时刻，比如Transformer架构或专家混合模型，但范式转变的想法相隔数年才出现。在其间，大多数进步是渐进式的：我们扩大某样东西的规模，看哪里会出问题，修复它，然后再试。这正是Claude现在所擅长的那种工作流程。爱迪生说天才是1%的灵感加99%的汗水。但我们看到汗水正日益自动化。越来越清楚的是，推动前沿进步的许多工作都是可自动化的；大规模的研究进展主要是工具和资源的函数，这决定了你运行实验能多快、一次能跑多少个，以及能多快得到结果。</p>
+</div>
+
+<div class="bilingual-block">
+<p class="en-text">Even if we suppose that Claude never achieves good research taste, a conservative reading of our evidence still implies compounding acceleration. If humans spend most of their time on the single-digit fraction of work that is direction-setting, while Claude handles the rest, that means each engineer or researcher is steering far more work than before. The evidence we see suggests that people at Anthropic are both moving faster and covering a broader surface. In practice, this means that AI already makes Anthropic move much faster than it did before the advent of effective AI tools.</p>
+<p class="zh-text">即使我们假设Claude永远无法获得良好的研究品味，对我们证据的保守解读仍暗示着复合式的加速。如果人类将大部分时间花在那百分之几的设定方向的工作上，而Claude处理其余部分，那意味着每名工程师或研究员所驾驭的工作量远超从前。我们看到的证据表明，Anthropic的员工既动作更快，又覆盖了更广的范围。实际上，这意味着AI已经让Anthropic的进展速度远超有效AI工具出现之前。</p>
+</div>
+
+<div class="bilingual-block">
+<p class="en-text">The less conservative reading is that the early evidence on Claude's improving research judgment—narrow as it is today—is an indicator that this capability is improving as well. "Research taste" might be just another AI capability that AI systems fail at for a time, then get good at. We've seen a similar pattern with other qualitative skills, like AI systems being able to explain why a joke is funny, demonstrate theory of mind, and solve linguistic riddles.</p>
+<p class="zh-text">不那么保守的解读是，关于Claude研究判断力不断提升的早期证据——尽管目前还很狭窄——表明这种能力同样也在改善。"研究品味"可能只是另一种AI能力，AI系统会在一段时间内做不好，然后变得擅长。我们在其他定性技能上也看到过类似的模式，比如AI系统能够解释笑话为什么好笑、展示心智理论以及解决语言谜题。</p>
+</div>
+
+<div class="bilingual-block">
+<p class="en-text">What happens next depends on two things: whether the trend continues, and what we choose to do if it does. We can imagine at least three future scenarios:</p>
+<p class="zh-text">接下来会发生什么取决于两件事：趋势是否会持续，以及如果持续我们选择做什么。我们可以想象至少三种未来情景：</p>
+</div>
+
+### 1. The trend stalls, but today's AI capabilities are widely diffused
+### 1. 趋势停滞，但当今的AI能力得到广泛普及
+
+<div class="bilingual-block">
+<p class="en-text">This article features many exponential trajectories. But these trajectories may actually turn out to be S-curves. We may be approaching the bend in the curve, where returns to scale diminish and the line straightens, then flattens. The judgment that separates a competent researcher from a great one might be a capability that cannot come from scaling up training inputs like compute and data. If so, getting past this bottleneck would require a new idea, like an architectural approach that supplants the Transformer architecture that all current frontier models use.</p>
+<p class="zh-text">本文展示了许多指数级增长轨迹。但这些轨迹实际上可能是S曲线。我们可能正在接近曲线的拐点，规模收益递减，曲线趋于平缓然后变平。区分优秀研究员和伟大研究员的判断力，可能是一种无法通过扩大计算和数据等训练投入来获得的能力。如果是这样，要突破这一瓶颈就需要新的想法，比如一种取代当前所有前沿模型所用Transformer架构的新架构方法。</p>
+</div>
+
+<div class="bilingual-block">
+<p class="en-text">Alternately, the binding constraint to AI progress could be in the supply chain, not the model: advancing and diffusing the frontier may require more energy and compute than presently exists. The pace of chip fabrication, grid expansion, or interconnect bandwidth may be the constraint, rather than intelligence itself. We also cannot rule out an exogenous shock to the AI ecosystem that dramatically slows things, like a sudden diminishment in the supply of compute or electricity, either of which would slow progress and make forward investment by labs more expensive. Or we may not be anticipating some other barrier to progress.</p>
+<p class="zh-text">或者，AI进步的关键约束可能在供应链而非模型本身：推进和普及前沿可能需要比现有更多的能源和算力。芯片制造、电网扩张或互联带宽的速度可能是约束，而非智能本身。我们也不能排除AI生态系统受到外源性冲击而大幅放缓，比如算力或电力供应的突然减少，这两者中的任何一种都会减缓进展并使实验室的前期投资更加昂贵。或者我们可能没有预见到其他某些进步障碍。</p>
+</div>
+
+<div class="bilingual-block">
+<p class="en-text">Even if model capabilities were frozen at today's level, we would expect major changes to occur in the world. Project Glasswing is one early sign: in its first weeks, Mythos Preview found more than ten thousand high- and critical-severity software vulnerabilities across the world's most important systems—enough that the bottleneck in cyber defense has already shifted from finding vulnerabilities to patching them fast enough. And we are still early in the diffusion of today's models into the wider economy, where a 100-person company can increasingly do the work of a 1,000-person one, because each employee will sit atop a pyramid of agents.</p>
+<p class="zh-text">即使模型能力被冻结在今天的水平，我们预计世界仍将发生重大变化。Glasswing项目就是一个早期迹象：在最初几周内，Mythos Preview在全球最重要的系统中发现了一万多个高严重性和危急级别的软件漏洞——数量之多，使得网络防御的瓶颈已经从发现漏洞转变为足够快地修补它们。而且，当今模型向更广泛经济领域的普及仍处于早期阶段，在这个阶段，一家100人的公司越来越能做一家1000人公司的工作，因为每名员工都将坐拥一个智能体金字塔。</p>
+</div>
+
+<div class="bilingual-block">
+<p class="en-text">We include this scenario for completeness, but we don't believe it's likely. Every capability we can measure, including those that feel "squishier," like quality of code and success on open-ended tasks, has so far followed the same curve. We have not yet seen that curve bend. Of the three futures we consider, this one would give governments and societies the most time to adapt. We are more worried about the next two, which would move faster and leave far less room for preparation.</p>
+<p class="zh-text">我们为求完整而纳入这一情景，但我们认为它不太可能发生。每一项我们能够衡量的能力，包括那些感觉"更软"的能力，如代码质量以及在开放性任务上的成功，迄今为止都遵循着同样的曲线。我们尚未看到那条曲线弯折。在我们考虑的三种未来中，这一种将给政府和社会最多的适应时间。我们更担心接下来的两种，它们将进展更快，留给准备的时间也少得多。</p>
+</div>
+
+### 2. AI labs continue to see compounding efficiency gains
+### 2. AI实验室继续看到复合式的效率提升
+
+<div class="bilingual-block">
+<p class="en-text">In this scenario, AI development becomes substantially automated, but humans continue to set research directions and judge results. Organizations that use AI systems would become much more efficient as time goes on, so we could expect to see significant productivity multipliers on each person in this organization. 100-person companies could do the work of 10,000- or 100,000-person organizations. This would revolutionize knowledge work and government services, but could also be turned to harmful ends, from authoritarian surveillance of whole populations to influence operations that tailor manipulation to each individual and run at a scale no human team could match. The role of humans at companies like Anthropic would shift. People would partner with AI systems to scale up research and generate new insights, and together they would build the systems needed to verify that AI outputs can be trusted.</p>
+<p class="zh-text">在这一情景下，AI开发变得高度自动化，但人类继续设定研究方向并评判结果。使用AI系统的组织会随着时间的推移变得高效得多，因此我们可以预期这些组织中每个人的生产力倍数将显著提升。100人的公司可以做1万人甚至10万人组织的工作。这将彻底改变知识工作和政府服务，但也可能被用于有害目的，从对全体人口的威权式监控，到针对每个个体量身定制的操纵影响力行动，其规模是任何人类团队都无法企及的。在Anthropic这样的公司里，人类的角色将发生转变。人们将与AI系统合作，扩大研究规模并产生新洞见，共同构建验证AI输出可信所需的系统。</p>
+</div>
+
+<div class="bilingual-block">
+<p class="en-text">The evidence we've laid out here suggests that we're likely heading into this scenario. But speeding up one part of a process often just shifts the bottleneck elsewhere: overall pace is capped by the parts that haven't sped up. In computing, this is known as Amdahl's law, and the same logic can apply to organizations. Anthropic has already encountered one signature of Amdahl's law: as we've begun to push more code around the organization, human code review has become a new bottleneck.</p>
+<p class="zh-text">我们在此展示的证据表明，我们很可能正走向这一情景。但加速流程的一部分往往只是把瓶颈转移到了别处：整体速度受限于那些尚未加速的部分。在计算领域，这被称为阿姆达尔定律，同样的逻辑也适用于组织。Anthropic已经遇到了阿姆达尔定律的一个标志：随着我们开始在组织内推送更多代码，人类代码审查已成为新的瓶颈。</p>
+</div>
+
+<div class="bilingual-block">
+<p class="en-text">We've also encountered this friction outside engineering. There has been an explosion of new ideas, initiatives, tools, and simulations, as a result of Anthropic employees working with highly capable models—far more than we have the capacity to pursue. The rate at which organizations can spot and fix these bottlenecks may be a skill that improves over time, and it may become the most important skill for any organization.</p>
+<p class="zh-text">我们在工程领域之外也遇到了这种摩擦。由于Anthropic员工与能力极强的模型协作，新想法、新倡议、新工具和模拟出现了爆炸式增长——远远超出我们能够追踪的能力。组织发现并修复这些瓶颈的速度，可能是一种会随时间推移而提升的技能，它或许会成为任何组织最重要的技能。</p>
+</div>
+
+<div class="bilingual-block">
+<p class="en-text">How the alignment problem gets solved—or not—in this future is something we are least certain about. Models could prove to be sufficiently aligned and capable enough of research taste that they discover and implement novel solutions that we have not yet reached. They could also be sufficiently wise to halt development if not. Alternatively, the rare occurrences of misalignment present in today's models could compound as the models build their successors, growing more frequent but less understood until we lose control of them. It's possible that we can't build, integrate, and verify the tools that we'd need to understand which trendline we are actually on.</p>
+<p class="zh-text">在这种未来中，对齐问题如何得到解决——或无法解决——是我们最不确定的事情。模型可能被证明是足够对齐的，并且具备足够的研究品味，能够发现并实施我们尚未触及的新颖解决方案。如果不满足条件，它们也可能有足够的智慧来停止发展。另一种可能是，当今模型中罕见的对齐失败案例，在模型构建其下一代时可能会复合并放大，变得越来越频繁且更不被理解，直至我们失去对它们的控制。我们可能无法构建、集成并验证那些我们用以理解自己实际上处于哪条趋势线上所需的工具。</p>
+</div>
+
+<div class="bilingual-block">
+<p class="en-text">We do not have good intuitions for what this world would look like, because our economy is currently driven by humans and human-built tools. By its nature, a world driven by fast recursive self-improvement could become dominated by the self-improving model as its capabilities fully eclipse those of humans and the model proliferates across the broader economy. It is difficult to predict what the economy looks like if human labor stops being competitive.</p>
+<p class="zh-text">我们对这样一个世界会是什么样子没有很好的直觉，因为我们的经济目前是由人类和人类构建的工具驱动的。就其本质而言，一个由快速递归自我迭代驱动的世界，可能会被自我改进的模型所主导，因为其能力将完全超越人类，并且该模型将在整个经济中扩散。如果人类劳动力不再具有竞争力，很难预测经济会是什么样子。</p>
+</div>
+
+<div class="bilingual-block">
+<p class="en-text">Even if model development became fully automated and recursive, we can't predict what that would mean for most humans' daily lives. Amdahl's law applies here as well. Recursive intelligence could lead to achieving many of the benefits outlined in Machines of Loving Grace, quickly in some domains. We expect that embodied intelligence (i.e., robotics) might quickly follow recursive intelligence, and follow a similar path of increasing returns at decreasing cost. More powerful intelligence might help us build things in the physical world more quickly, run more productive clinical trials of lifesaving drugs, and develop novel forms of coordination.</p>
+<p class="zh-text">即使模型开发变得完全自动化和递归化，我们也无法预测这对大多数人的日常生活意味着什么。阿姆达尔定律在此同样适用。递归智能可能带来《爱的机器恩典》中概述的诸多益处，在某些领域会很快实现。我们预计具身智能（即机器人技术）可能紧随着递归智能出现，并沿着类似的路径以递减成本获得递增回报。更强大的智能可能帮助我们更快地在物理世界建造东西，进行更高效的救命药物临床试验，并发展出新形式的协调合作。</p>
+</div>
+
+## What should we do?
+## 我们应该做什么？
+
+<div class="bilingual-block">
+<p class="en-text">If it were possible to effectively slow the development of this technology to give ourselves more time to deal with its immense implications, we think that would likely be a good thing. But if a slowdown simply lets the least cautious actors catch up technologically, it could leave everyone less safe. Without a global coordination mechanism, companies and governments will have to make difficult decisions about safety while under competitive and geopolitical pressures.</p>
+<p class="zh-text">如果有可能有效放缓这项技术的发展，以便给自己更多时间应对其巨大影响，我们认为这很可能是一件好事。但如果放缓只是让最不谨慎的行为体在技术上追赶上来，那可能会让所有人更不安全。没有全球协调机制，公司和政府将不得不在竞争和地缘政治压力下做出关于安全的艰难决定。</p>
+</div>
+
+<div class="bilingual-block">
+<p class="en-text">We believe it would be good for the world to have the option to slow or temporarily pause frontier AI development to enable societal structures and alignment research to keep up with the advance of the technology. The Anthropic Institute will conduct research—in collaboration with many others—and take actions to help build the systems that a credible slowdown or pause would require. These systems would enable frontier AI developers to verify that others globally have actually stopped or slowed, and that a bad actor could not use the auspices of a coordinated slowdown to jump ahead in secret. If such systems existed, we expect that we would slow down or temporarily pause, if other developers at or near the frontier also did so in a verifiable manner.</p>
+<p class="zh-text">我们认为，如果世界能拥有放缓或暂时暂停前沿AI发展的选项，使社会结构和对齐研究能跟上技术进步的步伐，那将是好事。Anthropic研究所将——与众多合作者一道——展开研究并采取行动，帮助构建一次可信的放缓或暂停所需的体系。这些体系将使前沿AI开发者能够核实全球其他开发者确实已停止或放缓，且不良行为者无法利用协调放缓的幌子秘密超车。如果这样的体系存在，我们预期，如果其他处于或接近前沿的开发者也以可验证的方式这样做，我们将会放缓或暂时暂停。</p>
+</div>
+
+<div class="bilingual-block">
+<p class="en-text">A meaningful slowdown or pause would require multiple well-resourced labs at or near the frontier, in multiple countries, agreeing to stop under the same conditions. It would also require that each can verify that the others have actually stopped. Due to the unique characteristics of AI systems, the detectability (a lower standard than verifiability) element of this arms control problem is much more challenging than with other technologies. Training runs are far easier to conceal than missile silos, their inputs are general-purpose, and the incentive to defect quietly is enormous, because whoever continues while others pause could inherit the lead. A credible pause also has to specify what triggers it, what lifts it, and who adjudicates.</p>
+<p class="zh-text">一次有意义的放缓或暂停，需要多个国家中多家资源充足、处于或接近前沿的实验室，在相同条件下同意停止。还需要每一方都能核实其他方确实已停止。由于AI系统的独特特性，这一军备控制问题中的可探测性（一个低于可验证性的标准）要素，比其他技术更具挑战性。训练运行远比导弹发射井更容易隐藏，其输入是通用的，而悄悄背叛的动机巨大，因为在他人暂停时继续前进的一方可以继承领先地位。一次可信的暂停还必须明确什么触发它，什么解除它，以及由谁来裁决。</p>
+</div>
+
+<div class="bilingual-block">
+<p class="en-text">None of this is necessarily impossible in principle—the world has built verification regimes for other complex technologies (e.g., the Intermediate-Range Nuclear Forces Treaty)—but those regimes took decades to build both the infrastructure and the trust. We don't have that long. A unilateral pause by one lab, by contrast, is achievable immediately, but accomplishes much less: it would change who the front-runner is, but it would not create the wider deliberative process that is currently missing.</p>
+<p class="zh-text">所有这些在原则上并非完全不可能——世界曾为其他复杂技术建立过核查制度（例如《中程核力量条约》）——但这些制度花了几十年来建设基础设施和信任。我们没有那么长时间。相比之下，单个实验室的单边暂停可以立即实现，但收效甚微：它会改变谁是领跑者，但不会创造出当前所缺失的更广泛的审议进程。</p>
+</div>
+
+<div class="bilingual-block">
+<p class="en-text">In the coming months, we will organize conversations where policymakers, researchers, civil society, and other AI companies can help answer some of the questions this piece raises, especially around full recursive self-improvement and how to create better options for coordination and deliberation. We'll publish what comes out of it. The window to investigate the questions together is here, and people outside AI companies should be involved in this deliberation.</p>
+<p class="zh-text">在接下来的几个月里，我们将组织对话，让政策制定者、研究人员、公民社会和其他AI公司能够帮助回答本文提出的一些问题，尤其是围绕完全递归自我改进，以及如何创造更好的协调与审议选项。我们将发布从中产生的成果。共同探讨这些问题的窗口期就在当下，AI公司之外的人们应该参与到这一审议中来。</p>
+</div>
+
+<div class="post-source">
+<a href="[待补充]" target="_blank">→ 查看原文</a>
+</div>
