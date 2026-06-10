@@ -501,7 +501,3 @@ source: "公众号OPC创业汇"
 <p class="en-text">As agents like Codex take up an increasing share of the software lifecycle, these questions will become more important. We hope that by sharing some of our early lessons, we can help you orient your efforts so you can start building directly.</p>
 <p class="zh-text">随着像 Codex 这样的智能体在软件生命周期中占据越来越大的比重，这些问题将变得更加重要。我们希望通过分享一些早期的经验教训，帮助你理清投入精力的方向，以便你可以直接开始构建。</p>
 </div>
-
-<div class="post-source">
-<a href="https://openai.com/index/engineering-codex-agentic-world" target="_blank">→ 查看原文</a>
-</div>
