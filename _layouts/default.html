@@ -8,37 +8,18 @@
   <link rel="stylesheet" href="/assets/css/main.css">
 </head>
 <body>
-  <nav class="site-nav">
+ <nav class="site-nav">
   <div class="nav-container">
     <a href="/" class="nav-logo">OPC创业汇</a>
     <div class="nav-links">
-      {% assign current_section = page.section | default: page.category %}
-      
-      {% unless current_section == '首页' %}
       <a href="/">首页</a>
-      {% endunless %}
-      
-      {% unless current_section == '政策' %}
       <a href="/policy/">政策</a>
-      {% endunless %}
-      
-      {% unless current_section == '实务' %}
       <a href="/practice/">实务</a>
-      {% endunless %}
-      
-      {% unless current_section == '文章' %}
       <a href="/posts/">文章</a>
-      {% endunless %}
-      
-      {% unless current_section == '观点' %}
       <a href="/insights/">观点</a>
-      {% endunless %}
     </div>
   </div>
 </nav>
- 
-  
-
   <main class="site-main">
     {{ content }}
   </main>
