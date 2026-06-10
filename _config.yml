@@ -3,8 +3,3 @@ description: "超级个体的战略合伙人"
 url: "https://opcstartup.cn"
 baseurl: ""
 timezone: Asia/Shanghai
-markdown: kramdown
-kramdown:
-  input: GFM
-  syntax_highlighter: rouge
-
