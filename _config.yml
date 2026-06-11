@@ -3,3 +3,4 @@ description: "超级个体的战略合伙人"
 url: "https://opcstartup.cn"
 baseurl: ""
 timezone: Asia/Shanghai
+permalink: /:year/:month/:day/:title.html
