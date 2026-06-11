@@ -1,0 +1,9 @@
+# 从私库拉取的 md 文件，不提交到公开仓库
+_posts/policy/*.md
+_posts/practice/*.md
+_posts/posts/*.md
+_posts/insights/*.md
+
+# 临时目录
+_tmp_source/
+ 

@@ -28,6 +28,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      
+      # 从私库拉取政策内容
+      - name: Pull content from private source repo
+        env:
+          TOKEN: ${{ secrets.POLICY_MD_TOKEN }}
+        run: |
+          git clone https://x-access-token:${TOKEN}@github.com/Caro-Li-C/opc-content-source.git _tmp_source
+          mkdir -p _posts/policy
+          cp _tmp_source/policy/*.md _posts/policy/
+          rm -rf _tmp_source
+      
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Build with Jekyll
