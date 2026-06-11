@@ -50,16 +50,20 @@
             max-width: 1200px;
             margin: 0 auto;
             display: flex;
+            flex-wrap: wrap;
             align-items: center;
             justify-content: space-between;
-            height: 72px;
         }
 
+        /* Logo */
         .topnav-left {
+            order: 1;
             display: flex;
             align-items: center;
             gap: 12px;
             text-decoration: none;
+            flex-shrink: 0;
+            height: 64px;
         }
 
         .topnav-logo-icon {
@@ -82,6 +86,7 @@
             display: flex;
             flex-direction: column;
             line-height: 1.3;
+            white-space: nowrap;
         }
 
         .topnav-logo-name {
@@ -89,21 +94,110 @@
             font-weight: 700;
             color: var(--charcoal);
             letter-spacing: 0.5px;
+            white-space: nowrap;
         }
 
         .topnav-logo-sub {
             font-size: 11px;
             color: var(--nav-muted);
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             font-weight: 500;
             text-transform: uppercase;
+            white-space: nowrap;
         }
 
-        .topnav-center {
+        /* 搜索框 + 加入社群 */
+        .topnav-right {
+            order: 2;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-shrink: 0;
+            height: 64px;
+        }
+
+        .topnav-search-box {
             display: flex;
             align-items: center;
             gap: 8px;
+            padding: 8px 14px;
+            border: 1px solid var(--nav-border);
+            border-radius: 8px;
+            background: var(--parchment);
+            width: 200px;
+            transition: all 0.2s;
+        }
+
+        .topnav-search-box:hover,
+        .topnav-search-box:focus-within {
+            border-color: var(--brass);
+            background: var(--white);
+        }
+
+        .topnav-search-box .search-icon {
+            width: 16px;
+            height: 16px;
+            color: var(--nav-muted);
+            flex-shrink: 0;
+        }
+
+        .topnav-search-box input {
+            border: none;
+            background: transparent;
+            outline: none;
+            font-size: 13px;
+            color: var(--charcoal);
+            width: 100%;
+            font-family: inherit;
+        }
+
+        .topnav-search-box input::placeholder {
+            color: var(--nav-muted);
+        }
+
+        .topnav-cta {
+            text-decoration: none;
+            font-size: 14px;
+            color: var(--nav-text);
+            font-weight: 600;
+            padding: 8px 16px;
+            border: 1px solid var(--nav-border);
+            border-radius: 8px;
+            transition: all 0.2s;
+            background: var(--white);
+            white-space: nowrap;
+        }
+
+        .topnav-cta:hover {
+            border-color: var(--brass);
+            color: var(--brass-dark);
+            background: var(--parchment);
+        }
+
+        /* 8个栏目 — 默认换行到第二行 */
+        .topnav-center {
+            order: 3;
+            flex: 1 0 100%;
+            display: flex;
+            align-items: center;
+            gap: 4px;
             list-style: none;
+            justify-content: flex-start;
+            height: 52px;
+            position: relative;
+            border-top: 1px solid var(--nav-border);
+        }
+
+        /* C方案装饰线：从左到右渐隐 */
+        .topnav-center::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(to right, var(--nav-border) 0%, var(--nav-border) 55%, transparent 100%);
+            pointer-events: none;
         }
 
         .topnav-center a {
@@ -111,9 +205,10 @@
             font-size: 14px;
             color: var(--nav-text);
             font-weight: 500;
-            padding: 8px 16px;
+            padding: 8px 10px;
             border-radius: 6px;
             transition: all 0.2s;
+            white-space: nowrap;
         }
 
         .topnav-center a:hover {
@@ -127,43 +222,76 @@
             font-weight: 600;
         }
 
-        .topnav-right {
-            display: flex;
-            align-items: center;
-            gap: 20px;
+        /* ===== 宽屏（≥1320px）：单行，Logo | 栏目 | 搜索框 | 加入社群 ===== */
+        @media (min-width: 1320px) {
+            .topnav-inner {
+                flex-wrap: nowrap;
+                height: 72px;
+                max-width: 1240px;
+            }
+
+            .topnav-left {
+                order: 0;
+                height: auto;
+                margin-right: 15px;
+            }
+
+            .topnav-right {
+                order: 0;
+                height: auto;
+                gap: 20px;
+            }
+
+            .topnav-search-box {
+                width: 140px;
+            }
+
+            .topnav-center {
+                order: 0;
+                flex: 1;
+                height: auto;
+                border-top: none;
+                justify-content: center;
+                gap: 0;
+            }
+
+            .topnav-center::after {
+                display: none;
+            }
+
+            .topnav-center li {
+                flex: 1;
+                text-align: center;
+                min-width: 0;
+            }
+
+            .topnav-center a {
+                padding: 8px 4px;
+                display: inline-block;
+                width: 100%;
+                white-space: nowrap;
+            }
         }
 
-        .topnav-search {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            color: var(--nav-muted);
-            transition: color 0.2s;
-        }
+        /* ===== 小屏（<768px）：保留 Logo + 搜索框 + 加入社群 ===== */
+        @media (max-width: 768px) {
+            .topnav-center {
+                display: none;
+            }
 
-        .topnav-search:hover { color: var(--charcoal); }
+            .topnav-left,
+            .topnav-right {
+                height: 56px;
+            }
 
-        .topnav-search svg { width: 20px; height: 20px; }
+            .topnav-search-box {
+                width: 140px;
+                padding: 6px 10px;
+            }
 
-        .topnav-cta {
-            text-decoration: none;
-            font-size: 14px;
-            color: var(--nav-text);
-            font-weight: 600;
-            padding: 10px 20px;
-            border: 1px solid var(--nav-border);
-            border-radius: 8px;
-            transition: all 0.2s;
-            background: var(--white);
-        }
-
-        .topnav-cta:hover {
-            border-color: var(--brass);
-            color: var(--brass-dark);
-            background: var(--parchment);
+            .topnav-search-box input::placeholder {
+                font-size: 12px;
+            }
         }
 
         /* ===== 英雄区 ===== */
@@ -803,7 +931,6 @@
 
         /* 响应式 */
         @media (max-width: 768px) {
-            .topnav-center, .topnav-search { display: none; }
             .hero h1, .join h2 { font-size: 36px; }
             .stats-inner, .matrix-inner { flex-wrap: wrap; }
             .stat-item, .matrix-item {
@@ -821,6 +948,7 @@
             .footer-brand { grid-column: 1 / -1; }
         }
     </style>
+<base target="_blank">
 <base target="_blank">
 </head>
 <body>
@@ -848,11 +976,12 @@
             </ul>
 
             <div class="topnav-right">
-                <div class="topnav-search">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <div class="topnav-search-box">
+                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="11" cy="11" r="8"></circle>
                         <path d="m21 21-4.3-4.3"></path>
                     </svg>
+                    <input type="text" placeholder="搜索政策、指南...">
                 </div>
                 <a href="#" class="topnav-cta">加入社群</a>
             </div>
@@ -1175,4 +1304,3 @@
     </footer>
 </body>
 </html>
-
