@@ -186,18 +186,6 @@
       justify-content: flex-start;
       height: 52px;
       position: relative;
-      border-top: 1px solid var(--nav-border);
-    }
-
-    .topnav-center::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(to right, var(--nav-border) 0%, var(--nav-border) 55%, transparent 100%);
-      pointer-events: none;
     }
 
     .topnav-center a {
@@ -248,9 +236,6 @@
         border-top: none;
         justify-content: center;
         gap: 0;
-      }
-      .topnav-center::after {
-        display: none;
       }
       .topnav-center li {
         flex: 1;
