@@ -1,159 +1,99 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>政策解读 | OPC创业汇</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
-            background: #f5f5f0;
-            color: #1a1a1a;
-            line-height: 1.6;
-            min-height: 100vh;
-        }
-        .top-bar {
-            background: #1a1a1a;
-            padding: 16px 0;
-        }
-        .top-bar a {
-            display: block;
-            max-width: 720px;
-            margin: 0 auto;
-            padding: 0 24px;
-            color: #888;
-            text-decoration: none;
-            font-size: 12px;
-            letter-spacing: 1px;
-            transition: color 0.3s;
-        }
-        .top-bar a:hover { color: #fff; }
-        .container {
-            max-width: 720px;
-            margin: 0 auto;
-            padding: 100px 24px 120px;
-        }
-        .header {
-            margin-bottom: 80px;
-        }
-        .page-title {
-            font-size: 52px;
-            font-weight: 100;
-            letter-spacing: 12px;
-            margin-bottom: 16px;
-            color: #1a1a1a;
-        }
-        .divider {
-            width: 60px;
-            height: 1px;
-            background: #1a1a1a;
-            margin-bottom: 20px;
-        }
-        .page-subtitle {
-            font-size: 13px;
-            color: #999;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            font-weight: 400;
-        }
-        .cards {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        .card {
-            display: block;
-            background: #fff;
-            padding: 40px 36px;
-            text-decoration: none;
-            color: #1a1a1a;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            position: relative;
-            border: none;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-        }
-        .card::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 36px;
-            right: 36px;
-            height: 1px;
-            background: #eee;
-            transition: all 0.4s;
-        }
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.08);
-        }
-        .card:hover::after {
-            left: 0;
-            right: 0;
-            background: #1a1a1a;
-        }
-        .card-title {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            letter-spacing: 3px;
-        }
-        .card-desc {
-            font-size: 14px;
-            color: #999;
-            line-height: 1.7;
-            font-weight: 300;
-        }
-        .card-arrow {
-            margin-top: 24px;
-            font-size: 12px;
-            color: #ccc;
-            letter-spacing: 2px;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .card-arrow::after {
-            content: "→";
-            transition: transform 0.3s;
-        }
-        .card:hover .card-arrow {
-            color: #1a1a1a;
-        }
-        .card:hover .card-arrow::after {
-            transform: translateX(4px);
-        }
-        @media (max-width: 768px) {
-            .page-title { font-size: 36px; letter-spacing: 6px; }
-            .container { padding: 60px 20px 80px; }
-            .card { padding: 32px 24px; }
-        }
-    </style>
-<base target="_blank">
-</head>
-<body>
-    <div class="top-bar">
-        <a href="/">← 返回 OPC创业汇 首页</a>
+---
+layout: default
+title: "全国OPC政策汇编"
+---
+
+<style>
+  .policy-index {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 60px 48px;
+  }
+  .policy-index h1 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #1a1a1a;
+  }
+  .policy-index .subtitle {
+    color: #8a8279;
+    font-size: 16px;
+    margin-bottom: 48px;
+  }
+  .region-section {
+    margin-bottom: 48px;
+  }
+  .region-title {
+    font-size: 14px;
+    color: #b8956a;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e8e4df;
+  }
+  .province-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .province-card {
+    display: block;
+    padding: 24px;
+    border: 1px solid #e8e4df;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s;
+  }
+  .province-card:hover {
+    border-color: #b8956a;
+    background: #f5f3f0;
+  }
+  .province-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+  }
+  .province-count {
+    font-size: 14px;
+    color: #8a8279;
+  }
+  .province-cities {
+    font-size: 13px;
+    color: #8a8279;
+    margin-top: 8px;
+    line-height: 1.6;
+  }
+</style>
+
+<div class="policy-index">
+  <h1>全国OPC政策汇编</h1>
+  <p class="subtitle">按地区浏览，共 {{ site.data.policies | size }} 项政策</p>
+
+  {% assign regions = "长三角地区,粤港澳大湾区,京津冀及环渤海地区,长江中游地区,成渝地区,东三省地区,其他重点地区" | split: "," %}
+  
+  {% for region in regions %}
+    {% assign region_policies = site.data.policies | where: "region", region %}
+    {% if region_policies.size > 0 %}
+    <div class="region-section">
+      <div class="region-title">{{ region }}</div>
+      <div class="province-grid">
+        {% assign provinces = region_policies | group_by: "province" %}
+        {% for province in provinces %}
+          <a href="/policy/{{ province.name }}.html" class="province-card">
+            <div class="province-name">{{ province.name }}</div>
+            <div class="province-count">{{ province.items | size }} 项政策</div>
+            <div class="province-cities">
+              {% assign cities = province.items | map: "city" | uniq %}
+              {{ cities | join: " · " }}
+            </div>
+          </a>
+        {% endfor %}
+      </div>
     </div>
-    <div class="container">
-        <div class="header">
-            <h1 class="page-title">政策解读</h1>
-            <div class="divider"></div>
-            <p class="page-subtitle">Policy Center</p>
-        </div>
-        <div class="cards">
-            <a href="original/" class="card">
-                <div class="card-title">政策原文</div>
-                <div class="card-desc">全国各省市OPC专项政策文件原文汇编</div>
-                <div class="card-arrow">进入目录</div>
-            </a>
-            <a href="analysis/" class="card">
-                <div class="card-title">政策解析</div>
-                <div class="card-desc">OPC创业汇对重点政策的深度解读</div>
-                <div class="card-arrow">进入目录</div>
-            </a>
-        </div>
-    </div>
-</body>
-</html>
+    {% endif %}
+  {% endfor %}
+</div>
