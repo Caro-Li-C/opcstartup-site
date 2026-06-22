@@ -2,7 +2,6 @@
 import os
 import json
 import re
-import markdown
 import yaml
 from pathlib import Path
 
@@ -29,79 +28,90 @@ def parse_front_matter(text):
     body = parts[2].strip()
     return meta if meta else {}, body
 
+def extract_responsible_unit(line):
+    """提取段落末尾的责任单位"""
+    m = re.search(r'（责任单位：[^）]+?）(?:\s*（.*?）)?$', line)
+    if m:
+        main_text = line[:m.start()].strip()
+        responsible = m.group(0)
+        return main_text, f'<span class="responsible-unit">{responsible}</span>'
+    return line, ''
+
+def _flush_sig(html_parts, sig_lines):
+    sig_html = '<div class="inline-signature">\n'
+    for s in sig_lines:
+        if '公开发布' in s or '印发' in s:
+            sig_html += f'  <p class="pub-note">{s}</p>\n'
+        else:
+            sig_html += f'  <p class="sig-line">{s}</p>\n'
+    sig_html += '</div>\n'
+    html_parts.append(sig_html)
+
 def process_body_text(body_md):
-    """
-    处理正文文本：
-    1. 清洗零宽字符
-    2. 按行分割，每行转为独立段落
-    3. 识别标题层级（一、二、三... → h2； （一）（二）... → h3）
-    4. 识别落款
-    5. 返回精美 HTML
-    """
     body_md = clean_text(body_md)
-    
-    # 按行分割，过滤空行
     lines = [line.strip() for line in body_md.split('\n') if line.strip()]
     
     html_parts = []
     in_signature = False
-    signature_lines = []
+    sig_lines = []
+    line_idx = 0
     
     for line in lines:
-        # 识别一级标题：一、二、三... 
-        if re.match(r'^[一二三四五六七八九十]+[、\\.\\s]', line):
+        # 一级标题
+        if re.match(r'^[一二三四五六七八九十]+[、．\s]', line) and len(line) < 60:
+            if in_signature and sig_lines:
+                _flush_sig(html_parts, sig_lines)
+                in_signature = False
+                sig_lines = []
             html_parts.append(f'<h2>{line}</h2>')
+            line_idx += 1
             continue
         
-        # 识别二级标题：（一）（二）（三）...
-        if re.match(r'^（[一二三四五六七八九十]+）', line):
+        # 二级标题
+        if re.match(r'^（[一二三四五六七八九十]+）', line) and len(line) < 60:
+            if in_signature and sig_lines:
+                _flush_sig(html_parts, sig_lines)
+                in_signature = False
+                sig_lines = []
             html_parts.append(f'<h3>{line}</h3>')
+            line_idx += 1
             continue
         
-        # 识别落款开始
-        if re.match(r'^(.*?人民政府|.*?办公厅|.*?办公室|.*?局|.*?委员会)$', line) and not in_signature:
+        # 落款开始
+        if re.match(r'^(.*?人民政府|.*?办公厅|.*?办公室|.*?局|.*?委员会|.*?市场监督管理局)$', line) and not in_signature:
             in_signature = True
-            signature_lines = [line]
+            sig_lines = [line]
+            line_idx += 1
             continue
         
         if in_signature:
-            if re.match(r'^\\d{4}.*?(年|月|日)', line) or '公开发布' in line or '印发' in line:
-                signature_lines.append(line)
+            if re.match(r'^\d{4}.*?(年|月|日)', line) or '公开发布' in line or '印发' in line:
+                sig_lines.append(line)
+                line_idx += 1
                 continue
             else:
-                # 落款结束，输出
-                if signature_lines:
-                    sig_html = '<div class="inline-signature">\n'
-                    for sig_line in signature_lines:
-                        if '公开发布' in sig_line or '印发' in sig_line:
-                            sig_html += f'  <p class="pub-note">{sig_line}</p>\n'
-                        else:
-                            sig_html += f'  <p class="sig-line">{sig_line}</p>\n'
-                    sig_html += '</div>\n'
-                    html_parts.append(sig_html)
+                _flush_sig(html_parts, sig_lines)
                 in_signature = False
+                sig_lines = []
         
-        # 识别施行说明
+        # 施行说明
         if '本文件自' in line and '起施行' in line:
             html_parts.append(f'<div class="effective-date"><strong>施行说明：</strong>{line}</div>')
+            line_idx += 1
             continue
         
         # 普通段落
-        if in_signature:
-            signature_lines.append(line)
+        main_text, responsible = extract_responsible_unit(line)
+        p_class = 'meta-paragraph' if line_idx == 0 and ('各区' in line or '各县' in line or '各有关' in line or '现将' in line) else ''
+        
+        if p_class:
+            html_parts.append(f'<p class="{p_class}">{main_text}{responsible}</p>')
         else:
-            html_parts.append(f'<p>{line}</p>')
+            html_parts.append(f'<p>{main_text}{responsible}</p>')
+        line_idx += 1
     
-    # 处理未闭合的落款
-    if in_signature and signature_lines:
-        sig_html = '<div class="inline-signature">\n'
-        for sig_line in signature_lines:
-            if '公开发布' in sig_line or '印发' in sig_line:
-                sig_html += f'  <p class="pub-note">{sig_line}</p>\n'
-            else:
-                sig_html += f'  <p class="sig-line">{sig_line}</p>\n'
-        sig_html += '</div>\n'
-        html_parts.append(sig_html)
+    if in_signature and sig_lines:
+        _flush_sig(html_parts, sig_lines)
     
     return '\n'.join(html_parts)
 
@@ -113,11 +123,9 @@ def render_policy_html(meta, body_md, title):
     category = meta.get('category', '政策解读')
     subcategory = meta.get('subcategory', '政策原文')
     
-    # 处理正文
     body_html = process_body_text(body_md)
     
-    html = f'''
-<article class="article-container">
+    html = f'''<article class="article-container">
   <header class="policy-header">
     <div class="policy-meta">
       <span class="meta-tag category">{category}</span>
@@ -176,6 +184,11 @@ title: """ + title + """
     letter-spacing: 1px;
   }
   .back:hover { color: #222; }
+  .article-container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 40px 24px 0;
+  }
   .policy-header {
     border-bottom: 1px solid var(--border);
     padding-bottom: 32px;
@@ -258,46 +271,14 @@ title: """ + title + """
     padding-left: 12px;
     border-left: 3px solid var(--accent);
   }
-  .policy-body h4 {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin: 24px 0 12px;
-  }
-  .policy-body ul, .policy-body ol {
-    margin: 16px 0;
-    padding-left: 32px;
-  }
-  .policy-body li {
-    margin: 12px 0;
-    line-height: 1.9;
-  }
-  .policy-body table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 24px 0;
+  .responsible-unit {
+    display: inline;
+    color: var(--text-muted);
     font-size: 14px;
   }
-  .policy-body th, .policy-body td {
-    border: 1px solid var(--border);
-    padding: 10px 12px;
-    text-align: left;
-  }
-  .policy-body th {
-    background: var(--bg-elevated);
-    font-weight: 600;
-  }
-  .policy-body blockquote {
-    border-left: 3px solid var(--accent);
-    margin: 20px 0;
-    padding: 12px 24px;
-    background: var(--bg-elevated);
+  .meta-paragraph {
     color: var(--text-secondary);
-    line-height: 1.8;
-  }
-  .policy-body strong {
-    font-weight: 600;
-    color: var(--text-primary);
+    font-size: 15px;
   }
   .inline-signature {
     margin: 24px 0 36px;
@@ -333,6 +314,7 @@ title: """ + title + """
   .back-to-list {
     text-align: center;
     margin-bottom: 32px;
+    margin-top: 48px;
   }
   .back-to-list a {
     display: inline-flex;
@@ -344,19 +326,6 @@ title: """ + title + """
     transition: color 0.2s;
   }
   .back-to-list a:hover { color: var(--accent); }
-  .watermark {
-    position: fixed;
-    top: 50%; 
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(-45deg);
-    font-size: 120px;
-    color: rgba(0,0,0,0.012);
-    pointer-events: none;
-    z-index: 9999;
-    user-select: none;
-    font-family: sans-serif;
-    letter-spacing: 10px;
-  }
   @media (max-width: 640px) {
     .policy-title { font-size: 21px; }
     .policy-body { font-size: 15px; }
@@ -365,8 +334,7 @@ title: """ + title + """
 </style>
 
 <div class="policy-container">
-  """ + back_html + body_content + """  <div class="watermark">OPC创业汇</div>
-</div>
+  """ + back_html + body_content + """</div>
 """
 
 def make_slug(fname):
