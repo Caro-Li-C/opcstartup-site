@@ -13,8 +13,6 @@ output_base = Path('policy/original')
 ZERO_WIDTH_CHARS = '\u200b\u200c\u200d\ufeff\u2060\u2061\u2062\u2063\u2064\u206a\u206b\u206c\u206d\u206e\u206f'
 
 def clean_text(text):
-    if not text:
-        return ''
     return ''.join(c for c in text if c not in ZERO_WIDTH_CHARS)
 
 def parse_front_matter(text):
@@ -52,42 +50,15 @@ def _sig_html(lines):
     html += '</div>\n'
     return html
 
-def process_body(body_md, title=''):
+def process_body(body_md):
     body_md = clean_text(body_md)
     lines = [line.strip() for line in body_md.split('\n') if line.strip()]
     parts = []
     in_sig = False
     sig_lines = []
     idx = 0
-    core_title_found = False
     
     for line in lines:
-        # 1. 跳过重复标题行：包含"关于印发/关于"和"通知"和文号的整行
-        if ('关于印发' in line or '关于' in line) and '通知' in line and re.search(r'〔\d{4}〕\d+号', line):
-            idx += 1
-            continue
-        
-        # 2. 跳过仅包含"XX〔2026〕43号"这样的独立文号行
-        if re.match(r'^[\u4e00-\u9fff]+〔\d{4}〕\d+号$', line):
-            idx += 1
-            continue
-        
-        # 3. 处理"此文件公开发布" / "此件公开发布" 发布说明
-        if ('此文件公开发布' in line or '此件公开发布' in line) and len(line) < 20:
-            parts.append(f'<p class="pub-note" style="text-align:left;">{line}</p>')
-            idx += 1
-            continue
-        
-        # 4. 识别核心标题：必须是"支持...若干举措/措施/意见/方案"格式
-        # 排除包含书名号《》的内容，排除已识别过的
-        if not core_title_found and len(line) < 80 and '《' not in line and '》' not in line:
-            if re.search(r'(?:支持|促进|推动|加快).+(?:若干举措|若干措施|若干意见|行动方案|实施方案)', line):
-                parts.append(f'<h1 class="core-title">{line}</h1>')
-                core_title_found = True
-                idx += 1
-                continue
-        
-        # 5. 大章节：一、二、三...
         if re.match(r'^[一二三四五六七八九十]+[、．\s]', line) and len(line) < 60:
             if in_sig and sig_lines:
                 parts.append(_sig_html(sig_lines))
@@ -97,7 +68,6 @@ def process_body(body_md, title=''):
             idx += 1
             continue
         
-        # 6. 子条款：（一）（二）...
         if re.match(r'^（[一二三四五六七八九十]+）', line) and len(line) < 60:
             if in_sig and sig_lines:
                 parts.append(_sig_html(sig_lines))
@@ -107,7 +77,6 @@ def process_body(body_md, title=''):
             idx += 1
             continue
         
-        # 7. 落款单位识别
         if re.match(r'^(.*?人民政府|.*?办公厅|.*?办公室|.*?局|.*?委员会|.*?市场监督管理局)$', line) and not in_sig:
             in_sig = True
             sig_lines = [line]
@@ -124,7 +93,6 @@ def process_body(body_md, title=''):
                 in_sig = False
                 sig_lines = []
         
-        # 8. 施行日期
         if '起施行' in line and ('自' in line or '从' in line):
             parts.append(f'<div class="effective-date"><strong>施行说明：</strong>{line}</div>')
             idx += 1
@@ -145,32 +113,19 @@ def process_body(body_md, title=''):
     return '\n'.join(parts)
 
 def render_html(meta, body_md, title):
-    doc_no = clean_text(meta.get('doc_no', ''))
-    date = clean_text(meta.get('date', ''))
-    publisher = clean_text(meta.get('publisher', ''))
-    source = clean_text(meta.get('source', '公众号OPC创业汇'))
-    category = clean_text(meta.get('category', '政策解读'))
-    subcategory = clean_text(meta.get('subcategory', '政策原文'))
+    doc_no = meta.get('doc_no', '')
+    date = meta.get('date', '')
+    publisher = meta.get('publisher', '')
+    source = meta.get('source', '公众号OPC创业汇')
+    category = meta.get('category', '政策解读')
+    subcategory = meta.get('subcategory', '政策原文')
     city = extract_city(title)
     
-    # 补全文号：如果 doc_no 以 〔 开头，说明缺少发文单位前缀
-    if doc_no and re.match(r'^[〔(（]', doc_no):
-        prefix = ''
-        if publisher and len(publisher) >= 2:
-            prefix = publisher
-        else:
-            m = re.match(r'^(.*?)(?:关于|印发)', title)
-            if m:
-                prefix = m.group(1).strip()
-        if prefix:
-            doc_no = f"{prefix}{doc_no}"
-    
-    # 兜底 publisher
-    if not publisher or len(publisher) < 2 or '本文件' in publisher or '施行' in publisher:
+    if not publisher or len(publisher) < 4 or '本文件' in publisher or '施行' in publisher:
         m = re.match(r'^(.*?)(?:关于|印发)', title)
         publisher = m.group(1).strip() if m else publisher
     
-    body = process_body(body_md, title=title)
+    body = process_body(body_md)
     
     return f'''---
 layout: default
@@ -197,10 +152,9 @@ title: {title}
     font-size: 16px;
   }}
   .article-container {{
+    max-width: 780px;
     margin: 0 auto;
     padding: 40px 24px 80px;
-    max-width: none;
-    width: 100%;
   }}
   .policy-header {{
     border-bottom: 1px solid var(--border);
@@ -342,10 +296,9 @@ title: {title}
     font-weight: 600;
   }}
   .article-nav {{
+    max-width: 780px;
     margin: 0 auto;
     padding: 0 24px 60px;
-    max-width: none;
-    width: 100%;
     display: flex;
     justify-content: space-between;
   }}
@@ -380,22 +333,11 @@ title: {title}
     transition: color 0.2s;
   }}
   .back-to-list a:hover {{ color: var(--accent); }}
-  .core-title {{
-    text-align: center;
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin: 32px 0 24px;
-    padding: 0;
-    border: none;
-    letter-spacing: 0.5px;
-  }}
   @media (max-width: 640px) {{
     .policy-title {{ font-size: 21px; }}
     .policy-body {{ font-size: 15px; }}
     .policy-body h2 {{ font-size: 17px; }}
     .nav-links {{ display: none; }}
-    .core-title {{ font-size: 18px; }}
   }}
 </style>
 <base target="_blank">
@@ -448,6 +390,7 @@ for region in structure['regions']:
         ch_html += f'<li style="border-left:2px solid #1a1a1a;padding-left:20px;margin-bottom:24px;"><div style="font-size:12px;color:#888;letter-spacing:2px;margin-bottom:6px;">第{CN[i]}章</div><a href="{ch["id"]}/" style="color:#1a1a1a;text-decoration:none;font-size:16px;">{ch["name"]}</a></li>\n'
     
     r_idx = structure['regions'].index(region)
+    r_body = f'<div style="font-size:12px;color:#888;letter-spacing:2px;margin-bottom:10px;">第{CN[r_idx]}篇</div>\n<h1 style="font-size:28px;font-weight:400;padding-bottom:16px;margin-bottom:40px;letter-spacing:2px;">{region["name"]}</h1>\n<ul style="list-style:none;padding:0;margin:0;">\n{ch_html}</ul>\n'
     
     region_tpl = f'''---
 layout: default
@@ -455,7 +398,7 @@ title: {region['name']}
 ---
 
 <style>
-  .article-container {{ margin: 0 auto; padding: 40px 24px 80px; max-width: none; width: 100%; }}
+  .article-container {{ max-width: 780px; margin: 0 auto; padding: 40px 24px 80px; }}
 </style>
 
 <div style="font-size:12px;color:#888;letter-spacing:2px;margin-bottom:10px;">第{CN[r_idx]}篇</div>
@@ -496,7 +439,7 @@ title: {ch['name']}
 ---
 
 <style>
-  .article-container {{ margin: 0 auto; padding: 40px 24px 80px; max-width: none; width: 100%; }}
+  .article-container {{ max-width: 780px; margin: 0 auto; padding: 40px 24px 80px; }}
 </style>
 
 <div style="font-size:12px;color:#888;letter-spacing:2px;margin-bottom:10px;">第{CN[i]}章</div>
