@@ -28,8 +28,15 @@ def parse_front_matter(text):
     body = parts[2].strip()
     return meta if meta else {}, body
 
+def extract_city_and_publisher(title):
+    """从标题提取城市标签和发布单位"""
+    city_match = re.match(r'^(.*?市)', title)
+    city_tag = city_match.group(1).replace('市', '') if city_match else ''
+    pub_match = re.match(r'^(.*?)(?:关于|印发|印发关于)', title)
+    publisher = pub_match.group(1).strip() if pub_match else ''
+    return city_tag, publisher
+
 def extract_responsible_unit(line):
-    """提取段落末尾的责任单位"""
     m = re.search(r'（责任单位：[^）]+?）(?:\s*（.*?）)?$', line)
     if m:
         main_text = line[:m.start()].strip()
@@ -50,14 +57,12 @@ def _flush_sig(html_parts, sig_lines):
 def process_body_text(body_md):
     body_md = clean_text(body_md)
     lines = [line.strip() for line in body_md.split('\n') if line.strip()]
-    
     html_parts = []
     in_signature = False
     sig_lines = []
     line_idx = 0
     
     for line in lines:
-        # 一级标题
         if re.match(r'^[一二三四五六七八九十]+[、．\s]', line) and len(line) < 60:
             if in_signature and sig_lines:
                 _flush_sig(html_parts, sig_lines)
@@ -67,7 +72,6 @@ def process_body_text(body_md):
             line_idx += 1
             continue
         
-        # 二级标题
         if re.match(r'^（[一二三四五六七八九十]+）', line) and len(line) < 60:
             if in_signature and sig_lines:
                 _flush_sig(html_parts, sig_lines)
@@ -77,7 +81,6 @@ def process_body_text(body_md):
             line_idx += 1
             continue
         
-        # 落款开始
         if re.match(r'^(.*?人民政府|.*?办公厅|.*?办公室|.*?局|.*?委员会|.*?市场监督管理局)$', line) and not in_signature:
             in_signature = True
             sig_lines = [line]
@@ -94,13 +97,11 @@ def process_body_text(body_md):
                 in_signature = False
                 sig_lines = []
         
-        # 施行说明
         if '本文件自' in line and '起施行' in line:
             html_parts.append(f'<div class="effective-date"><strong>施行说明：</strong>{line}</div>')
             line_idx += 1
             continue
         
-        # 普通段落
         main_text, responsible = extract_responsible_unit(line)
         p_class = 'meta-paragraph' if line_idx == 0 and ('各区' in line or '各县' in line or '各有关' in line or '现将' in line) else ''
         
@@ -123,21 +124,29 @@ def render_policy_html(meta, body_md, title):
     category = meta.get('category', '政策解读')
     subcategory = meta.get('subcategory', '政策原文')
     
+    city_tag, extracted_publisher = extract_city_and_publisher(title)
+    if not publisher or len(publisher) < 4 or '本文件' in publisher or '施行' in publisher or '自' in publisher:
+        publisher = extracted_publisher
+    
     body_html = process_body_text(body_md)
+    
+    calendar_svg = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>'
+    building_svg = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>'
+    source_svg = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>'
     
     html = f'''<article class="article-container">
   <header class="policy-header">
     <div class="policy-meta">
       <span class="meta-tag category">{category}</span>
       <span class="meta-tag">{subcategory}</span>
-      {f'<span class="meta-tag">{publisher}</span>' if publisher else ''}
+      {f'<span class="meta-tag">{city_tag}</span>' if city_tag else ''}
     </div>
     <h1 class="policy-title">{title}</h1>
     {f'<div class="policy-doc-no">{doc_no}</div>' if doc_no else ''}
     <div class="policy-source-bar">
-      {f'<div class="source-item">📅 {date}</div>' if date else ''}
-      {f'<div class="source-item">🏛️ {publisher}</div>' if publisher else ''}
-      <div class="source-item">📢 来源：{source}</div>
+      {f'<div class="source-item">{calendar_svg} {date}</div>' if date else ''}
+      {f'<div class="source-item">{building_svg} {publisher}</div>' if publisher else ''}
+      <div class="source-item">{source_svg} 来源：{source}</div>
     </div>
   </header>
   <div class="policy-body">
@@ -244,6 +253,11 @@ title: """ + title + """
     display: flex;
     align-items: center;
     gap: 6px;
+  }
+  .source-item svg {
+    width: 14px;
+    height: 14px;
+    opacity: 0.5;
   }
   .policy-body {
     font-size: 16px;
