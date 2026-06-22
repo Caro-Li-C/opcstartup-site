@@ -59,15 +59,10 @@ def process_body(body_md, title=''):
     in_sig = False
     sig_lines = []
     idx = 0
-    
-    # 从 title 提取核心标题关键词，用于识别正文中的核心标题
-    title_core = ''
-    m = re.search(r'关于(.+?)(?:的|通知|意见|方案|措施|举措)', title)
-    if m:
-        title_core = m.group(1).strip()
+    core_title_found = False
     
     for line in lines:
-        # 1. 跳过重复标题行：包含"关于印发"和"通知"和文号的整行
+        # 1. 跳过重复标题行：包含"关于印发/关于"和"通知"和文号的整行
         if ('关于印发' in line or '关于' in line) and '通知' in line and re.search(r'〔\d{4}〕\d+号', line):
             idx += 1
             continue
@@ -77,25 +72,22 @@ def process_body(body_md, title=''):
             idx += 1
             continue
         
-        # 3. 识别核心标题并加粗居中（前5行内）
-        is_core_title = False
-        if idx < 5 and len(line) < 80 and not line.startswith('（') and not re.match(r'^[一二三四五六七八九十]', line):
-            # 模式A：常见政策标题模式
-            if re.search(r'(?:支持|促进|推动|加快).*(?:若干举措|若干措施|若干意见|行动方案|实施方案|发展)', line):
-                is_core_title = True
-            # 模式B：与 title 中"关于"后的核心内容匹配
-            elif title_core and title_core in line:
-                is_core_title = True
-            # 模式C：以书名号包裹的政策名称
-            elif re.match(r'^《.+》$', line):
-                is_core_title = True
-        
-        if is_core_title:
-            parts.append(f'<h1 class="core-title">{line}</h1>')
+        # 3. 处理"此文件公开发布" / "此件公开发布" 发布说明
+        if ('此文件公开发布' in line or '此件公开发布' in line) and len(line) < 20:
+            parts.append(f'<p class="pub-note" style="text-align:left;">{line}</p>')
             idx += 1
             continue
         
-        # 4. 大章节：一、二、三...
+        # 4. 识别核心标题：必须是"支持...若干举措/措施/意见/方案"格式
+        # 排除包含书名号《》的内容，排除已识别过的
+        if not core_title_found and len(line) < 80 and '《' not in line and '》' not in line:
+            if re.search(r'(?:支持|促进|推动|加快).+(?:若干举措|若干措施|若干意见|行动方案|实施方案)', line):
+                parts.append(f'<h1 class="core-title">{line}</h1>')
+                core_title_found = True
+                idx += 1
+                continue
+        
+        # 5. 大章节：一、二、三...
         if re.match(r'^[一二三四五六七八九十]+[、．\s]', line) and len(line) < 60:
             if in_sig and sig_lines:
                 parts.append(_sig_html(sig_lines))
@@ -105,7 +97,7 @@ def process_body(body_md, title=''):
             idx += 1
             continue
         
-        # 5. 子条款：（一）（二）...  —— 去掉顿号要求，只要有（一）即可
+        # 6. 子条款：（一）（二）...
         if re.match(r'^（[一二三四五六七八九十]+）', line) and len(line) < 60:
             if in_sig and sig_lines:
                 parts.append(_sig_html(sig_lines))
@@ -115,7 +107,7 @@ def process_body(body_md, title=''):
             idx += 1
             continue
         
-        # 6. 落款单位识别
+        # 7. 落款单位识别
         if re.match(r'^(.*?人民政府|.*?办公厅|.*?办公室|.*?局|.*?委员会|.*?市场监督管理局)$', line) and not in_sig:
             in_sig = True
             sig_lines = [line]
@@ -132,7 +124,7 @@ def process_body(body_md, title=''):
                 in_sig = False
                 sig_lines = []
         
-        # 7. 施行日期
+        # 8. 施行日期
         if '起施行' in line and ('自' in line or '从' in line):
             parts.append(f'<div class="effective-date"><strong>施行说明：</strong>{line}</div>')
             idx += 1
@@ -161,14 +153,12 @@ def render_html(meta, body_md, title):
     subcategory = clean_text(meta.get('subcategory', '政策原文'))
     city = extract_city(title)
     
-    # 补全文号：如果 doc_no 以 〔 或 ( 开头，说明缺少发文单位前缀
+    # 补全文号：如果 doc_no 以 〔 开头，说明缺少发文单位前缀
     if doc_no and re.match(r'^[〔(（]', doc_no):
         prefix = ''
-        # 优先用 publisher（如果 publisher 是简称如"杭市监"）
         if publisher and len(publisher) >= 2:
             prefix = publisher
         else:
-            # 从 title 提取发文单位
             m = re.match(r'^(.*?)(?:关于|印发)', title)
             if m:
                 prefix = m.group(1).strip()
