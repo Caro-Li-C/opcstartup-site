@@ -127,7 +127,6 @@ def render_html(meta, body_md, title):
     
     body = process_body(body_md)
     
-    # 完全复制宁波模板的 CSS 和结构
     return f'''---
 layout: default
 title: {title}
@@ -146,9 +145,29 @@ title: {title}
     --accent-border: rgba(196, 163, 90, 0.25);
   }}
   .article-container {{
-    max-width: 780px;
+    max-width: 900px;
     margin: 0 auto;
-    padding: 40px 24px 80px;
+    padding: 40px 32px 80px;
+  }}
+  /* 大屏幕：更宽 */
+  @media (min-width: 1400px) {{
+    .article-container {{
+      max-width: 1200px;
+      padding: 40px 60px 80px;
+    }}
+  }}
+  /* 平板：中等宽度 */
+  @media (max-width: 1024px) {{
+    .article-container {{
+      max-width: 100%;
+      padding: 40px 40px 80px;
+    }}
+  }}
+  /* 手机：占满屏幕 */
+  @media (max-width: 768px) {{
+    .article-container {{
+      padding: 20px 20px 60px;
+    }}
   }}
   .policy-header {{
     border-bottom: 1px solid var(--border);
@@ -293,11 +312,24 @@ title: {title}
   }}
   .back-to-list a:hover {{ color: var(--accent); }}
   .article-nav {{
-    max-width: 780px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 0 24px 60px;
+    padding: 0 60px 60px;
     display: flex;
     justify-content: space-between;
+  }}
+  @media (max-width: 1024px) {{
+    .article-nav {{
+      padding: 0 40px 60px;
+    }}
+  }}
+  @media (max-width: 768px) {{
+    .article-nav {{
+      padding: 0 20px 40px;
+    }}
+    .policy-title {{ font-size: 21px; }}
+    .policy-body {{ font-size: 15px; }}
+    .policy-body h2 {{ font-size: 17px; }}
   }}
   .nav-btn {{
     display: inline-flex;
@@ -315,11 +347,6 @@ title: {title}
   .nav-btn:hover {{
     border-color: var(--accent);
     color: var(--accent);
-  }}
-  @media (max-width: 640px) {{
-    .policy-title {{ font-size: 21px; }}
-    .policy-body {{ font-size: 15px; }}
-    .policy-body h2 {{ font-size: 17px; }}
   }}
 </style>
 
@@ -374,7 +401,10 @@ title: {region['name']}
 ---
 
 <style>
-  .article-container {{ max-width: 780px; margin: 0 auto; padding: 40px 24px 80px; }}
+  .article-container {{ max-width: 900px; margin: 0 auto; padding: 40px 32px 80px; }}
+  @media (min-width: 1400px) {{ .article-container {{ max-width: 1200px; padding: 40px 60px 80px; }} }}
+  @media (max-width: 1024px) {{ .article-container {{ max-width: 100%; padding: 40px 40px 80px; }} }}
+  @media (max-width: 768px) {{ .article-container {{ padding: 20px 20px 60px; }} }}
 </style>
 
 <div style="font-size:12px;color:#888;letter-spacing:2px;margin-bottom:10px;">第{CN[r_idx]}篇</div>
@@ -415,7 +445,10 @@ title: {ch['name']}
 ---
 
 <style>
-  .article-container {{ max-width: 780px; margin: 0 auto; padding: 40px 24px 80px; }}
+  .article-container {{ max-width: 900px; margin: 0 auto; padding: 40px 32px 80px; }}
+  @media (min-width: 1400px) {{ .article-container {{ max-width: 1200px; padding: 40px 60px 80px; }} }}
+  @media (max-width: 1024px) {{ .article-container {{ max-width: 100%; padding: 40px 40px 80px; }} }}
+  @media (max-width: 768px) {{ .article-container {{ padding: 20px 20px 60px; }} }}
 </style>
 
 <div style="font-size:12px;color:#888;letter-spacing:2px;margin-bottom:10px;">第{CN[i]}章</div>
