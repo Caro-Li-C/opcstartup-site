@@ -2,54 +2,57 @@
 name: Deploy Jekyll with GitHub Pages dependencies preinstalled
 
 on:
-  # Runs on pushes targeting the default branch
   push:
     branches: ["main"]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
 jobs:
-  # Build job
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      
-      # 从私库拉取政策内容
+
+      # 1. 从私库拉取内容（structure.json + 76 个 md）
       - name: Pull content from private source repo
         env:
           TOKEN: ${{ secrets.POLICY_MD_TOKEN }}
         run: |
           git clone https://x-access-token:${TOKEN}@github.com/Caro-Li-C/opc-content-source.git _tmp_source
-          mkdir -p _posts/policy
-          cp _tmp_source/policy/*.md _posts/policy/
-          rm -rf _tmp_source
-      
+
+      # 2. 安装 Python 依赖（用于 md 转 HTML）
+      - name: Install Python dependencies
+        run: pip install markdown
+
+      # 3. 生成政策静态页面（关键：替代原来的 _posts/policy 方案）
+      - name: Generate policy pages
+        run: python scripts/generate_policy_pages.py
+
+      # 4. 清理临时文件（不进入构建产物）
+      - name: Clean up temp source
+        run: rm -rf _tmp_source
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
+
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
           source: ./
           destination: ./_site
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
 
-  # Deployment job
   deploy:
     environment:
       name: github-pages
@@ -59,4 +62,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v5
+        uses: actions/deploy-pages@v4
