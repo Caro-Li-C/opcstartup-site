@@ -94,7 +94,7 @@ def process_body(body_md):
                 sig_lines = []
         
         if '本文件自' in line and '起施行' in line:
-            parts.append(f'<div class="effective-date"><strong>施行说明:</strong>{line}</div>')
+            parts.append(f'<div class="effective-date"><strong>施行说明：</strong>{line}</div>')
             idx += 1
             continue
         
@@ -127,37 +127,7 @@ def render_html(meta, body_md, title):
     
     body = process_body(body_md)
     
-    cal = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>'
-    bld = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>'
-    src = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>'
-    
-    return f'''<article class="article-container">
-  <header class="policy-header">
-    <div class="policy-meta">
-      <span class="meta-tag category">{category}</span>
-      <span class="meta-tag">{subcategory}</span>
-      {f'<span class="meta-tag">{city}</span>' if city else ''}
-    </div>
-    <h1 class="policy-title">{title}</h1>
-    {f'<div class="policy-doc-no">{doc_no}</div>' if doc_no else ''}
-    <div class="policy-source-bar">
-      {f'<div class="source-item">{cal} {date}</div>' if date else ''}
-      {f'<div class="source-item">{bld} {publisher}</div>' if publisher else ''}
-      <div class="source-item">{src} 来源: {source}</div>
-    </div>
-  </header>
-  <div class="policy-body">
-    {body}
-  </div>
-</article>
-
-<div class="back-to-list">
-  <a href="./">返回政策列表</a>
-</div>
-'''
-
-def page_tpl(title, content, back_link=None, back_text=None):
-    back = f'<a class="back" href="{back_link}">返回 {back_text}</a>\n' if back_link else ''
+    # 完全复制宁波模板的 CSS 和结构
     return f'''---
 layout: default
 title: {title}
@@ -175,24 +145,10 @@ title: {title}
     --accent-dim: rgba(196, 163, 90, 0.1);
     --accent-border: rgba(196, 163, 90, 0.25);
   }}
-  .policy-container {{
-    max-width: 780px;
-    margin: 0 auto;
-    padding: 20px 24px 80px;
-  }}
-  .back {{
-    color: #888;
-    font-size: 14px;
-    text-decoration: none;
-    margin-bottom: 20px;
-    display: inline-block;
-    letter-spacing: 1px;
-  }}
-  .back:hover {{ color: #222; }}
   .article-container {{
     max-width: 780px;
     margin: 0 auto;
-    padding: 40px 24px 0;
+    padding: 40px 24px 80px;
   }}
   .policy-header {{
     border-bottom: 1px solid var(--border);
@@ -336,6 +292,30 @@ title: {title}
     transition: color 0.2s;
   }}
   .back-to-list a:hover {{ color: var(--accent); }}
+  .article-nav {{
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 24px 60px;
+    display: flex;
+    justify-content: space-between;
+  }}
+  .nav-btn {{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s;
+    background: var(--bg);
+  }}
+  .nav-btn:hover {{
+    border-color: var(--accent);
+    color: var(--accent);
+  }}
   @media (max-width: 640px) {{
     .policy-title {{ font-size: 21px; }}
     .policy-body {{ font-size: 15px; }}
@@ -343,8 +323,32 @@ title: {title}
   }}
 </style>
 
-<div class="policy-container">
-  {back}{content}</div>
+<article class="article-container">
+  <header class="policy-header">
+    <div class="policy-meta">
+      <span class="meta-tag category">{category}</span>
+      <span class="meta-tag">{subcategory}</span>
+      {f'<span class="meta-tag">{city}</span>' if city else ''}
+    </div>
+    <h1 class="policy-title">{title}</h1>
+    {f'<div class="policy-doc-no">{doc_no}</div>' if doc_no else ''}
+    <div class="policy-source-bar">
+      {f'<div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> {date}</div>' if date else ''}
+      {f'<div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg> {publisher}</div>' if publisher else ''}
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> 来源：{source}</div>
+    </div>
+  </header>
+  <div class="policy-body">
+    {body}
+  </div>
+</article>
+
+<div class="back-to-list">
+  <a href="./">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    返回政策列表
+  </a>
+</div>
 '''
 
 def make_slug(fname):
@@ -364,7 +368,21 @@ for region in structure['regions']:
     r_idx = structure['regions'].index(region)
     r_body = f'<div style="font-size:12px;color:#888;letter-spacing:2px;margin-bottom:10px;">第{CN[r_idx]}篇</div>\n<h1 style="font-size:28px;font-weight:400;padding-bottom:16px;margin-bottom:40px;letter-spacing:2px;">{region["name"]}</h1>\n<ul style="list-style:none;padding:0;margin:0;">\n{ch_html}</ul>\n'
     
-    (region_dir / 'index.html').write_text(page_tpl(region['name'], r_body, '../', '返回政策汇编'), encoding='utf-8')
+    region_tpl = f'''---
+layout: default
+title: {region['name']}
+---
+
+<style>
+  .article-container {{ max-width: 780px; margin: 0 auto; padding: 40px 24px 80px; }}
+</style>
+
+<div style="font-size:12px;color:#888;letter-spacing:2px;margin-bottom:10px;">第{CN[r_idx]}篇</div>
+<h1 style="font-size:28px;font-weight:400;padding-bottom:16px;margin-bottom:40px;letter-spacing:2px;">{region['name']}</h1>
+<ul style="list-style:none;padding:0;margin:0;">
+{ch_html}</ul>
+'''
+    (region_dir / 'index.html').write_text(region_tpl, encoding='utf-8')
     
     for i, ch in enumerate(region['chapters']):
         ch_dir = region_dir / ch['id']
@@ -387,12 +405,24 @@ for region in structure['regions']:
                 title = re.sub(r'^\d+[_\-\s]+', '', title)
             
             slug = make_slug(fname)
-            policy = render_html(meta, body, title)
-            (ch_dir / f'{slug}.html').write_text(page_tpl(title, policy, './', f'返回{ch["name"]}'), encoding='utf-8')
+            (ch_dir / f'{slug}.html').write_text(render_html(meta, body, title), encoding='utf-8')
             
             p_html += f'<li style="border-left:2px solid #1a1a1a;padding-left:20px;margin-bottom:24px;"><a href="{slug}.html" style="color:#1a1a1a;text-decoration:none;font-size:16px;">{title}</a></li>\n'
         
-        c_body = f'<div style="font-size:12px;color:#888;letter-spacing:2px;margin-bottom:10px;">第{CN[i]}章</div>\n<h1 style="font-size:28px;font-weight:400;padding-bottom:16px;margin-bottom:40px;letter-spacing:2px;">{ch["name"]}</h1>\n<ul style="list-style:none;padding:0;margin:0;">\n{p_html if p_html else "<li style=\'border-left-color:#ccc;\'><div style=\'color:#888;font-size:14px;\'>暂无政策文件</div></li>"}</ul>\n'
-        (ch_dir / 'index.html').write_text(page_tpl(ch['name'], c_body, '../', f'返回{region["name"]}'), encoding='utf-8')
+        ch_tpl = f'''---
+layout: default
+title: {ch['name']}
+---
+
+<style>
+  .article-container {{ max-width: 780px; margin: 0 auto; padding: 40px 24px 80px; }}
+</style>
+
+<div style="font-size:12px;color:#888;letter-spacing:2px;margin-bottom:10px;">第{CN[i]}章</div>
+<h1 style="font-size:28px;font-weight:400;padding-bottom:16px;margin-bottom:40px;letter-spacing:2px;">{ch['name']}</h1>
+<ul style="list-style:none;padding:0;margin:0;">
+{p_html if p_html else "<li style='border-left-color:#ccc;'><div style='color:#888;font-size:14px;'>暂无政策文件</div></li>"}</ul>
+'''
+        (ch_dir / 'index.html').write_text(ch_tpl, encoding='utf-8')
 
 print("完成")
