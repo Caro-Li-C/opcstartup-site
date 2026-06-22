@@ -50,7 +50,7 @@ def _sig_html(lines):
     html += '</div>\n'
     return html
 
-def process_body(body_md):
+def process_body(body_md, title='', doc_no=''):
     body_md = clean_text(body_md)
     lines = [line.strip() for line in body_md.split('\n') if line.strip()]
     parts = []
@@ -59,6 +59,17 @@ def process_body(body_md):
     idx = 0
     
     for line in lines:
+        # 跳过与标题+文号重复的行
+        if '关于印发' in line and '通知' in line and re.search(r'〔\d{4}〕\d+号', line):
+            idx += 1
+            continue
+        
+        # 识别核心标题，加粗居中
+        if re.match(r'^支持.*发展的(?:若干举措|若干措施|若干意见|行动方案|实施方案)$', line) and len(line) < 60 and idx < 3:
+            parts.append(f'<h1 class="core-title">{line}</h1>')
+            idx += 1
+            continue
+        
         if re.match(r'^[一二三四五六七八九十]+[、．\s]', line) and len(line) < 60:
             if in_sig and sig_lines:
                 parts.append(_sig_html(sig_lines))
@@ -68,7 +79,7 @@ def process_body(body_md):
             idx += 1
             continue
         
-        if re.match(r'^（[一二三四五六七八九十]+）', line) and len(line) < 60:
+        if re.match(r'^（[一二三四五六七八九十]+）[、．\s]', line) and len(line) < 60:
             if in_sig and sig_lines:
                 parts.append(_sig_html(sig_lines))
                 in_sig = False
@@ -121,11 +132,22 @@ def render_html(meta, body_md, title):
     subcategory = meta.get('subcategory', '政策原文')
     city = extract_city(title)
     
+    # 补全文号
+    if doc_no and not re.match(r'^[a-zA-Z\u4e00-\u9fff]', doc_no):
+        if publisher and len(publisher) >= 4:
+            doc_no = f"{publisher}{doc_no}"
+        else:
+            m = re.match(r'^(.*?)(?:关于|印发)', title)
+            if m:
+                prefix = m.group(1).strip()
+                if prefix:
+                    doc_no = f"{prefix}{doc_no}"
+    
     if not publisher or len(publisher) < 4 or '本文件' in publisher or '施行' in publisher:
         m = re.match(r'^(.*?)(?:关于|印发)', title)
         publisher = m.group(1).strip() if m else publisher
     
-    body = process_body(body_md)
+    body = process_body(body_md, title=title, doc_no=doc_no)
     
     return f'''---
 layout: default
@@ -152,7 +174,6 @@ title: {title}
     font-size: 16px;
   }}
   .article-container {{
-    max-width: 780px;
     margin: 0 auto;
     padding: 40px 24px 80px;
   }}
@@ -296,7 +317,6 @@ title: {title}
     font-weight: 600;
   }}
   .article-nav {{
-    max-width: 780px;
     margin: 0 auto;
     padding: 0 24px 60px;
     display: flex;
@@ -333,11 +353,22 @@ title: {title}
     transition: color 0.2s;
   }}
   .back-to-list a:hover {{ color: var(--accent); }}
+  .core-title {{
+    text-align: center;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 32px 0 24px;
+    padding: 0;
+    border: none;
+    letter-spacing: 0.5px;
+  }}
   @media (max-width: 640px) {{
     .policy-title {{ font-size: 21px; }}
     .policy-body {{ font-size: 15px; }}
     .policy-body h2 {{ font-size: 17px; }}
     .nav-links {{ display: none; }}
+    .core-title {{ font-size: 18px; }}
   }}
 </style>
 <base target="_blank">
@@ -398,7 +429,7 @@ title: {region['name']}
 ---
 
 <style>
-  .article-container {{ max-width: 780px; margin: 0 auto; padding: 40px 24px 80px; }}
+  .article-container {{ margin: 0 auto; padding: 40px 24px 80px; }}
 </style>
 
 <div style="font-size:12px;color:#888;letter-spacing:2px;margin-bottom:10px;">第{CN[r_idx]}篇</div>
@@ -439,7 +470,7 @@ title: {ch['name']}
 ---
 
 <style>
-  .article-container {{ max-width: 780px; margin: 0 auto; padding: 40px 24px 80px; }}
+  .article-container {{ margin: 0 auto; padding: 40px 24px 80px; }}
 </style>
 
 <div style="font-size:12px;color:#888;letter-spacing:2px;margin-bottom:10px;">第{CN[i]}章</div>
