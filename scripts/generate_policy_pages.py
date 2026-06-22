@@ -14,34 +14,98 @@ output_base = Path('policy/original')
 ZERO_WIDTH_CHARS = '\u200b\u200c\u200d\ufeff\u2060\u2061\u2062\u2063\u2064\u206a\u206b\u206c\u206d\u206e\u206f'
 
 def clean_text(text):
-    """清洗零宽字符水印"""
     return ''.join(c for c in text if c not in ZERO_WIDTH_CHARS)
 
 def parse_front_matter(text):
-    """
-    解析 YAML front matter
-    返回 (meta_dict, body_text)
-    """
     if not text.startswith('---'):
         return {}, text
-    
     parts = text.split('---', 2)
     if len(parts) < 3:
         return {}, text
-    
     try:
         meta = yaml.safe_load(parts[1])
     except:
         meta = {}
-    
     body = parts[2].strip()
     return meta if meta else {}, body
 
+def process_body_text(body_md):
+    """
+    处理正文文本：
+    1. 清洗零宽字符
+    2. 按行分割，每行转为独立段落
+    3. 识别标题层级（一、二、三... → h2； （一）（二）... → h3）
+    4. 识别落款
+    5. 返回精美 HTML
+    """
+    body_md = clean_text(body_md)
+    
+    # 按行分割，过滤空行
+    lines = [line.strip() for line in body_md.split('\n') if line.strip()]
+    
+    html_parts = []
+    in_signature = False
+    signature_lines = []
+    
+    for line in lines:
+        # 识别一级标题：一、二、三... 
+        if re.match(r'^[一二三四五六七八九十]+[、\\.\\s]', line):
+            html_parts.append(f'<h2>{line}</h2>')
+            continue
+        
+        # 识别二级标题：（一）（二）（三）...
+        if re.match(r'^（[一二三四五六七八九十]+）', line):
+            html_parts.append(f'<h3>{line}</h3>')
+            continue
+        
+        # 识别落款开始
+        if re.match(r'^(.*?人民政府|.*?办公厅|.*?办公室|.*?局|.*?委员会)$', line) and not in_signature:
+            in_signature = True
+            signature_lines = [line]
+            continue
+        
+        if in_signature:
+            if re.match(r'^\\d{4}.*?(年|月|日)', line) or '公开发布' in line or '印发' in line:
+                signature_lines.append(line)
+                continue
+            else:
+                # 落款结束，输出
+                if signature_lines:
+                    sig_html = '<div class="inline-signature">\n'
+                    for sig_line in signature_lines:
+                        if '公开发布' in sig_line or '印发' in sig_line:
+                            sig_html += f'  <p class="pub-note">{sig_line}</p>\n'
+                        else:
+                            sig_html += f'  <p class="sig-line">{sig_line}</p>\n'
+                    sig_html += '</div>\n'
+                    html_parts.append(sig_html)
+                in_signature = False
+        
+        # 识别施行说明
+        if '本文件自' in line and '起施行' in line:
+            html_parts.append(f'<div class="effective-date"><strong>施行说明：</strong>{line}</div>')
+            continue
+        
+        # 普通段落
+        if in_signature:
+            signature_lines.append(line)
+        else:
+            html_parts.append(f'<p>{line}</p>')
+    
+    # 处理未闭合的落款
+    if in_signature and signature_lines:
+        sig_html = '<div class="inline-signature">\n'
+        for sig_line in signature_lines:
+            if '公开发布' in sig_line or '印发' in sig_line:
+                sig_html += f'  <p class="pub-note">{sig_line}</p>\n'
+            else:
+                sig_html += f'  <p class="sig-line">{sig_line}</p>\n'
+        sig_html += '</div>\n'
+        html_parts.append(sig_html)
+    
+    return '\n'.join(html_parts)
+
 def render_policy_html(meta, body_md, title):
-    """
-    根据元数据和正文，生成类似宁波市模板的精美 HTML
-    """
-    # 提取元数据
     doc_no = meta.get('doc_no', '')
     date = meta.get('date', '')
     publisher = meta.get('publisher', '')
@@ -49,41 +113,9 @@ def render_policy_html(meta, body_md, title):
     category = meta.get('category', '政策解读')
     subcategory = meta.get('subcategory', '政策原文')
     
-    # 清洗正文中的零宽字符
-    body_md = clean_text(body_md)
+    # 处理正文
+    body_html = process_body_text(body_md)
     
-    # 用 markdown 转换正文
-    body_html = markdown.markdown(body_md, extensions=['tables', 'fenced_code', 'toc'])
-    
-    # 提取落款（文件末尾的"XX市人民政府"等）
-    signature_html = ''
-    sig_match = re.search(r'([^，。]+?(?:人民政府|办公厅|办公室|局|委员会))\s*$', body_md, re.MULTILINE)
-    if sig_match:
-        sig_unit = sig_match.group(1).strip()
-        # 尝试提取日期
-        date_match = re.search(r'(\d{4}\s*年\s*\d{1,2}\s*月\s*\d{1,2}\s*日)', body_md)
-        sig_date = date_match.group(1) if date_match else date
-        
-        signature_html = f'''
-      <div class="inline-signature">
-        <p class="sig-line">{sig_unit}</p>
-        <p class="sig-line">{sig_date}</p>
-        <p class="pub-note">（此件公开发布）</p>
-      </div>
-'''
-    
-    # 提取施行说明
-    effective_html = ''
-    effective_match = re.search(r'本文件自\s*(\d{4}\s*年\s*\d{1,2}\s*月\s*\d{1,2}\s*日)\s*起施行', body_md)
-    if effective_match:
-        effective_date = effective_match.group(1)
-        effective_html = f'''
-      <div class="effective-date">
-        <strong>施行说明：</strong>本文件自{effective_date}起施行。
-      </div>
-'''
-    
-    # 构建完整 HTML
     html = f'''
 <article class="article-container">
   <header class="policy-header">
@@ -101,9 +133,7 @@ def render_policy_html(meta, body_md, title):
     </div>
   </header>
   <div class="policy-body">
-    {signature_html}
     {body_html}
-    {effective_html}
   </div>
 </article>
 
@@ -146,7 +176,6 @@ title: """ + title + """
     letter-spacing: 1px;
   }
   .back:hover { color: #222; }
-  /* 政策头部 */
   .policy-header {
     border-bottom: 1px solid var(--border);
     padding-bottom: 32px;
@@ -203,7 +232,6 @@ title: """ + title + """
     align-items: center;
     gap: 6px;
   }
-  /* 正文样式 */
   .policy-body {
     font-size: 16px;
     line-height: 2;
@@ -271,7 +299,6 @@ title: """ + title + """
     font-weight: 600;
     color: var(--text-primary);
   }
-  /* 落款 */
   .inline-signature {
     margin: 24px 0 36px;
   }
@@ -289,7 +316,6 @@ title: """ + title + """
     line-height: 2.4;
     margin: 0;
   }
-  /* 施行说明 */
   .effective-date {
     margin-top: 24px;
     padding: 16px 20px;
@@ -304,7 +330,6 @@ title: """ + title + """
     color: var(--accent);
     font-weight: 600;
   }
-  /* 返回链接 */
   .back-to-list {
     text-align: center;
     margin-bottom: 32px;
@@ -382,22 +407,17 @@ for region in structure['regions']:
                 print("⚠️  文件不存在，跳过: " + str(md_path))
                 continue
             
-            # 读取并解析文件
             raw_text = md_path.read_text(encoding='utf-8')
             meta, body_md = parse_front_matter(raw_text)
             
-            # 提取标题
             title = meta.get('title', '')
             if not title:
-                # 从正文第一行提取
                 first_line = body_md.strip().split('\n')[0]
                 title = clean_text(first_line).strip()
-                # 去掉可能的序号前缀
                 title = re.sub(r'^\d+[_\-\s]+', '', title)
             
             slug = make_slug(fname)
             
-            # 渲染精美 HTML
             policy_html = render_policy_html(meta, body_md, title)
             
             detail_html = page_template(title, policy_html, back_link="./", back_text="返回" + ch['name'])
