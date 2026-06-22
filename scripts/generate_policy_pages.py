@@ -18,13 +18,11 @@ def clean_text(text):
 
 def page_template(title, body_content, back_link=None, back_text=None):
     back_html = '<a class="back" href="' + back_link + '">← ' + back_text + '</a>\n' if back_link else ''
-    return '''<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>''' + title + ''' | 全国OPC政策汇编</title>
-<link rel="stylesheet" href="/assets/css/main.css">
+    return """---
+layout: default
+title: """ + title + """
+---
+
 <style>
   .policy-container {
     max-width: 800px;
@@ -144,31 +142,11 @@ def page_template(title, body_content, back_link=None, back_text=None):
     letter-spacing: 10px;
   }
 </style>
-</head>
-<body>
-<nav class="site-nav">
-  <div class="nav-container">
-    <a href="/" class="nav-logo">OPC创业汇</a>
-    <div class="nav-links">
-      <a href="/">首页</a>
-      <a href="/policy/">政策</a>
-      <a href="/practice/">实务</a>
-      <a href="/posts/">文章</a>
-      <a href="/insights/">观点</a>
-    </div>
-  </div>
-</nav>
-<main class="site-main">
-  <div class="policy-container">
-    ''' + back_html + body_content + '''
-  </div>
-  <div class="watermark">OPC创业汇</div>
-</main>
-<footer class="site-footer">
-  <p>OPC创业汇 · 超级个体的战略合伙人</p>
-</footer>
-</body>
-</html>'''
+
+<div class="policy-container">
+  """ + back_html + body_content + """  <div class="watermark">OPC创业汇</div>
+</div>
+"""
 
 def md_to_html(md_path):
     with open(md_path, 'r', encoding='utf-8') as f:
@@ -199,93 +177,67 @@ CN_NUMS = ['一','二','三','四','五','六','七','八','九','十','十一',
 for region in structure['regions']:
     region_dir = output_base / region['id']
     region_dir.mkdir(parents=True, exist_ok=True)
-
+    
     chapters_html = ""
     for idx, ch in enumerate(region['chapters']):
         ch_link = ch['id'] + "/"
         ch_label = "第" + CN_NUMS[idx] + "章"
-        chapters_html += '''
-        <li>
-          <div class="section-label">''' + ch_label + '''</div>
-          <a href="''' + ch_link + '''">''' + ch['name'] + '''</a>
-        </li>
-'''
-
+        chapters_html += '<li><div class="section-label">' + ch_label + '</div><a href="' + ch_link + '">' + ch['name'] + '</a></li>\n'
+    
     region_idx = structure['regions'].index(region)
     region_label = "第" + CN_NUMS[region_idx] + "篇"
-
-    region_body = '''
-<div class="section-label">''' + region_label + '''</div>
-<h1 class="page-title">''' + region['name'] + '''</h1>
-<ul class="chapter-list">
-''' + chapters_html + '''
-</ul>
-'''
-
+    
+    region_body = '<div class="section-label">' + region_label + '</div>\n<h1 class="page-title">' + region['name'] + '</h1>\n<ul class="chapter-list">\n' + chapters_html + '</ul>\n'
+    
     region_html = page_template(
         region['name'],
         region_body,
         back_link="../",
         back_text="返回政策汇编"
     )
-
+    
     (region_dir / 'index.html').write_text(region_html, encoding='utf-8')
-
+    
     for ch_idx, ch in enumerate(region['chapters']):
         ch_dir = region_dir / ch['id']
         ch_dir.mkdir(parents=True, exist_ok=True)
-
+        
         policies_html = ""
-
+        
         for fname in ch.get('files', []):
             md_name = fname if fname.endswith('.md') else fname + '.md'
             md_path = Path('_tmp_source/policy') / md_name
-
+            
             if not md_path.exists():
                 print("⚠️  文件不存在，跳过: " + str(md_path))
                 continue
-
+            
             title = extract_title(md_path)
             slug = make_slug(fname)
-
-            detail_body = '''
-<h1 class="page-title">''' + title + '''</h1>
-<div class="policy-content">
-''' + md_to_html(md_path) + '''
-</div>
-'''
-
+            
+            detail_body = '<h1 class="page-title">' + title + '</h1>\n<div class="policy-content">\n' + md_to_html(md_path) + '</div>\n'
+            
             detail_html = page_template(
                 title,
                 detail_body,
                 back_link="./",
                 back_text="返回" + ch['name']
             )
-
+            
             (ch_dir / (slug + '.html')).write_text(detail_html, encoding='utf-8')
-
-            policies_html += '''
-            <li>
-              <a href="''' + slug + '''.html">''' + title + '''</a>
-            </li>
-'''
-
+            
+            policies_html += '<li><a href="' + slug + '.html">' + title + '</a></li>\n'
+        
         ch_label = "第" + CN_NUMS[ch_idx] + "章"
-        ch_body = '''
-<div class="section-label">''' + ch_label + '''</div>
-<h1 class="page-title">''' + ch['name'] + '''</h1>
-<ul class="policy-list">
-''' + (policies_html if policies_html else '<li style="border-left-color:#ccc;"><div style="color:#888;font-size:14px;">暂无政策文件</div></li>') + '''
-</ul>
-'''
-
+        ch_body = '<div class="section-label">' + ch_label + '</div>\n<h1 class="page-title">' + ch['name'] + '</h1>\n<ul class="policy-list">\n' + (policies_html if policies_html else '<li style="border-left-color:#ccc;"><div style="color:#888;font-size:14px;">暂无政策文件</div></li>') + '</ul>\n'
+        
         ch_html = page_template(
             ch['name'],
             ch_body,
             back_link="../",
             back_text="返回" + region['name']
         )
-
+        
         (ch_dir / 'index.html').write_text(ch_html, encoding='utf-8')
 
 print("✅ 政策子页面生成完成！")
