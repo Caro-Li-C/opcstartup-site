@@ -93,7 +93,7 @@ def process_body(body_md):
                 in_sig = False
                 sig_lines = []
         
-        if '本文件自' in line and '起施行' in line:
+        if '起施行' in line and ('自' in line or '从' in line):
             parts.append(f'<div class="effective-date"><strong>施行说明：</strong>{line}</div>')
             idx += 1
             continue
@@ -144,30 +144,17 @@ title: {title}
     --accent-dim: rgba(196, 163, 90, 0.1);
     --accent-border: rgba(196, 163, 90, 0.25);
   }}
+  * {{ margin: 0; padding: 0; box-sizing: border-box; }}
+  body {{
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    color: var(--text-primary);
+    line-height: 1.9;
+    font-size: 16px;
+  }}
   .article-container {{
-    max-width: 900px;
+    max-width: 780px;
     margin: 0 auto;
-    padding: 40px 32px 80px;
-  }}
-  /* 大屏幕：更宽 */
-  @media (min-width: 1400px) {{
-    .article-container {{
-      max-width: 1200px;
-      padding: 40px 60px 80px;
-    }}
-  }}
-  /* 平板：中等宽度 */
-  @media (max-width: 1024px) {{
-    .article-container {{
-      max-width: 100%;
-      padding: 40px 40px 80px;
-    }}
-  }}
-  /* 手机：占满屏幕 */
-  @media (max-width: 768px) {{
-    .article-container {{
-      padding: 20px 20px 60px;
-    }}
+    padding: 40px 24px 80px;
   }}
   .policy-header {{
     border-bottom: 1px solid var(--border);
@@ -282,6 +269,18 @@ title: {title}
     line-height: 2.4;
     margin: 0;
   }}
+  .publish-note {{
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 2;
+  }}
+  .publish-note p {{
+    margin: 0;
+    text-align: left;
+  }}
   .effective-date {{
     margin-top: 24px;
     padding: 16px 20px;
@@ -296,40 +295,12 @@ title: {title}
     color: var(--accent);
     font-weight: 600;
   }}
-  .back-to-list {{
-    text-align: center;
-    margin-bottom: 32px;
-    margin-top: 48px;
-  }}
-  .back-to-list a {{
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--text-muted);
-    text-decoration: none;
-    font-size: 14px;
-    transition: color 0.2s;
-  }}
-  .back-to-list a:hover {{ color: var(--accent); }}
   .article-nav {{
-    max-width: 1200px;
+    max-width: 780px;
     margin: 0 auto;
-    padding: 0 60px 60px;
+    padding: 0 24px 60px;
     display: flex;
     justify-content: space-between;
-  }}
-  @media (max-width: 1024px) {{
-    .article-nav {{
-      padding: 0 40px 60px;
-    }}
-  }}
-  @media (max-width: 768px) {{
-    .article-nav {{
-      padding: 0 20px 40px;
-    }}
-    .policy-title {{ font-size: 21px; }}
-    .policy-body {{ font-size: 15px; }}
-    .policy-body h2 {{ font-size: 17px; }}
   }}
   .nav-btn {{
     display: inline-flex;
@@ -348,7 +319,28 @@ title: {title}
     border-color: var(--accent);
     color: var(--accent);
   }}
+  .back-to-list {{
+    text-align: center;
+    margin-bottom: 32px;
+  }}
+  .back-to-list a {{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+  }}
+  .back-to-list a:hover {{ color: var(--accent); }}
+  @media (max-width: 640px) {{
+    .policy-title {{ font-size: 21px; }}
+    .policy-body {{ font-size: 15px; }}
+    .policy-body h2 {{ font-size: 17px; }}
+    .nav-links {{ display: none; }}
+  }}
 </style>
+<base target="_blank">
 
 <article class="article-container">
   <header class="policy-header">
@@ -373,9 +365,14 @@ title: {title}
 <div class="back-to-list">
   <a href="./">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-    返回政策列表
+    返回政策原文列表
   </a>
 </div>
+
+<nav class="article-nav">
+  <a href="#" class="nav-btn" style="visibility: hidden;">← 上一篇</a>
+  <a href="#" class="nav-btn">下一篇 →</a>
+</nav>
 '''
 
 def make_slug(fname):
@@ -401,14 +398,11 @@ title: {region['name']}
 ---
 
 <style>
-  .article-container {{ max-width: 900px; margin: 0 auto; padding: 40px 32px 80px; }}
-  @media (min-width: 1400px) {{ .article-container {{ max-width: 1200px; padding: 40px 60px 80px; }} }}
-  @media (max-width: 1024px) {{ .article-container {{ max-width: 100%; padding: 40px 40px 80px; }} }}
-  @media (max-width: 768px) {{ .article-container {{ padding: 20px 20px 60px; }} }}
+  .article-container {{ max-width: 780px; margin: 0 auto; padding: 40px 24px 80px; }}
 </style>
 
 <div style="font-size:12px;color:#888;letter-spacing:2px;margin-bottom:10px;">第{CN[r_idx]}篇</div>
-<h1 style="font-size:28px;font-weight:400;padding-bottom:16px;margin-bottom:40px;letter-spacing:2px;">{region['name']}</h1>
+<h1 style="font-size:28px;font-weight:400;padding-bottom:16px;margin-bottom:40px;letter-spacing:2px;">{region["name"]}</h1>
 <ul style="list-style:none;padding:0;margin:0;">
 {ch_html}</ul>
 '''
@@ -445,10 +439,7 @@ title: {ch['name']}
 ---
 
 <style>
-  .article-container {{ max-width: 900px; margin: 0 auto; padding: 40px 32px 80px; }}
-  @media (min-width: 1400px) {{ .article-container {{ max-width: 1200px; padding: 40px 60px 80px; }} }}
-  @media (max-width: 1024px) {{ .article-container {{ max-width: 100%; padding: 40px 40px 80px; }} }}
-  @media (max-width: 768px) {{ .article-container {{ padding: 20px 20px 60px; }} }}
+  .article-container {{ max-width: 780px; margin: 0 auto; padding: 40px 24px 80px; }}
 </style>
 
 <div style="font-size:12px;color:#888;letter-spacing:2px;margin-bottom:10px;">第{CN[i]}章</div>
