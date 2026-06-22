@@ -10,7 +10,6 @@ with open('_tmp_source/structure.json', 'r', encoding='utf-8') as f:
 
 output_base = Path('policy/original')
 
-# 零宽字符集合（水印字符，需清洗）
 ZERO_WIDTH_CHARS = '\u200b\u200c\u200d\ufeff\u2060\u2061\u2062\u2063\u2064\u206a\u206b\u206c\u206d\u206e\u206f'
 
 def clean_text(text):
