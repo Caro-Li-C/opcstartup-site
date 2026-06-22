@@ -28,147 +28,143 @@ def parse_front_matter(text):
     body = parts[2].strip()
     return meta if meta else {}, body
 
-def extract_city_and_publisher(title):
-    """从标题提取城市标签和发布单位"""
-    city_match = re.match(r'^(.*?市)', title)
-    city_tag = city_match.group(1).replace('市', '') if city_match else ''
-    pub_match = re.match(r'^(.*?)(?:关于|印发|印发关于)', title)
-    publisher = pub_match.group(1).strip() if pub_match else ''
-    return city_tag, publisher
+def extract_city(title):
+    m = re.match(r'^(.*?市)', title)
+    return m.group(1).replace('市', '') if m else ''
 
 def extract_responsible_unit(line):
     m = re.search(r'（责任单位：[^）]+?）(?:\s*（.*?）)?$', line)
     if m:
-        main_text = line[:m.start()].strip()
-        responsible = m.group(0)
-        return main_text, f'<span class="responsible-unit">{responsible}</span>'
+        main = line[:m.start()].strip()
+        resp = m.group(0)
+        return main, f'<span class="responsible-unit">{resp}</span>'
     return line, ''
 
-def _flush_sig(html_parts, sig_lines):
-    sig_html = '<div class="inline-signature">\n'
-    for s in sig_lines:
+def _sig_html(lines):
+    html = '<div class="inline-signature">\n'
+    for s in lines:
         if '公开发布' in s or '印发' in s:
-            sig_html += f'  <p class="pub-note">{s}</p>\n'
+            html += f'  <p class="pub-note">{s}</p>\n'
         else:
-            sig_html += f'  <p class="sig-line">{s}</p>\n'
-    sig_html += '</div>\n'
-    html_parts.append(sig_html)
+            html += f'  <p class="sig-line">{s}</p>\n'
+    html += '</div>\n'
+    return html
 
-def process_body_text(body_md):
+def process_body(body_md):
     body_md = clean_text(body_md)
     lines = [line.strip() for line in body_md.split('\n') if line.strip()]
-    html_parts = []
-    in_signature = False
+    parts = []
+    in_sig = False
     sig_lines = []
-    line_idx = 0
+    idx = 0
     
     for line in lines:
         if re.match(r'^[一二三四五六七八九十]+[、．\s]', line) and len(line) < 60:
-            if in_signature and sig_lines:
-                _flush_sig(html_parts, sig_lines)
-                in_signature = False
+            if in_sig and sig_lines:
+                parts.append(_sig_html(sig_lines))
+                in_sig = False
                 sig_lines = []
-            html_parts.append(f'<h2>{line}</h2>')
-            line_idx += 1
+            parts.append(f'<h2>{line}</h2>')
+            idx += 1
             continue
         
         if re.match(r'^（[一二三四五六七八九十]+）', line) and len(line) < 60:
-            if in_signature and sig_lines:
-                _flush_sig(html_parts, sig_lines)
-                in_signature = False
+            if in_sig and sig_lines:
+                parts.append(_sig_html(sig_lines))
+                in_sig = False
                 sig_lines = []
-            html_parts.append(f'<h3>{line}</h3>')
-            line_idx += 1
+            parts.append(f'<h3>{line}</h3>')
+            idx += 1
             continue
         
-        if re.match(r'^(.*?人民政府|.*?办公厅|.*?办公室|.*?局|.*?委员会|.*?市场监督管理局)$', line) and not in_signature:
-            in_signature = True
+        if re.match(r'^(.*?人民政府|.*?办公厅|.*?办公室|.*?局|.*?委员会|.*?市场监督管理局)$', line) and not in_sig:
+            in_sig = True
             sig_lines = [line]
-            line_idx += 1
+            idx += 1
             continue
         
-        if in_signature:
+        if in_sig:
             if re.match(r'^\d{4}.*?(年|月|日)', line) or '公开发布' in line or '印发' in line:
                 sig_lines.append(line)
-                line_idx += 1
+                idx += 1
                 continue
             else:
-                _flush_sig(html_parts, sig_lines)
-                in_signature = False
+                parts.append(_sig_html(sig_lines))
+                in_sig = False
                 sig_lines = []
         
         if '本文件自' in line and '起施行' in line:
-            html_parts.append(f'<div class="effective-date"><strong>施行说明：</strong>{line}</div>')
-            line_idx += 1
+            parts.append(f'<div class="effective-date"><strong>施行说明:</strong>{line}</div>')
+            idx += 1
             continue
         
-        main_text, responsible = extract_responsible_unit(line)
-        p_class = 'meta-paragraph' if line_idx == 0 and ('各区' in line or '各县' in line or '各有关' in line or '现将' in line) else ''
+        main, resp = extract_responsible_unit(line)
+        p_class = 'meta-paragraph' if idx == 0 and ('各区' in line or '各县' in line or '各有关' in line) else ''
         
         if p_class:
-            html_parts.append(f'<p class="{p_class}">{main_text}{responsible}</p>')
+            parts.append(f'<p class="{p_class}">{main}{resp}</p>')
         else:
-            html_parts.append(f'<p>{main_text}{responsible}</p>')
-        line_idx += 1
+            parts.append(f'<p>{main}{resp}</p>')
+        idx += 1
     
-    if in_signature and sig_lines:
-        _flush_sig(html_parts, sig_lines)
+    if in_sig and sig_lines:
+        parts.append(_sig_html(sig_lines))
     
-    return '\n'.join(html_parts)
+    return '\n'.join(parts)
 
-def render_policy_html(meta, body_md, title):
+def render_html(meta, body_md, title):
     doc_no = meta.get('doc_no', '')
     date = meta.get('date', '')
     publisher = meta.get('publisher', '')
     source = meta.get('source', '公众号OPC创业汇')
     category = meta.get('category', '政策解读')
     subcategory = meta.get('subcategory', '政策原文')
+    city = extract_city(title)
     
-    city_tag, extracted_publisher = extract_city_and_publisher(title)
-    if not publisher or len(publisher) < 4 or '本文件' in publisher or '施行' in publisher or '自' in publisher:
-        publisher = extracted_publisher
+    if not publisher or len(publisher) < 4 or '本文件' in publisher or '施行' in publisher:
+        m = re.match(r'^(.*?)(?:关于|印发)', title)
+        publisher = m.group(1).strip() if m else publisher
     
-    body_html = process_body_text(body_md)
+    body = process_body(body_md)
     
-    calendar_svg = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>'
-    building_svg = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>'
-    source_svg = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>'
+    cal = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>'
+    bld = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>'
+    src = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>'
     
-    html = f'''<article class="article-container">
+    return f'''<article class="article-container">
   <header class="policy-header">
     <div class="policy-meta">
       <span class="meta-tag category">{category}</span>
       <span class="meta-tag">{subcategory}</span>
-      {f'<span class="meta-tag">{city_tag}</span>' if city_tag else ''}
+      {f'<span class="meta-tag">{city}</span>' if city else ''}
     </div>
     <h1 class="policy-title">{title}</h1>
     {f'<div class="policy-doc-no">{doc_no}</div>' if doc_no else ''}
     <div class="policy-source-bar">
-      {f'<div class="source-item">{calendar_svg} {date}</div>' if date else ''}
-      {f'<div class="source-item">{building_svg} {publisher}</div>' if publisher else ''}
-      <div class="source-item">{source_svg} 来源：{source}</div>
+      {f'<div class="source-item">{cal} {date}</div>' if date else ''}
+      {f'<div class="source-item">{bld} {publisher}</div>' if publisher else ''}
+      <div class="source-item">{src} 来源: {source}</div>
     </div>
   </header>
   <div class="policy-body">
-    {body_html}
+    {body}
   </div>
 </article>
 
 <div class="back-to-list">
-  <a href="./">← 返回政策列表</a>
+  <a href="./">返回政策列表</a>
 </div>
 '''
-    return html
 
-def page_template(title, body_content, back_link=None, back_text=None):
-    back_html = '<a class="back" href="' + back_link + '">← ' + back_text + '</a>\n' if back_link else ''
-    return """---
+def page_tpl(title, content, back_link=None, back_text=None):
+    back = f'<a class="back" href="{back_link}">返回 {back_text}</a>\n' if back_link else ''
+    return f'''---
 layout: default
-title: """ + title + """
+title: {title}
 ---
 
 <style>
-  :root {
+  :root {{
     --bg: #f5f5f5;
     --bg-elevated: #ebebeb;
     --border: #d8d8d8;
@@ -178,38 +174,38 @@ title: """ + title + """
     --accent: #c4a35a;
     --accent-dim: rgba(196, 163, 90, 0.1);
     --accent-border: rgba(196, 163, 90, 0.25);
-  }
-  .policy-container {
+  }}
+  .policy-container {{
     max-width: 780px;
     margin: 0 auto;
     padding: 20px 24px 80px;
-  }
-  .back {
+  }}
+  .back {{
     color: #888;
     font-size: 14px;
     text-decoration: none;
     margin-bottom: 20px;
     display: inline-block;
     letter-spacing: 1px;
-  }
-  .back:hover { color: #222; }
-  .article-container {
+  }}
+  .back:hover {{ color: #222; }}
+  .article-container {{
     max-width: 780px;
     margin: 0 auto;
     padding: 40px 24px 0;
-  }
-  .policy-header {
+  }}
+  .policy-header {{
     border-bottom: 1px solid var(--border);
     padding-bottom: 32px;
     margin-bottom: 40px;
-  }
-  .policy-meta {
+  }}
+  .policy-meta {{
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
     margin-bottom: 20px;
-  }
-  .meta-tag {
+  }}
+  .meta-tag {{
     display: inline-flex;
     align-items: center;
     gap: 6px;
@@ -219,56 +215,56 @@ title: """ + title + """
     background: var(--bg-elevated);
     border: 1px solid var(--border);
     color: var(--text-secondary);
-  }
-  .meta-tag.category {
+  }}
+  .meta-tag.category {{
     background: var(--accent-dim);
     border-color: var(--accent-border);
     color: var(--accent);
     font-weight: 500;
-  }
-  .policy-title {
+  }}
+  .policy-title {{
     font-size: 26px;
     font-weight: 700;
     line-height: 1.45;
     color: var(--text-primary);
     margin-bottom: 14px;
     letter-spacing: -0.3px;
-  }
-  .policy-doc-no {
+  }}
+  .policy-doc-no {{
     font-size: 15px;
     color: var(--accent);
     font-family: "SF Mono", "Fira Code", "Courier New", monospace;
     margin-bottom: 20px;
     letter-spacing: 0.5px;
-  }
-  .policy-source-bar {
+  }}
+  .policy-source-bar {{
     display: flex;
     align-items: center;
     gap: 20px;
     font-size: 13px;
     color: var(--text-muted);
     flex-wrap: wrap;
-  }
-  .source-item {
+  }}
+  .source-item {{
     display: flex;
     align-items: center;
     gap: 6px;
-  }
-  .source-item svg {
+  }}
+  .source-item svg {{
     width: 14px;
     height: 14px;
     opacity: 0.5;
-  }
-  .policy-body {
+  }}
+  .policy-body {{
     font-size: 16px;
     line-height: 2;
     color: var(--text-primary);
-  }
-  .policy-body p {
+  }}
+  .policy-body p {{
     margin-bottom: 16px;
     text-align: justify;
-  }
-  .policy-body h2 {
+  }}
+  .policy-body h2 {{
     font-size: 19px;
     font-weight: 700;
     color: var(--text-primary);
@@ -276,42 +272,42 @@ title: """ + title + """
     padding-bottom: 10px;
     border-bottom: 1px solid var(--border);
     letter-spacing: 0.3px;
-  }
-  .policy-body h3 {
+  }}
+  .policy-body h3 {{
     font-size: 16px;
     font-weight: 600;
     color: var(--text-primary);
     margin: 28px 0 14px;
     padding-left: 12px;
     border-left: 3px solid var(--accent);
-  }
-  .responsible-unit {
+  }}
+  .responsible-unit {{
     display: inline;
     color: var(--text-muted);
     font-size: 14px;
-  }
-  .meta-paragraph {
+  }}
+  .meta-paragraph {{
     color: var(--text-secondary);
     font-size: 15px;
-  }
-  .inline-signature {
+  }}
+  .inline-signature {{
     margin: 24px 0 36px;
-  }
-  .inline-signature .sig-line {
+  }}
+  .inline-signature .sig-line {{
     text-align: right;
     font-size: 16px;
     color: var(--text-primary);
     line-height: 2.4;
     margin: 0;
-  }
-  .inline-signature .pub-note {
+  }}
+  .inline-signature .pub-note {{
     text-align: left;
     font-size: 16px;
     color: var(--text-primary);
     line-height: 2.4;
     margin: 0;
-  }
-  .effective-date {
+  }}
+  .effective-date {{
     margin-top: 24px;
     padding: 16px 20px;
     background: var(--bg-elevated);
@@ -320,17 +316,17 @@ title: """ + title + """
     font-size: 14px;
     color: var(--text-secondary);
     line-height: 1.8;
-  }
-  .effective-date strong {
+  }}
+  .effective-date strong {{
     color: var(--accent);
     font-weight: 600;
-  }
-  .back-to-list {
+  }}
+  .back-to-list {{
     text-align: center;
     margin-bottom: 32px;
     margin-top: 48px;
-  }
-  .back-to-list a {
+  }}
+  .back-to-list a {{
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -338,80 +334,65 @@ title: """ + title + """
     text-decoration: none;
     font-size: 14px;
     transition: color 0.2s;
-  }
-  .back-to-list a:hover { color: var(--accent); }
-  @media (max-width: 640px) {
-    .policy-title { font-size: 21px; }
-    .policy-body { font-size: 15px; }
-    .policy-body h2 { font-size: 17px; }
-  }
+  }}
+  .back-to-list a:hover {{ color: var(--accent); }}
+  @media (max-width: 640px) {{
+    .policy-title {{ font-size: 21px; }}
+    .policy-body {{ font-size: 15px; }}
+    .policy-body h2 {{ font-size: 17px; }}
+  }}
 </style>
 
 <div class="policy-container">
-  """ + back_html + body_content + """</div>
-"""
+  {back}{content}</div>
+'''
 
 def make_slug(fname):
     m = re.match(r'^(\d+)', fname)
     return m.group(1) if m else '0'
 
-CN_NUMS = ['一','二','三','四','五','六','七','八','九','十','十一','十二']
+CN = ['一','二','三','四','五','六','七','八','九','十','十一','十二']
 
 for region in structure['regions']:
     region_dir = output_base / region['id']
     region_dir.mkdir(parents=True, exist_ok=True)
     
-    chapters_html = ""
-    for idx, ch in enumerate(region['chapters']):
-        ch_link = ch['id'] + "/"
-        ch_label = "第" + CN_NUMS[idx] + "章"
-        chapters_html += '<li style="border-left:2px solid #1a1a1a;padding-left:20px;margin-bottom:24px;"><div style="font-size:12px;color:#888;letter-spacing:2px;margin-bottom:6px;">' + ch_label + '</div><a href="' + ch_link + '" style="color:#1a1a1a;text-decoration:none;font-size:16px;">' + ch['name'] + '</a></li>\n'
+    ch_html = ""
+    for i, ch in enumerate(region['chapters']):
+        ch_html += f'<li style="border-left:2px solid #1a1a1a;padding-left:20px;margin-bottom:24px;"><div style="font-size:12px;color:#888;letter-spacing:2px;margin-bottom:6px;">第{CN[i]}章</div><a href="{ch["id"]}/" style="color:#1a1a1a;text-decoration:none;font-size:16px;">{ch["name"]}</a></li>\n'
     
-    region_idx = structure['regions'].index(region)
-    region_label = "第" + CN_NUMS[region_idx] + "篇"
+    r_idx = structure['regions'].index(region)
+    r_body = f'<div style="font-size:12px;color:#888;letter-spacing:2px;margin-bottom:10px;">第{CN[r_idx]}篇</div>\n<h1 style="font-size:28px;font-weight:400;padding-bottom:16px;margin-bottom:40px;letter-spacing:2px;">{region["name"]}</h1>\n<ul style="list-style:none;padding:0;margin:0;">\n{ch_html}</ul>\n'
     
-    region_body = '<div style="font-size:12px;color:#888;letter-spacing:2px;margin-bottom:10px;">' + region_label + '</div>\n<h1 style="font-size:28px;font-weight:400;padding-bottom:16px;margin-bottom:40px;letter-spacing:2px;">' + region['name'] + '</h1>\n<ul style="list-style:none;padding:0;margin:0;">\n' + chapters_html + '</ul>\n'
+    (region_dir / 'index.html').write_text(page_tpl(region['name'], r_body, '../', '返回政策汇编'), encoding='utf-8')
     
-    region_html = page_template(region['name'], region_body, back_link="../", back_text="返回政策汇编")
-    (region_dir / 'index.html').write_text(region_html, encoding='utf-8')
-    
-    for ch_idx, ch in enumerate(region['chapters']):
+    for i, ch in enumerate(region['chapters']):
         ch_dir = region_dir / ch['id']
         ch_dir.mkdir(parents=True, exist_ok=True)
         
-        policies_html = ""
-        
+        p_html = ""
         for fname in ch.get('files', []):
-            md_name = fname if fname.endswith('.md') else fname + '.md'
-            md_path = Path('_tmp_source/policy') / md_name
-            
-            if not md_path.exists():
-                print("⚠️  文件不存在，跳过: " + str(md_path))
+            md = fname if fname.endswith('.md') else fname + '.md'
+            mp = Path('_tmp_source/policy') / md
+            if not mp.exists():
+                print(f"跳过: {mp}")
                 continue
             
-            raw_text = md_path.read_text(encoding='utf-8')
-            meta, body_md = parse_front_matter(raw_text)
+            raw = mp.read_text(encoding='utf-8')
+            meta, body = parse_front_matter(raw)
             
             title = meta.get('title', '')
             if not title:
-                first_line = body_md.strip().split('\n')[0]
-                title = clean_text(first_line).strip()
+                title = clean_text(body.strip().split('\n')[0])
                 title = re.sub(r'^\d+[_\-\s]+', '', title)
             
             slug = make_slug(fname)
+            policy = render_html(meta, body, title)
+            (ch_dir / f'{slug}.html').write_text(page_tpl(title, policy, './', f'返回{ch["name"]}'), encoding='utf-8')
             
-            policy_html = render_policy_html(meta, body_md, title)
-            
-            detail_html = page_template(title, policy_html, back_link="./", back_text="返回" + ch['name'])
-            (ch_dir / (slug + '.html')).write_text(detail_html, encoding='utf-8')
-            
-            policies_html += '<li style="border-left:2px solid #1a1a1a;padding-left:20px;margin-bottom:24px;"><a href="' + slug + '.html" style="color:#1a1a1a;text-decoration:none;font-size:16px;">' + title + '</a></li>\n'
+            p_html += f'<li style="border-left:2px solid #1a1a1a;padding-left:20px;margin-bottom:24px;"><a href="{slug}.html" style="color:#1a1a1a;text-decoration:none;font-size:16px;">{title}</a></li>\n'
         
-        ch_label = "第" + CN_NUMS[ch_idx] + "章"
-        ch_body = '<div style="font-size:12px;color:#888;letter-spacing:2px;margin-bottom:10px;">' + ch_label + '</div>\n<h1 style="font-size:28px;font-weight:400;padding-bottom:16px;margin-bottom:40px;letter-spacing:2px;">' + ch['name'] + '</h1>\n<ul style="list-style:none;padding:0;margin:0;">\n' + (policies_html if policies_html else '<li style="border-left-color:#ccc;"><div style="color:#888;font-size:14px;">暂无政策文件</div></li>') + '</ul>\n'
-        
-        ch_html = page_template(ch['name'], ch_body, back_link="../", back_text="返回" + region['name'])
-        (ch_dir / 'index.html').write_text(ch_html, encoding='utf-8')
+        c_body = f'<div style="font-size:12px;color:#888;letter-spacing:2px;margin-bottom:10px;">第{CN[i]}章</div>\n<h1 style="font-size:28px;font-weight:400;padding-bottom:16px;margin-bottom:40px;letter-spacing:2px;">{ch["name"]}</h1>\n<ul style="list-style:none;padding:0;margin:0;">\n{p_html if p_html else "<li style=\'border-left-color:#ccc;\'><div style=\'color:#888;font-size:14px;\'>暂无政策文件</div></li>"}</ul>\n'
+        (ch_dir / 'index.html').write_text(page_tpl(ch['name'], c_body, '../', f'返回{region["name"]}'), encoding='utf-8')
 
-print("✅ 政策子页面生成完成！")
-print("   生成路径: " + str(output_base))
+print("完成")
