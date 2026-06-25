@@ -4,3 +4,31 @@ url: "https://opcstartup.cn"
 baseurl: ""
 timezone: Asia/Shanghai
 permalink: /:year/:month/:day/:title.html
+
+collections:
+  insights:
+    output: true
+    permalink: /insights/:name/
+  operations:
+    output: true
+    permalink: /operations/:name/
+  guides:
+    output: true
+    permalink: /guides/:name/
+
+defaults:
+  - scope:
+      path: ""
+      type: insights
+    values:
+      layout: post
+  - scope:
+      path: ""
+      type: operations
+    values:
+      layout: post
+  - scope:
+      path: ""
+      type: guides
+    values:
+      layout: post
