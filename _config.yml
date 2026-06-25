@@ -15,7 +15,9 @@ collections:
   guides:
     output: true
     permalink: /guides/:name/
-
+  applications:          # ← 新增
+    output: true
+    permalink: /applications/:name/
 defaults:
   - scope:
       path: ""
