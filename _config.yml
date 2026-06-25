@@ -34,3 +34,8 @@ defaults:
       type: guides
     values:
       layout: post
+  - scope:
+      path: ""
+      type: applications
+    values:
+      layout: post
