@@ -1,0 +1,39 @@
+---
+layout: default
+title: "原创小说"
+---
+
+<div class="articles-page">
+  <div class="page-header">
+    <h1 class="page-title">原创小说</h1>
+    <p class="page-subtitle">OPC创业汇原创虚构作品</p>
+  </div>
+
+  <div class="post-list">
+    {% for post in site.novel reversed %}
+    <article class="post-item">
+      <div class="post-left">
+        <div class="post-date-day">{{ post.date | date: "%d" }}</div>
+        <div class="post-date-month">{{ post.date | date: "%m/%Y" }}</div>
+      </div>
+      <div class="post-main">
+        <h2 class="post-title">
+          <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+        </h2>
+        {% if post.description %}
+        <p class="post-description">{{ post.description }}</p>
+        {% endif %}
+        <div class="post-footer">
+          {% if post.tags %}
+          <div class="post-tags-inline">
+            {% for tag in post.tags %}
+            <span class="post-tag-inline">{{ tag }}</span>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</div>
