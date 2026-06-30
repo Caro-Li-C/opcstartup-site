@@ -1,1 +1,41 @@
+---
+layout: default
+title: "政策解析"
+---
 
+<div class="articles-page">
+  <div class="page-header">
+    <h1 class="page-title">政策解析</h1>
+    <p class="page-subtitle">OPC创业汇对重点政策的深度解读</p>
+  </div>
+
+  <div class="post-list">
+    {% for post in site.pages %}
+      {% if post.path contains 'policy/analysis/' and post.path != 'policy/analysis/index.html' %}
+      <article class="post-item">
+        <div class="post-left">
+          <div class="post-date-day">{{ post.date | date: "%d" }}</div>
+          <div class="post-date-month">{{ post.date | date: "%m/%Y" }}</div>
+        </div>
+        <div class="post-main">
+          <h2 class="post-title">
+            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+          </h2>
+          {% if post.description %}
+          <p class="post-description">{{ post.description }}</p>
+          {% endif %}
+          <div class="post-footer">
+            {% if post.tags %}
+            <div class="post-tags-inline">
+              {% for tag in post.tags %}
+              <span class="post-tag-inline">{{ tag }}</span>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </article>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
