@@ -37,6 +37,10 @@ jobs:
       - name: Generate policy pages
         run: python scripts/generate_policy_pages.py
 
+      # 3.5 生成政策解析页面（新增）
+      - name: Generate analysis pages
+        run: python scripts/generate_analysis_pages.py
+
       # 4. 清理临时文件（不进入构建产物）
       - name: Clean up temp source
         run: rm -rf _tmp_source
