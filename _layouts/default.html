@@ -1,3 +1,424 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+  <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --ink: #0f0f0f;
+      --charcoal: #1a1a1a;
+      --stone: #2a2a2a;
+      --warm-gray: #8a8279;
+      --mist: #e8e4df;
+      --parchment: #f5f3f0;
+      --brass: #b8956a;
+      --brass-light: #d4b896;
+      --brass-dark: #8a6d4b;
+      --white: #ffffff;
+      --nav-bg: #ffffff;
+      --nav-border: #e8e4df;
+      --nav-text: #2a2a2a;
+      --nav-muted: #8a8279;
+      --nav-hover: #f5f3f0;
+      --footer-bg: #f5f3f0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: var(--white);
+      color: var(--charcoal);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .site-main { min-height: 60vh; }
+
+    /* ===== 顶部导航 ===== */
+    .topnav {
+      background: var(--nav-bg);
+      border-bottom: 1px solid var(--nav-border);
+      padding: 0 48px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .topnav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .topnav-left {
+      order: 1;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      flex-shrink: 0;
+      height: 64px;
+    }
+
+    .topnav-logo-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--charcoal);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--brass);
+      font-weight: 900;
+      font-size: 14px;
+      font-family: 'Noto Serif SC', serif;
+      letter-spacing: 1px;
+      flex-shrink: 0;
+    }
+
+    .topnav-logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+
+    .topnav-logo-name {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--charcoal);
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+
+    .topnav-logo-sub {
+      font-size: 11px;
+      color: var(--nav-muted);
+      letter-spacing: 1px;
+      font-weight: 500;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .topnav-right {
+      order: 2;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-shrink: 0;
+      height: 64px;
+    }
+
+    .topnav-search-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border: 1px solid var(--nav-border);
+      border-radius: 8px;
+      background: var(--parchment);
+      width: 200px;
+      transition: all 0.2s;
+    }
+
+    .topnav-search-box:hover,
+    .topnav-search-box:focus-within {
+      border-color: var(--brass);
+      background: var(--white);
+    }
+
+    .search-icon {
+      width: 16px;
+      height: 16px;
+      color: var(--nav-muted);
+      flex-shrink: 0;
+    }
+
+    .topnav-search-box input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 13px;
+      color: var(--charcoal);
+      width: 100%;
+      font-family: inherit;
+    }
+
+    .topnav-search-box input::placeholder {
+      color: var(--nav-muted);
+    }
+
+    .topnav-cta {
+      text-decoration: none;
+      font-size: 14px;
+      color: var(--nav-text);
+      font-weight: 600;
+      padding: 8px 16px;
+      border: 1px solid var(--nav-border);
+      border-radius: 8px;
+      transition: all 0.2s;
+      background: var(--white);
+      white-space: nowrap;
+    }
+
+    .topnav-cta:hover {
+      border-color: var(--brass);
+      color: var(--brass-dark);
+      background: var(--parchment);
+    }
+
+    .topnav-center {
+      order: 3;
+      flex: 1 0 100%;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      list-style: none;
+      justify-content: flex-start;
+      height: 52px;
+      position: relative;
+    }
+
+    .topnav-center a {
+      text-decoration: none;
+      font-size: 14px;
+      color: var(--nav-text);
+      font-weight: 500;
+      padding: 8px 10px;
+      border-radius: 6px;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .topnav-center a:hover {
+      background: var(--nav-hover);
+      color: var(--charcoal);
+    }
+
+    .topnav-center a.active {
+      background: var(--nav-hover);
+      color: var(--charcoal);
+      font-weight: 600;
+    }
+
+    @media (min-width: 1320px) {
+      .topnav-inner {
+        flex-wrap: nowrap;
+        height: 72px;
+        max-width: 1240px;
+      }
+      .topnav-left {
+        order: 0;
+        height: auto;
+        margin-right: 15px;
+      }
+      .topnav-right {
+        order: 0;
+        height: auto;
+        gap: 20px;
+      }
+      .topnav-search-box {
+        width: 140px;
+      }
+      .topnav-center {
+        order: 0;
+        flex: 1;
+        height: auto;
+        border-top: none;
+        justify-content: center;
+        gap: 0;
+      }
+      .topnav-center li {
+        flex: 1;
+        text-align: center;
+        min-width: 0;
+      }
+      .topnav-center a {
+        padding: 8px 4px;
+        display: inline-block;
+        width: 100%;
+        white-space: nowrap;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .topnav-center {
+        display: none;
+      }
+      .topnav-left,
+      .topnav-right {
+        height: 56px;
+      }
+      .topnav-search-box {
+        width: 140px;
+        padding: 6px 10px;
+      }
+      .topnav-search-box input::placeholder {
+        font-size: 12px;
+      }
+    }
+
+    /* ===== 页脚 ===== */
+    .footer {
+      background: var(--footer-bg);
+      border-top: 1px solid var(--nav-border);
+      padding: 64px 48px 48px;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr 1fr;
+      gap: 48px;
+    }
+
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .footer-brand-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .footer-brand-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--charcoal);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--brass);
+      font-weight: 900;
+      font-size: 14px;
+      font-family: 'Noto Serif SC', serif;
+      letter-spacing: 1px;
+      flex-shrink: 0;
+    }
+
+    .footer-brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.3;
+    }
+
+    .footer-brand-name {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--charcoal);
+      letter-spacing: 0.5px;
+    }
+
+    .footer-brand-sub {
+      font-size: 11px;
+      color: var(--nav-muted);
+      letter-spacing: 2px;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+
+    .footer-brand-desc {
+      font-size: 14px;
+      color: var(--warm-gray);
+      line-height: 1.8;
+      max-width: 280px;
+    }
+
+    .footer-col h4 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--charcoal);
+      margin-bottom: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .footer-col a {
+      text-decoration: none;
+      font-size: 14px;
+      color: var(--warm-gray);
+      font-weight: 500;
+      transition: color 0.2s;
+      display: block;
+    }
+
+    .footer-col a:hover {
+      color: var(--brass-dark);
+    }
+
+    @media (max-width: 768px) {
+      .footer-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+      }
+      .footer-brand {
+        grid-column: 1 / -1;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 顶部导航 -->
+  <nav class="topnav">
+    <div class="topnav-inner">
+      <a href="/" class="topnav-left">
+        <div class="topnav-logo-icon">汇</div>
+        <div class="topnav-logo-text">
+          <span class="topnav-logo-name">OPC创业汇</span>
+          <span class="topnav-logo-sub">POLICY · PRACTICE · PEOPLE</span>
+        </div>
+      </a>
+
+      <ul class="topnav-center">
+        <li><a href="/" class="{% if page.url == '/' %}active{% endif %}">首页</a></li>
+        <li><a href="/policy/" class="{% if page.url contains '/policy/' %}active{% endif %}">政策解读</a></li>
+        <li><a href="#" class="{% if page.url contains '/practice/' %}active{% endif %}">实务操作</a></li>
+        <li><a href="#" class="{% if page.url contains '/guide/' %}active{% endif %}">申报指南</a></li>
+        <li><a href="#" class="{% if page.url contains '/join/' %}active{% endif %}">入驻指南</a></li>
+        <li><a href="/posts/" class="{% if page.url contains '/posts/' %}active{% endif %}">原文速递</a></li>
+        <li><a href="#" class="{% if page.url contains '/insights/' %}active{% endif %}">观点洞察</a></li>
+        <li><a href="#" class="{% if page.url contains '/novel/' %}active{% endif %}">原创小说</a></li>
+      </ul>
+
+      <div class="topnav-right">
+        <div class="topnav-search-box">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.3-4.3"></path>
+          </svg>
+          <input type="text" placeholder="搜索政策、指南...">
+        </div>
+        <a href="#" class="topnav-cta">加入社群</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 内容区 -->
+  <main class="site-main">
+    {{ content }}
+  </main>
+
   <!-- 页脚 -->
   <footer class="footer">
     <div class="footer-inner">
@@ -18,13 +439,13 @@
       <div class="footer-col">
         <h4>内容板块</h4>
         <ul>
-          <li><a href="/policy/">政策解读</a></li>
-          <li><a href="/operations/">实务操作</a></li>
-          <li><a href="/applications/">申报指南</a></li>
-          <li><a href="/guides/">入驻指南</a></li>
-          <li><a href="/posts/">原文速递</a></li>
-          <li><a href="/insights/">观点洞察</a></li>
-          <li><a href="/novel/">原创小说</a></li>
+          <li><a href="#">政策解读</a></li>
+          <li><a href="#">实务操作</a></li>
+          <li><a href="#">申报指南</a></li>
+          <li><a href="#">入驻指南</a></li>
+          <li><a href="#">原文速递</a></li>
+          <li><a href="#">观点洞察</a></li>
+          <li><a href="#">原创小说</a></li>
         </ul>
       </div>
 
@@ -51,3 +472,6 @@
       </div>
     </div>
   </footer>
+
+</body>
+</html>
