@@ -18,6 +18,9 @@ collections:
   applications:          # ← 新增
     output: true
     permalink: /applications/:name/
+  novel:
+    output: true
+    permalink: /novel/:name/
 defaults:
   - scope:
       path: ""
@@ -37,5 +40,10 @@ defaults:
   - scope:
       path: ""
       type: applications
+    values:
+      layout: post
+  - scope:
+      path: ""
+      type: novel
     values:
       layout: post
