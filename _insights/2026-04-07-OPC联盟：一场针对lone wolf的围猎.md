@@ -8,6 +8,7 @@ tags:
 - 独立身份
 - 资源垄断
 - lone wolf
+date: 2026-04-07
 ---
 
 OPC联盟：一场针对 lone wolf 的围猎？
