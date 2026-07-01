@@ -9,6 +9,8 @@ with open('_tmp_source/structure.json', 'r', encoding='utf-8') as f:
     structure = json.load(f)
 
 output_base = Path('policy/original')
+data_dir = Path('_data')
+data_dir.mkdir(exist_ok=True)
 
 ZERO_WIDTH_CHARS = '\u200b\u200c\u200d\ufeff\u2060\u2061\u2062\u2063\u2064\u206a\u206b\u206c\u206d\u206e\u206f'
 
@@ -381,6 +383,8 @@ def make_slug(fname):
 
 CN = ['一','二','三','四','五','六','七','八','九','十','十一','十二']
 
+policies_data = []
+
 for region in structure['regions']:
     region_dir = output_base / region['id']
     region_dir.mkdir(parents=True, exist_ok=True)
@@ -390,7 +394,6 @@ for region in structure['regions']:
         ch_html += f'<li style="border-left:2px solid #1a1a1a;padding-left:20px;margin-bottom:24px;"><div style="font-size:12px;color:#888;letter-spacing:2px;margin-bottom:6px;">第{CN[i]}章</div><a href="{ch["id"]}/" style="color:#1a1a1a;text-decoration:none;font-size:16px;">{ch["name"]}</a></li>\n'
     
     r_idx = structure['regions'].index(region)
-    r_body = f'<div style="font-size:12px;color:#888;letter-spacing:2px;margin-bottom:10px;">第{CN[r_idx]}篇</div>\n<h1 style="font-size:28px;font-weight:400;padding-bottom:16px;margin-bottom:40px;letter-spacing:2px;">{region["name"]}</h1>\n<ul style="list-style:none;padding:0;margin:0;">\n{ch_html}</ul>\n'
     
     region_tpl = f'''---
 layout: default
@@ -402,7 +405,7 @@ title: {region['name']}
 </style>
 
 <div style="font-size:12px;color:#888;letter-spacing:2px;margin-bottom:10px;">第{CN[r_idx]}篇</div>
-<h1 style="font-size:28px;font-weight:400;padding-bottom:16px;margin-bottom:40px;letter-spacing:2px;">{region["name"]}</h1>
+<h1 style="font-size:28px;font-weight:400;padding-bottom:16px;margin-bottom:40px;letter-spacing:2px;">{region['name']}</h1>
 <ul style="list-style:none;padding:0;margin:0;">
 {ch_html}</ul>
 '''
@@ -431,6 +434,19 @@ title: {region['name']}
             slug = make_slug(fname)
             (ch_dir / f'{slug}.html').write_text(render_html(meta, body, title), encoding='utf-8')
             
+            # 收集数据供首页调用（关键：读取 md 里的真实 date）
+            policies_data.append({
+                'id': slug,
+                'region': region['name'],
+                'province': meta.get('province', ''),
+                'city': meta.get('city', extract_city(title)),
+                'title': title,
+                'date': str(meta.get('date', '2026-01-01')),
+                'category': meta.get('category', '政策原文'),
+                'url': f'/policy/original/{region["id"]}/{ch["id"]}/{slug}.html',
+                'original_url': meta.get('original_url', f'https://github.com/Caro-Li-C/opc-content-source/blob/main/policy/{md}')
+            })
+            
             p_html += f'<li style="border-left:2px solid #1a1a1a;padding-left:20px;margin-bottom:24px;"><a href="{slug}.html" style="color:#1a1a1a;text-decoration:none;font-size:16px;">{title}</a></li>\n'
         
         ch_tpl = f'''---
@@ -449,4 +465,11 @@ title: {ch['name']}
 '''
         (ch_dir / 'index.html').write_text(ch_tpl, encoding='utf-8')
 
+# 生成 _data/policies.yml（按真实 date 倒序）
+policies_data.sort(key=lambda x: x['date'], reverse=True)
+
+with open(data_dir / 'policies.yml', 'w', encoding='utf-8') as f:
+    yaml.dump(policies_data, f, allow_unicode=True, sort_keys=False)
+
+print(f"✓ 生成 _data/policies.yml，共 {len(policies_data)} 条")
 print("完成")
