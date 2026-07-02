@@ -18,7 +18,7 @@ def slugify(title):
     return re.sub(r"[^\w\s-]", "", title).strip().replace(" ", "-").replace("_", "-")[:50]
 
 
-def parse_markdown_body(body):
+def parse_markdown_body(body, title):
     lines = body.strip().split("\n")
     html_parts = []
     chapter_idx = 0
@@ -26,6 +26,7 @@ def parse_markdown_body(body):
     chapter_buffer = []
     first_para = True
     i = 0
+    
     while i < len(lines):
         line = lines[i].strip()
         if not line:
@@ -35,6 +36,8 @@ def parse_markdown_body(body):
                 in_chapter = False
             i += 1
             continue
+        
+        # 结语
         if re.match(r"^#{1,2}\s*结语", line) or re.match(r"^#{1,2}\s*Conclusion", line, re.I):
             if in_chapter and chapter_buffer:
                 html_parts.append(render_chapter(chapter_idx, chapter_buffer))
@@ -48,6 +51,8 @@ def parse_markdown_body(body):
                 i += 1
             html_parts.append(render_conclusion(conclusion_lines))
             continue
+        
+        # 识别 ## 章节
         h2_match = re.match(r"^#{2}\s+(.+)$", line)
         if h2_match:
             if in_chapter and chapter_buffer:
@@ -58,12 +63,28 @@ def parse_markdown_body(body):
             chapter_buffer.append(("h2", h2_match.group(1)))
             i += 1
             continue
+        
+        # 识别 ### 副标题
         h3_match = re.match(r"^#{3}\s+(.+)$", line)
         if h3_match:
             if in_chapter:
                 chapter_buffer.append(("h3", h3_match.group(1)))
             i += 1
             continue
+        
+        # 识别中文编号章节（一、二、三... 或 第一条、第二条...）
+        cn_chapter = re.match(r"^(?:[一二三四五六七八九十]+、|第[一二三四五六七八九十\d]+条)\s*(.+)$", line)
+        if cn_chapter and len(line) < 60:
+            if in_chapter and chapter_buffer:
+                html_parts.append(render_chapter(chapter_idx, chapter_buffer))
+                chapter_buffer = []
+            chapter_idx += 1
+            in_chapter = True
+            chapter_buffer.append(("h2", cn_chapter.group(1)))
+            i += 1
+            continue
+        
+        # 引用块
         if line.startswith(">"):
             quote_lines = []
             while i < len(lines) and lines[i].strip().startswith(">"):
@@ -74,6 +95,8 @@ def parse_markdown_body(body):
             else:
                 html_parts.append(render_highlight(" ".join(quote_lines)))
             continue
+        
+        # 粗体段落
         if line.startswith("**") and line.endswith("**"):
             text = line[2:-2]
             if in_chapter:
@@ -82,14 +105,25 @@ def parse_markdown_body(body):
                 html_parts.append(f"<p><strong>{text}</strong></p>")
             i += 1
             continue
+        
+        # 第一段（首字下沉，条件判断）
         if first_para and not in_chapter:
-            html_parts.append(f"<div class=\"drop-cap-section\"><p>{line}</p></div>")
+            # 跳过重复标题的行
+            if line == title or len(line) < 20:
+                i += 1
+                continue
+            # 50-200字才启用首字下沉
+            if 50 <= len(line) <= 200:
+                html_parts.append(f'<div class="drop-cap-section"><p>{line}</p></div>')
+            else:
+                html_parts.append(f"<p>{line}</p>")
             first_para = False
         elif in_chapter:
             chapter_buffer.append(("p", line))
         else:
             html_parts.append(f"<p>{line}</p>")
         i += 1
+    
     if in_chapter and chapter_buffer:
         html_parts.append(render_chapter(chapter_idx, chapter_buffer))
     return "\n".join(html_parts)
@@ -110,11 +144,11 @@ def render_chapter(idx, items):
             body_parts.append(f"<p><strong>{content}</strong></p>")
         elif typ == "p":
             body_parts.append(f"<p>{content}</p>")
-    sub_html = f"<div class=\"chapter-sub\">{h3_sub}</div>" if h3_sub else ""
+    sub_html = f'<div class="chapter-sub">{h3_sub}</div>' if h3_sub else ""
     body_html = "\n".join(body_parts)
-    return f"""  <div class=\"chapter\">
-    <div class=\"chapter-number\">{idx}</div>
-    <div class=\"chapter-content\">
+    return f"""  <div class="chapter">
+    <div class="chapter-number">{idx}</div>
+    <div class="chapter-content">
       <h2>{h2_title}</h2>
 {sub_html}
 {body_html}
@@ -125,7 +159,7 @@ def render_chapter(idx, items):
 def render_highlight(text):
     text = re.sub(r"^\*\*(.+?)：\*\*", r"<strong>\1：</strong>", text)
     text = re.sub(r"^\*\*(.+?):\*\*", r"<strong>\1：</strong>", text)
-    return f"""      <div class=\"highlight-box\">
+    return f"""      <div class="highlight-box">
         {text}
       </div>"""
 
@@ -138,8 +172,8 @@ def render_conclusion(lines):
             closing_line = line
         else:
             paragraphs.append(f"<p>{line}</p>")
-    closing_html = f"\n    <div class=\"closing-line\">{closing_line}</div>" if closing_line else ""
-    return f"""  <div class=\"conclusion\">
+    closing_html = f'\n    <div class="closing-line">{closing_line}</div>' if closing_line else ""
+    return f"""  <div class="conclusion">
     <h2>结语</h2>
 {chr(10).join(["    " + p for p in paragraphs])}{closing_html}
   </div>"""
@@ -220,9 +254,25 @@ for filename in sorted(os.listdir(SOURCE_DIR)):
     description = fm.get("description", fm.get("summary", ""))
     tags = fm.get("tags", ["政策解析", "OPC"])
     city = fm.get("city", "")
-    body_html = parse_markdown_body(body)
-    lead_text = description if description else ""
-
+    
+    # 去重标签
+    display_tags = []
+    for t in tags:
+        if t not in display_tags and t != "政策解析":
+            display_tags.append(t)
+    if not display_tags:
+        display_tags = ["OPC"]
+    
+    # 副标题处理：超过30字不显示金色大标题
+    if description and len(description) <= 30:
+        sub_title = description
+        lead_text = ""
+    else:
+        sub_title = "政策深度解读"
+        lead_text = description if description else ""
+    
+    body_html = parse_markdown_body(body, title)
+    
     html = f"""---
 layout: default
 title: "{title}"
@@ -238,17 +288,17 @@ title: "{title}"
     <div class="meta-left">
       <span class="meta-tag">政策解析</span>
       <div class="meta-divider"></div>
-      <span class="meta-text">{city if city else "OPC"}</span>
+      <span class="meta-text">{city if city else display_tags[0]}</span>
       <div class="meta-divider"></div>
-      <span class="meta-text">{tags[0] if tags else "OPC"}</span>
+      <span class="meta-text">{display_tags[1] if len(display_tags) > 1 else display_tags[0]}</span>
     </div>
     <div class="meta-right">{date_str}</div>
   </div>
 
   <div class="headline-area">
     <h1>{title}</h1>
-    <div class="headline-sub">{description if description else "政策深度解读"}</div>
-    <p class="headline-lead">{lead_text}</p>
+    <div class="headline-sub">{sub_title}</div>
+    {f'<p class="headline-lead">{lead_text}</p>' if lead_text else ''}
   </div>
 
 {body_html}
