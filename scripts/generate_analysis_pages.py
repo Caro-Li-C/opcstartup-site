@@ -112,9 +112,9 @@ def render_chapter(idx, items):
             body_parts.append(f"<p>{content}</p>")
     sub_html = f"<div class=\"chapter-sub\">{h3_sub}</div>" if h3_sub else ""
     body_html = "\n".join(body_parts)
-    return f"""  <div class="chapter">
-    <div class="chapter-number">{idx}</div>
-    <div class="chapter-content">
+    return f"""  <div class=\"chapter\">
+    <div class=\"chapter-number\">{idx}</div>
+    <div class=\"chapter-content\">
       <h2>{h2_title}</h2>
 {sub_html}
 {body_html}
@@ -125,7 +125,7 @@ def render_chapter(idx, items):
 def render_highlight(text):
     text = re.sub(r"^\*\*(.+?)：\*\*", r"<strong>\1：</strong>", text)
     text = re.sub(r"^\*\*(.+?):\*\*", r"<strong>\1：</strong>", text)
-    return f"""      <div class="highlight-box">
+    return f"""      <div class=\"highlight-box\">
         {text}
       </div>"""
 
@@ -139,53 +139,13 @@ def render_conclusion(lines):
         else:
             paragraphs.append(f"<p>{line}</p>")
     closing_html = f"\n    <div class=\"closing-line\">{closing_line}</div>" if closing_line else ""
-    return f"""  <div class="conclusion">
+    return f"""  <div class=\"conclusion\">
     <h2>结语</h2>
 {chr(10).join(["    " + p for p in paragraphs])}{closing_html}
   </div>"""
 
 
-articles = []
-
-for filename in sorted(os.listdir(SOURCE_DIR)):
-    if not filename.endswith(".md"):
-        continue
-    filepath = SOURCE_DIR / filename
-    with open(filepath, "r", encoding="utf-8") as f:
-        content = f.read()
-    fm = {}
-    body = content
-    if content.startswith("---"):
-        parts = content.split("---", 2)
-        if len(parts) >= 3:
-            try:
-                fm = yaml.safe_load(parts[1])
-            except:
-                pass
-            body = parts[2].strip()
-    name = filename.replace(".md", "")
-    m = re.match(r"(\d{4}-\d{2}-\d{2})-(.+)", name)
-    date_str = str(fm.get("date", ""))
-    if not date_str and m:
-        date_str = m.group(1)
-    if not date_str:
-        date_str = "2026-06-25"
-    title = fm.get("title", m.group(2).replace("-", "") if m else name)
-    slug = slugify(title)
-    author = fm.get("author", "潇韬")
-    description = fm.get("description", fm.get("summary", ""))
-    tags = fm.get("tags", ["政策解析", "OPC"])
-    city = fm.get("city", "")
-    body_html = parse_markdown_body(body)
-    lead_text = description if description else ""
-    tags_html = "".join([f"<span class=\"meta-text\">{t}</span>" for t in tags[:3]])
-
-    html = f"""---
-layout: default
-title: "{title}"
----
-
-<style>
+CSS_TEMPLATE = """
 @import url("https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap");
 * { margin: 0; padding: 0; box-sizing: border-box; }
 :root { --ink: #1a1a1a; --charcoal: #2d2d2d; --warm-gray: #8a8279; --mist: #e8e4df; --parchment: #f5f3f0; --brass: #b8956a; --brass-light: #d4b896; --brass-dim: rgba(184,149,106,0.12); --white: #ffffff; --bg-warm: #faf8f5; }
@@ -226,6 +186,50 @@ body { font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Pin
 .back-link a { display: inline-flex; align-items: center; gap: 8px; color: var(--warm-gray); text-decoration: none; font-size: 14px; transition: color 0.2s; padding: 10px 24px; border: 1px solid var(--mist); }
 .back-link a:hover { color: var(--brass); border-color: var(--brass-light); }
 @media (max-width: 640px) { .headline-area h1, .headline-area .headline-sub { font-size: 28px; } .chapter { gap: 16px; } .chapter-number { width: 36px; height: 36px; font-size: 14px; } .chapter-content h2 { font-size: 18px; } .drop-cap-section p::first-letter { font-size: 56px; } }
+"""
+
+
+articles = []
+
+for filename in sorted(os.listdir(SOURCE_DIR)):
+    if not filename.endswith(".md"):
+        continue
+    filepath = SOURCE_DIR / filename
+    with open(filepath, "r", encoding="utf-8") as f:
+        content = f.read()
+    fm = {}
+    body = content
+    if content.startswith("---"):
+        parts = content.split("---", 2)
+        if len(parts) >= 3:
+            try:
+                fm = yaml.safe_load(parts[1])
+            except:
+                pass
+            body = parts[2].strip()
+    name = filename.replace(".md", "")
+    m = re.match(r"(\d{4}-\d{2}-\d{2})-(.+)", name)
+    date_str = str(fm.get("date", ""))
+    if not date_str and m:
+        date_str = m.group(1)
+    if not date_str:
+        date_str = "2026-06-25"
+    title = fm.get("title", m.group(2).replace("-", "") if m else name)
+    slug = slugify(title)
+    author = fm.get("author", "潇韬")
+    description = fm.get("description", fm.get("summary", ""))
+    tags = fm.get("tags", ["政策解析", "OPC"])
+    city = fm.get("city", "")
+    body_html = parse_markdown_body(body)
+    lead_text = description if description else ""
+
+    html = f"""---
+layout: default
+title: "{title}"
+---
+
+<style>
+{CSS_TEMPLATE}
 </style>
 
 <article class="article-container">
@@ -337,4 +341,3 @@ with open(data_dir / "analysis.yml", "w", encoding="utf-8") as f:
     yaml.dump(analysis_data, f, allow_unicode=True, sort_keys=False)
 
 print(f"\n✅ 完成！共 {len(articles)} 篇文章 + 列表页 + _data/analysis.yml")
-
