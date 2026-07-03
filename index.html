@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -573,7 +572,7 @@
         /* ===== 文章列表区 ===== */
         .articles {
             background: var(--parchment);
-            padding: 80px 48px;
+            padding: 80px 48px 30px;
         }
 
         .articles-inner {
@@ -688,179 +687,94 @@
 
         .article-card:hover .article-link { color: var(--brass); }
 
-        /* ===== 加入社群 ===== */
-        .join {
-            background: var(--charcoal);
-            color: var(--white);
-            padding: 100px 48px 0;
-            position: relative;
-            overflow: hidden;
+        /* ===== 社群矩阵 ===== */
+        .community-matrix {
+            background: var(--parchment);
+            padding: 16px 48px 60px;
         }
 
-        .join::before {
-            content: '';
-            position: absolute;
-            top: -30%;
-            right: -10%;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(184,149,106,0.06) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .join-inner {
+        .community-matrix-header {
             max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
+            margin: 0 auto 24px;
+            text-align: center;
         }
 
-        .join-eyebrow {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 28px;
-        }
-
-        .join-eyebrow::before {
-            content: '';
-            width: 32px;
-            height: 2px;
-            background: var(--brass);
-        }
-
-        .join-eyebrow-text {
-            font-size: 14px;
-            color: var(--brass);
-            letter-spacing: 3px;
-            font-weight: 600;
-        }
-
-        .join h2 {
+        .community-matrix-title {
             font-family: 'Noto Serif SC', serif;
-            font-size: 48px;
-            font-weight: 900;
-            line-height: 1.15;
-            margin-bottom: 24px;
-            letter-spacing: 2px;
-        }
-
-        .join-desc {
-            font-size: 18px;
-            color: rgba(255,255,255,0.5);
-            max-width: 560px;
-            line-height: 1.8;
-            font-weight: 300;
-            margin-bottom: 48px;
-        }
-
-        .join-cta-group {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-            margin-bottom: 60px;
-        }
-
-        .join-cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            background: var(--brass);
-            color: var(--charcoal);
-            padding: 16px 32px;
-            text-decoration: none;
+            font-size: 28px;
             font-weight: 700;
-            font-size: 15px;
-            letter-spacing: 1px;
-            transition: all 0.3s;
+            color: var(--charcoal);
+            letter-spacing: 2px;
+            display: inline-block;
+            padding-top: 8px;
         }
 
-        .join-cta:hover {
-            background: var(--brass-light);
-            transform: translateY(-2px);
-        }
-
-        .join-cta-secondary {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--brass);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 15px;
-            transition: color 0.3s;
-        }
-
-        .join-cta-secondary:hover { color: var(--brass-light); }
-
-        /* ===== 社群矩阵统计条 ===== */
-        .matrix-bar {
-            background: var(--charcoal);
-            padding: 0 48px 60px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .matrix-inner {
+        .community-matrix-inner {
             max-width: 1200px;
             margin: 0 auto;
             display: flex;
             gap: 0;
-            padding-top: 48px;
-            border-top: 1px solid rgba(255,255,255,0.08);
         }
 
-        .matrix-item {
+        .community-matrix-item {
             flex: 1;
-            padding: 0 32px;
-            border-right: 1px solid rgba(255,255,255,0.08);
-            position: relative;
+            padding: 0 40px;
+            border-right: 1px solid var(--mist);
         }
 
-        .matrix-item:first-child { padding-left: 0; }
-        .matrix-item:last-child { border-right: none; padding-right: 0; }
+        .community-matrix-item:first-child {
+            padding-left: 0;
+        }
 
-        .matrix-num {
+        .community-matrix-item:last-child {
+            border-right: none;
+            padding-right: 0;
+        }
+
+        .community-matrix-num {
             font-family: 'Noto Serif SC', serif;
-            font-size: 36px;
+            font-size: 48px;
             font-weight: 900;
-            color: var(--white);
+            color: var(--charcoal);
             line-height: 1;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
         }
 
-        .matrix-label {
-            font-size: 13px;
-            color: rgba(255,255,255,0.4);
-            font-weight: 400;
-            margin-bottom: 8px;
+        .community-matrix-label {
+            font-size: 14px;
+            color: var(--warm-gray);
+            font-weight: 500;
+            margin-bottom: 12px;
         }
 
-        .matrix-detail {
+        .community-matrix-desc {
             font-size: 13px;
-            color: rgba(255,255,255,0.3);
+            color: var(--nav-muted);
             line-height: 1.6;
         }
 
         /* ===== 页脚 ===== */
         .footer {
-            background: var(--footer-bg);
-            border-top: 1px solid var(--nav-border);
-            padding: 64px 48px 48px;
+            background: var(--charcoal);
+            border-top: 1px solid rgba(255,255,255,0.06);
+            padding: 64px 48px 0;
         }
 
         .footer-inner {
             max-width: 1200px;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1.2fr 1fr 1fr 1fr;
-            gap: 48px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 80px;
+            align-items: flex-start;
         }
 
         .footer-brand {
+            flex: 0 0 300px;
             display: flex;
             flex-direction: column;
             gap: 20px;
+            flex-shrink: 0;
         }
 
         .footer-brand-top {
@@ -872,7 +786,7 @@
         .footer-brand-icon {
             width: 40px;
             height: 40px;
-            background: var(--charcoal);
+            background: rgba(255,255,255,0.08);
             border-radius: 10px;
             display: flex;
             align-items: center;
@@ -894,13 +808,13 @@
         .footer-brand-name {
             font-size: 17px;
             font-weight: 700;
-            color: var(--charcoal);
+            color: var(--white);
             letter-spacing: 0.5px;
         }
 
         .footer-brand-sub {
             font-size: 11px;
-            color: var(--nav-muted);
+            color: rgba(255,255,255,0.35);
             letter-spacing: 2px;
             font-weight: 500;
             text-transform: uppercase;
@@ -908,42 +822,256 @@
 
         .footer-brand-desc {
             font-size: 14px;
-            color: var(--warm-gray);
+            color: rgba(255,255,255,0.45);
             line-height: 1.8;
             max-width: 280px;
         }
 
-        .footer-col h4 {
+        .footer-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 4px;
+            padding: 10px 24px;
+            background: var(--brass);
+            color: var(--charcoal);
             font-size: 14px;
             font-weight: 700;
-            color: var(--charcoal);
-            margin-bottom: 20px;
-            letter-spacing: 0.5px;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.25s ease;
+            width: fit-content;
         }
 
-        .footer-col ul {
+        .footer-cta:hover {
+            background: var(--brass-light);
+            transform: translateY(-1px);
+        }
+
+        .footer-cta svg {
+            width: 16px;
+            height: 16px;
+            opacity: 0.8;
+        }
+
+        .footer-links-area {
+            flex: 0 0 400px;
+            display: flex;
+            gap: 80px;
+            flex-shrink: 0;
+        }
+
+        .footer-link-col {
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .footer-link-col h4 {
+            font-size: 11px;
+            font-weight: 700;
+            color: rgba(255,255,255,0.3);
+            margin-bottom: 24px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .footer-link-col ul {
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 0;
         }
 
-        .footer-col a {
+        .footer-link-col li {
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .footer-link-col a {
             text-decoration: none;
             font-size: 14px;
-            color: var(--warm-gray);
+            color: rgba(255,255,255,0.5);
             font-weight: 500;
-            transition: color 0.2s;
-            display: block;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 14px 0;
+            white-space: nowrap;
         }
 
-        .footer-col a:hover { color: var(--brass-dark); }
+        .footer-link-col a::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 50%;
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }
+
+        .footer-link-col a:hover {
+            color: var(--white);
+            padding-left: 8px;
+        }
+
+        .footer-link-col a:hover::before {
+            background: var(--brass);
+        }
+
+        .footer-contact-block {
+            flex: 0 0 260px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            flex-shrink: 0;
+        }
+
+        .footer-contact-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .footer-contact-header-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--brass);
+            flex-shrink: 0;
+        }
+
+        .footer-contact-header-icon svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .footer-contact-header-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.3;
+        }
+
+        .footer-contact-header-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--white);
+            letter-spacing: 0.5px;
+        }
+
+        .footer-contact-header-sub {
+            font-size: 11px;
+            color: rgba(255,255,255,0.35);
+            letter-spacing: 2px;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .footer-contact-desc {
+            font-size: 14px;
+            color: rgba(255,255,255,0.45);
+            line-height: 1.8;
+            max-width: 260px;
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .footer-contact-item:first-of-type {
+            border-top: none;
+        }
+
+        .footer-contact-icon {
+            width: 32px;
+            height: 32px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.35);
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }
+
+        .footer-contact-item:hover .footer-contact-icon {
+            color: var(--brass);
+            background: rgba(184,149,106,0.08);
+        }
+
+        .footer-contact-icon svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .footer-contact-info {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.3;
+            gap: 3px;
+        }
+
+        .footer-contact-name {
+            font-size: 14px;
+            color: rgba(255,255,255,0.7);
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        .footer-contact-name a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-contact-name a:hover {
+            color: var(--white);
+        }
+
+        .footer-contact-type {
+            font-size: 11px;
+            color: rgba(255,255,255,0.3);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 48px auto 0;
+            padding: 24px 0;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: rgba(255,255,255,0.3);
+            font-size: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-bottom a {
+            color: rgba(255,255,255,0.3);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-bottom a:hover {
+            color: var(--brass);
+        }
 
         /* 响应式 */
         @media (max-width: 768px) {
             .hero h1, .join h2 { font-size: 36px; }
-            .stats-inner, .matrix-inner { flex-wrap: wrap; }
-            .stat-item, .matrix-item {
+            .stats-inner { flex-wrap: wrap; }
+            .stat-item {
                 flex: 0 0 50%;
                 border-right: none;
                 border-bottom: 1px solid rgba(255,255,255,0.08);
@@ -952,12 +1080,28 @@
             .trust-grid { grid-template-columns: 1fr; }
             .articles-header h2 { font-size: 24px; }
             .footer-inner {
-                grid-template-columns: 1fr 1fr;
-                gap: 32px;
+                flex-direction: column;
+                gap: 48px;
             }
-            .footer-brand { grid-column: 1 / -1; }
+            .footer-brand {
+                flex: none;
+            }
+            .footer-links-area {
+                flex-direction: column;
+                gap: 48px;
+            }
+            .footer-contact-block {
+                flex: none;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
         }
     </style>
+<base target="_blank">
+<base target="_blank">
 <base target="_blank">
 </head>
 <body>
@@ -1089,7 +1233,7 @@
         </div>
     </section>
 
-        <!-- 文章列表 -->
+    <!-- 文章列表 -->
     <section class="articles">
         <div class="articles-inner">
             <div class="articles-header">
@@ -1097,24 +1241,18 @@
                 <a href="#" class="articles-more">查看全部 →</a>
             </div>
             <div class="article-list">
-
-                <!-- 政策解读：政策解析（主）+ 政策原文（从） -->
                 <article class="article-card" style="cursor: default;">
                     <div class="article-meta">
                         <span class="article-category">政策解读</span>
                         <span class="article-dot">·</span>
                         <span class="article-time">06-25</span>
                     </div>
-
-                    <!-- 政策解析（主） -->
                     <h3 class="article-title" style="margin-bottom: 8px;">北京副中心通州OPC七条：市级框架下的区级修订</h3>
                     <p class="article-summary">从3号文到4号文的14天：通州区四部门联合发文的OPC政策迭代，揭示了一个区级政府如何在市级框架下快速响应。</p>
                     <div class="article-footer" style="margin-bottom: 20px;">
                         <span class="article-views">潇韬</span>
                         <a href="/policy/analysis/北京副中心通州OPC七条市级框架下的区级修订.html" class="article-link" style="text-decoration: none;">阅读全文 →</a>
                     </div>
-
-                    <!-- 分隔线 -->
                     <div style="height: 1px; background: var(--mist); margin: 16px 0;"></div>
                     <div style="font-size: 12px; color: var(--warm-gray); margin-bottom: 6px; letter-spacing: 1px; font-weight: 500;">📄 政策原文</div>
                     <h3 class="article-title" style="font-size: 18px; margin-bottom: 8px;">关于北京城市副中心支持数智创新OPC创新发展的若干措施</h3>
@@ -1122,14 +1260,11 @@
                         <span class="article-views">北京 · 通州</span>
                         <a href="/policy/original/beijing/tongzhou/001.html" class="article-link" style="text-decoration: none;">阅读全文 →</a>
                     </div>
-
                     <div style="display: flex; gap: 24px; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--mist);">
                         <a href="/policy/" style="font-size: 13px; color: var(--brass-dark); text-decoration: none; font-weight: 600; transition: color 0.3s;">查看全部原文 →</a>
                         <a href="/policy/analysis/" style="font-size: 13px; color: var(--brass-dark); text-decoration: none; font-weight: 600; transition: color 0.3s;">查看全部解析 →</a>
                     </div>
                 </article>
-
-                <!-- 实务操作 -->
                 <a href="/operations/2026-04-15-杭州市余杭区OPC企业专属开办流程指引.html" class="article-card">
                     <div class="article-meta">
                         <span class="article-category">实务操作</span>
@@ -1143,8 +1278,6 @@
                         <span class="article-link">阅读全文 →</span>
                     </div>
                 </a>
-
-                <!-- 申报指南 -->
                 <a href="/applications/2026-05-20-海淀区全面打造OPC创业生态专项申报指南.html" class="article-card">
                     <div class="article-meta">
                         <span class="article-category">申报指南</span>
@@ -1158,8 +1291,6 @@
                         <span class="article-link">阅读全文 →</span>
                     </div>
                 </a>
-
-                <!-- 入驻指南 -->
                 <a href="/guides/2026-03-15-苏州OPC政策与社区生态深度解析.html" class="article-card">
                     <div class="article-meta">
                         <span class="article-category">入驻指南</span>
@@ -1173,8 +1304,6 @@
                         <span class="article-link">阅读全文 →</span>
                     </div>
                 </a>
-
-                <!-- 原文速递 -->
                 <a href="/posts/2026-06-20-创始人手册构建AI原生初创企业.html" class="article-card">
                     <div class="article-meta">
                         <span class="article-category">原文速递</span>
@@ -1188,8 +1317,6 @@
                         <span class="article-link">阅读全文 →</span>
                     </div>
                 </a>
-
-                <!-- 观点洞察 -->
                 <a href="/insights/2026-02-20-一人公司不是退路而是窄门.html" class="article-card">
                     <div class="article-meta">
                         <span class="article-category">观点洞察</span>
@@ -1203,8 +1330,6 @@
                         <span class="article-link">阅读全文 →</span>
                     </div>
                 </a>
-
-                <!-- 原创小说 -->
                 <a href="/novel/2026-06-30-原创短篇科幻小说白云的证人.html" class="article-card">
                     <div class="article-meta">
                         <span class="article-category">原创小说</span>
@@ -1218,51 +1343,35 @@
                         <span class="article-link">阅读全文 →</span>
                     </div>
                 </a>
-
             </div>
         </div>
     </section>
 
-    <!-- 加入社群 -->
-    <section class="join">
-        <div class="join-inner">
-            <div class="join-eyebrow">
-                <span class="join-eyebrow-text">OPC创业汇</span>
-            </div>
-            <h2>加入社群</h2>
-            <p class="join-desc">
-                与全国超级个体连接，获取第一手政策信息、资源对接与创业交流。<br>
-                我们只做真实连接，不做空壳社交。
-            </p>
-            <div class="join-cta-group">
-                <a href="#" class="join-cta">立即加入</a>
-                <a href="#" class="join-cta-secondary">了解社群规则 →</a>
-            </div>
+    <!-- 社群矩阵 -->
+    <div class="community-matrix">
+        <div class="community-matrix-header">
+            <h2 class="community-matrix-title">社群矩阵</h2>
         </div>
-    </section>
-
-    <!-- 社群矩阵统计条 -->
-    <div class="matrix-bar">
-        <div class="matrix-inner">
-            <div class="matrix-item">
-                <div class="matrix-num">18</div>
-                <div class="matrix-label">全国群</div>
-                <div class="matrix-detail">覆盖全国OPC创业者</div>
+        <div class="community-matrix-inner">
+            <div class="community-matrix-item">
+                <div class="community-matrix-num">18</div>
+                <div class="community-matrix-label">全国群</div>
+                <div class="community-matrix-desc">覆盖全国OPC创业者</div>
             </div>
-            <div class="matrix-item">
-                <div class="matrix-num">5</div>
-                <div class="matrix-label">区域群</div>
-                <div class="matrix-detail">长三角、大湾区、京津冀、东北、川渝</div>
+            <div class="community-matrix-item">
+                <div class="community-matrix-num">5</div>
+                <div class="community-matrix-label">区域群</div>
+                <div class="community-matrix-desc">长三角、大湾区、京津冀、东北、川渝</div>
             </div>
-            <div class="matrix-item">
-                <div class="matrix-num">5</div>
-                <div class="matrix-label">省级群</div>
-                <div class="matrix-detail">安徽、山东、新疆、河南、江西</div>
+            <div class="community-matrix-item">
+                <div class="community-matrix-num">5</div>
+                <div class="community-matrix-label">省级群</div>
+                <div class="community-matrix-desc">安徽、山东、新疆、河南、江西</div>
             </div>
-            <div class="matrix-item">
-                <div class="matrix-num">11</div>
-                <div class="matrix-label">重点城市群</div>
-                <div class="matrix-detail">北京、上海、深圳、广州、杭州、香港、苏州、南京、成都、武汉、天津</div>
+            <div class="community-matrix-item">
+                <div class="community-matrix-num">11</div>
+                <div class="community-matrix-label">重点城市群</div>
+                <div class="community-matrix-desc">北京、上海、深圳、广州、杭州、香港、苏州、南京、成都、武汉、天津</div>
             </div>
         </div>
     </div>
@@ -1282,42 +1391,83 @@
                     聚焦超级个体创业，构建一个交付真实连接的生态。<br>
                     这里没有冰冷的指南，只有对你说真话的人，和并肩实验过的路。
                 </p>
+                <a href="/community/join/" class="footer-cta">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    加入社群
+                </a>
             </div>
 
-            <div class="footer-col">
-                <h4>内容板块</h4>
-                <ul>
-                    <li><a href="#">政策解读</a></li>
-                    <li><a href="#">实务操作</a></li>
-                    <li><a href="#">申报指南</a></li>
-                    <li><a href="#">入驻指南</a></li>
-                    <li><a href="#">原文速递</a></li>
-                    <li><a href="#">观点洞察</a></li>
-                    <li><a href="#">原创小说</a></li>
-                </ul>
+            <div class="footer-links-area">
+                <div class="footer-link-col">
+                    <h4>内容板块</h4>
+                    <ul>
+                        <li><a href="/policy/">政策解读</a></li>
+                        <li><a href="/operations/">实务操作</a></li>
+                        <li><a href="/applications/">申报指南</a></li>
+                        <li><a href="/guides/">入驻指南</a></li>
+                        <li><a href="/posts/">原文速递</a></li>
+                        <li><a href="/insights/">观点洞察</a></li>
+                        <li><a href="/novel/">原创小说</a></li>
+                    </ul>
+                </div>
+                <div class="footer-link-col">
+                    <h4>关于</h4>
+                    <ul>
+                        <li><a href="/">关于主理人</a></li>
+                        <li><a href="/">联系合作</a></li>
+                        <li><a href="/">文章归档</a></li>
+                        <li><a href="/">RSS订阅</a></li>
+                        <li><a href="/">网站地图</a></li>
+                    </ul>
+                </div>
             </div>
 
-            <div class="footer-col">
-                <h4>社区</h4>
-                <ul>
-                    <li><a href="#">OPC社区</a></li>
-                    <li><a href="#">社群交流</a></li>
-                    <li><a href="#">需求发布</a></li>
-                    <li><a href="#">入驻指引</a></li>
-                    <li><a href="#">加入社群</a></li>
-                </ul>
+            <div class="footer-contact-block">
+                <div class="footer-contact-header">
+                    <div class="footer-contact-header-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    </div>
+                    <div class="footer-contact-header-text">
+                        <span class="footer-contact-header-title">联系我们</span>
+                        <span class="footer-contact-header-sub">CONTACT</span>
+                    </div>
+                </div>
+                <p class="footer-contact-desc">
+                    有任何问题或合作意向，随时通过以下方式找到我们。
+                </p>
+                <div class="footer-contact-item">
+                    <div class="footer-contact-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <div class="footer-contact-info">
+                        <span class="footer-contact-name">Man_Li_NJU</span>
+                        <span class="footer-contact-type">微信</span>
+                    </div>
+                </div>
+                <div class="footer-contact-item">
+                    <div class="footer-contact-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                    </div>
+                    <div class="footer-contact-info">
+                        <span class="footer-contact-name"><a href="mailto:MandyLee2026@126.com">MandyLee2026@126.com</a></span>
+                        <span class="footer-contact-type">邮箱</span>
+                    </div>
+                </div>
+                <div class="footer-contact-item">
+                    <div class="footer-contact-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    </div>
+                    <div class="footer-contact-info">
+                        <span class="footer-contact-name">OPC创业汇</span>
+                        <span class="footer-contact-type">公众号</span>
+                    </div>
+                </div>
             </div>
+        </div>
 
-            <div class="footer-col">
-                <h4>关于</h4>
-                <ul>
-                    <li><a href="#">关于主理人</a></li>
-                    <li><a href="#">联系合作</a></li>
-                    <li><a href="#">文章归档</a></li>
-                    <li><a href="#">RSS订阅</a></li>
-                    <li><a href="#">网站地图</a></li>
-                </ul>
-            </div>
+        <div class="footer-bottom">
+            <span>© 2026 OPC创业汇</span>
+            <a href="https://opcstartup.cn">opcstartup.cn</a>
         </div>
     </footer>
 </body>
