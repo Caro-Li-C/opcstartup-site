@@ -4,19 +4,19 @@
 generate_analysis_pages.py
 批量将 OPC 政策解析 Markdown 文件转换为结构化的多文章 HTML 预览页。
 
-改进特性：
-1. 自动删除与标题重复的正文内容
-2. 删除 "政策深度解读" 等冗余 headline-sub
-3. 过滤装饰性内容（COLD, TAKE, Labo, 纯符号等）
-4. 独立编号识别：正文中的孤立数字（03/04/05）自动提升为独立 section
-5. section-num 与 chapter-number 严格左对齐（负 margin 方案）
-6. KV 行智能过滤：删除无意义或重复的 KV 对
-7. 移动端响应式适配
+用法：
+    python scripts/generate_analysis_pages.py [输入目录] [输出文件]
+
+示例：
+    python scripts/generate_analysis_pages.py policy _site/analysis/index.html
+    python scripts/generate_analysis_pages.py . output.html
+    python scripts/generate_analysis_pages.py        # 自动搜索常见目录
 """
 
 import os
 import re
 import sys
+import argparse
 from pathlib import Path
 from typing import List, Dict, Tuple, Optional
 
@@ -24,9 +24,8 @@ from typing import List, Dict, Tuple, Optional
 # 配置
 # =============================================================================
 
-INPUT_DIR = Path("./_analysis")      # Markdown 源文件目录
-OUTPUT_DIR = Path("./_site/analysis") # HTML 输出目录
-OUTPUT_FILE = OUTPUT_DIR / "index.html" # 合并输出文件
+# 默认搜索的目录（按优先级）
+DEFAULT_SEARCH_DIRS = ["_analysis", "policy", "_posts", "analysis", "content"]
 
 # 装饰性内容黑名单（小写）
 DECORATIVE_WORDS = {
@@ -469,6 +468,44 @@ def parse_date_from_filename(filename: str) -> str:
     return ""
 
 
+def find_input_dir(specified: Optional[str] = None) -> Path:
+    """
+    查找输入目录。
+    1. 如果用户指定了目录，直接使用
+    2. 否则按 DEFAULT_SEARCH_DIRS 顺序搜索
+    3. 都找不到则报错并提示
+    """
+    if specified:
+        p = Path(specified)
+        if p.exists() and p.is_dir():
+            return p
+        raise FileNotFoundError(f"指定的目录不存在: {specified}")
+
+    # 搜索默认目录
+    for d in DEFAULT_SEARCH_DIRS:
+        p = Path(d)
+        if p.exists() and p.is_dir() and list(p.glob("*.md")):
+            print(f"[信息] 自动发现目录: {d}/")
+            return p
+
+    # 当前目录搜索
+    p = Path(".")
+    if list(p.glob("*.md")):
+        print(f"[信息] 使用当前目录（发现 Markdown 文件）")
+        return p
+
+    # 报错
+    searched = ", ".join(DEFAULT_SEARCH_DIRS + ["当前目录"])
+    raise FileNotFoundError(
+        f"未找到 Markdown 文件。\n"
+        f"已搜索: {searched}\n"
+        f"请指定包含 .md 文件的目录，例如：\n"
+        f"  python {sys.argv[0]} policy\n"
+        f"  python {sys.argv[0]} _analysis\n"
+        f"  python {sys.argv[0]} ."
+    )
+
+
 def md_to_html_paragraphs(md_body: str, title: str) -> str:
     """
     将 Markdown 正文转换为 HTML 结构。
@@ -744,20 +781,41 @@ def build_page(articles_data: List[Dict[str, str]]) -> str:
 
 
 def main():
-    input_dir = Path(INPUT_DIR)
-    output_dir = Path(OUTPUT_DIR)
-    output_dir.mkdir(parents=True, exist_ok=True)
+    parser = argparse.ArgumentParser(
+        description="将 Markdown 政策解析文件批量转换为 HTML 预览页",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+示例：
+  python scripts/generate_analysis_pages.py policy
+  python scripts/generate_analysis_pages.py _analysis _site/analysis/index.html
+  python scripts/generate_analysis_pages.py . output.html
+        """
+    )
+    parser.add_argument(
+        "input_dir", nargs="?", default=None,
+        help="Markdown 源文件目录（默认自动搜索）"
+    )
+    parser.add_argument(
+        "output_file", nargs="?", default="_site/analysis/index.html",
+        help="输出 HTML 文件路径（默认: _site/analysis/index.html）"
+    )
+    args = parser.parse_args()
 
-    if not input_dir.exists():
-        print(f"[错误] 输入目录不存在: {input_dir}")
+    try:
+        input_dir = find_input_dir(args.input_dir)
+    except FileNotFoundError as e:
+        print(f"[错误] {e}")
         sys.exit(1)
+
+    output_file = Path(args.output_file)
+    output_file.parent.mkdir(parents=True, exist_ok=True)
 
     md_files = sorted(input_dir.glob("*.md"))
     if not md_files:
-        print(f"[警告] 未找到 Markdown 文件: {input_dir}")
+        print(f"[警告] 在 {input_dir} 中未找到 Markdown 文件")
         sys.exit(0)
 
-    print(f"[信息] 发现 {len(md_files)} 个 Markdown 文件")
+    print(f"[信息] 在 {input_dir}/ 发现 {len(md_files)} 个 Markdown 文件")
 
     articles_data = []
     for md_path in md_files:
@@ -769,7 +827,6 @@ def main():
             print(f"  [错误] {md_path.name}: {e}")
 
     page_html = build_page(articles_data)
-    output_file = output_dir / "index.html"
     output_file.write_text(page_html, encoding="utf-8")
     print(f"[完成] 已生成: {output_file}")
 
