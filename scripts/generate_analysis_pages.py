@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 generate_analysis_pages.py - 政策解析页面生成脚本
-改进版：标题去重、装饰过滤、独立编号提升、section 对齐修复
+改进版：标题去重、装饰过滤、独立编号提升、section 对齐修复、列表解析、行内格式转换
 """
 import os
 import re
@@ -59,6 +59,19 @@ def is_title_duplicate(title, paragraph):
     return jaccard_similarity(title, paragraph) >= DEDUP_THRESHOLD
 
 
+def inline_md_to_html(text):
+    """行内 Markdown 格式转 HTML：粗体、斜体、链接、图片"""
+    # 删除图片（不渲染）
+    text = re.sub(r'!\[([^\]]*)\]\([^)]+\)', '', text)
+    # 链接
+    text = re.sub(r'\[([^\]]+)\]\(([^)]+)\)', r'<a href="\2">\1</a>', text)
+    # 粗体
+    text = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', text)
+    # 斜体（排除被粗体消耗后的剩余）
+    text = re.sub(r'\*(.+?)\*', r'<em>\1</em>', text)
+    return text
+
+
 def parse_markdown_body(body, title):
     lines = body.strip().split("\n")
     html_parts = []
@@ -68,8 +81,28 @@ def parse_markdown_body(body, title):
     in_numbered = False
     numbered_buffer = []
     numbered_num = ""
+    in_list = False
+    list_items = []
+    list_type = "ul"
     first_para = True
     i = 0
+
+    def flush_list():
+        nonlocal in_list, list_items, list_type
+        if in_list and list_items:
+            items_html = "\n".join([f'        <li>{inline_md_to_html(item)}</li>' for item in list_items])
+            if list_type == "ul":
+                list_html = f'<ul class="article-list">\n{items_html}\n</ul>'
+            else:
+                list_html = f'<ol class="article-list">\n{items_html}\n</ol>'
+            if in_numbered:
+                numbered_buffer.append(("list", list_html))
+            elif in_chapter:
+                chapter_buffer.append(("list", list_html))
+            else:
+                html_parts.append(list_html)
+            list_items = []
+            in_list = False
 
     def flush_chapter():
         nonlocal in_chapter, chapter_buffer, chapter_idx
@@ -90,6 +123,7 @@ def parse_markdown_body(body, title):
     while i < len(lines):
         line = lines[i].strip()
         if not line:
+            flush_list()
             flush_chapter()
             flush_numbered()
             i += 1
@@ -99,7 +133,30 @@ def parse_markdown_body(body, title):
             i += 1
             continue
 
+        # 列表项检测
+        ul_match = re.match(r'^-\s+(.+)$', line)
+        ol_match = re.match(r'^(\d+)\.\s+(.+)$', line)
+        if ul_match or ol_match:
+            flush_chapter()
+            flush_numbered()
+            if not in_list:
+                in_list = True
+                list_type = "ul" if ul_match else "ol"
+            elif ul_match and list_type != "ul":
+                flush_list()
+                in_list = True
+                list_type = "ul"
+            elif ol_match and list_type != "ol":
+                flush_list()
+                in_list = True
+                list_type = "ol"
+            item_text = ul_match.group(1) if ul_match else ol_match.group(2)
+            list_items.append(item_text)
+            i += 1
+            continue
+
         if re.match(r"^#{1,2}\s*结语", line) or re.match(r"^#{1,2}\s*Conclusion", line, re.I):
+            flush_list()
             flush_chapter()
             flush_numbered()
             conclusion_lines = []
@@ -115,6 +172,7 @@ def parse_markdown_body(body, title):
         if m_num:
             next_line = lines[i + 1].strip() if i + 1 < len(lines) else ""
             if next_line and not re.match(r"^\d{1,2}$", next_line) and not is_decorative(next_line):
+                flush_list()
                 flush_chapter()
                 flush_numbered()
                 in_numbered = True
@@ -128,6 +186,7 @@ def parse_markdown_body(body, title):
             h2_text = h2_match.group(1).strip()
             cn_match = re.match(r"^(?:[一二三四五六七八九十]+、|第[一二三四五六七八九十\d]+条)\s*(.+)$", h2_text)
             if cn_match and len(h2_text) < 60:
+                flush_list()
                 flush_numbered()
                 flush_chapter()
                 in_chapter = True
@@ -136,6 +195,7 @@ def parse_markdown_body(body, title):
                 continue
             num_match = re.match(r"^(\d{1,2})[\.、\s)）]+(.+)$", h2_text)
             if num_match:
+                flush_list()
                 flush_chapter()
                 flush_numbered()
                 in_numbered = True
@@ -143,6 +203,7 @@ def parse_markdown_body(body, title):
                 numbered_buffer.append(("title", num_match.group(2).strip()))
                 i += 1
                 continue
+            flush_list()
             flush_numbered()
             flush_chapter()
             in_chapter = True
@@ -152,18 +213,20 @@ def parse_markdown_body(body, title):
 
         h3_match = re.match(r"^#{3}\s+(.+)$", line)
         if h3_match:
+            flush_list()
             h3_text = h3_match.group(1).strip()
             if in_numbered:
                 numbered_buffer.append(("h3", h3_text))
             elif in_chapter:
                 chapter_buffer.append(("h3", h3_text))
             else:
-                html_parts.append(f"<h3>{h3_text}</h3>")
+                html_parts.append(f"<h3>{inline_md_to_html(h3_text)}</h3>")
             i += 1
             continue
 
         cn_chapter = re.match(r"^(?:[一二三四五六七八九十]+、|第[一二三四五六七八九十\d]+条)\s*(.+)$", line)
         if cn_chapter and len(line) < 60:
+            flush_list()
             flush_numbered()
             flush_chapter()
             in_chapter = True
@@ -176,6 +239,7 @@ def parse_markdown_body(body, title):
             key = kv_match.group(1).strip()
             val = kv_match.group(2).strip()
             if not is_decorative(key) and not is_decorative(val) and not is_title_duplicate(title, key + val):
+                flush_list()
                 if in_numbered:
                     numbered_buffer.append(("kv", (key, val)))
                 elif in_chapter:
@@ -186,6 +250,7 @@ def parse_markdown_body(body, title):
                 continue
 
         if line.startswith(">"):
+            flush_list()
             quote_lines = []
             while i < len(lines) and lines[i].strip().startswith(">"):
                 q = lines[i].strip()[1:].strip()
@@ -203,28 +268,31 @@ def parse_markdown_body(body, title):
             continue
 
         if line.startswith("**") and line.endswith("**"):
+            flush_list()
             text = line[2:-2]
             if in_numbered:
                 numbered_buffer.append(("strong_p", text))
             elif in_chapter:
                 chapter_buffer.append(("strong_p", text))
             else:
-                html_parts.append(f"<p><strong>{text}</strong></p>")
+                html_parts.append(f"<p><strong>{inline_md_to_html(text)}</strong></p>")
             i += 1
             continue
 
+        flush_list()
         if in_numbered:
             numbered_buffer.append(("p", line))
         elif in_chapter:
             chapter_buffer.append(("p", line))
         else:
             if first_para and 50 <= len(line) <= 200:
-                html_parts.append(f'<div class="drop-cap-section"><p>{line}</p></div>')
+                html_parts.append(f'<div class="drop-cap-section"><p>{inline_md_to_html(line)}</p></div>')
             else:
-                html_parts.append(f"<p>{line}</p>")
+                html_parts.append(f"<p>{inline_md_to_html(line)}</p>")
             first_para = False
         i += 1
 
+    flush_list()
     flush_chapter()
     flush_numbered()
     return "\n".join(html_parts)
@@ -243,13 +311,15 @@ def render_chapter(idx, items):
         elif typ == "quote":
             body_parts.append(render_highlight(content))
         elif typ == "strong_p":
-            body_parts.append(f"<p><strong>{content}</strong></p>")
+            body_parts.append(f"<p><strong>{inline_md_to_html(content)}</strong></p>")
         elif typ == "kv":
             k, v = content
             kv_rows.append(render_kv_row(k, v))
+        elif typ == "list":
+            body_parts.append(content)
         elif typ == "p":
-            body_parts.append(f"<p>{content}</p>")
-    sub_html = f'<div class="chapter-sub">{h3_sub}</div>' if h3_sub else ""
+            body_parts.append(f"<p>{inline_md_to_html(content)}</p>")
+    sub_html = f'<div class="chapter-sub">{inline_md_to_html(h3_sub)}</div>' if h3_sub else ""
     kv_html = f'<div class="kv-grid">\n{"\n".join(kv_rows)}\n</div>' if kv_rows else ""
     body_html = "\n".join(body_parts)
     return f"""  <div class="chapter">
@@ -271,16 +341,18 @@ def render_numbered(num, items):
         if typ == "title":
             title = content
         elif typ == "h3":
-            body_parts.append(f"<h3>{content}</h3>")
+            body_parts.append(f"<h3>{inline_md_to_html(content)}</h3>")
         elif typ == "quote":
             body_parts.append(render_highlight(content))
         elif typ == "strong_p":
-            body_parts.append(f"<p><strong>{content}</strong></p>")
+            body_parts.append(f"<p><strong>{inline_md_to_html(content)}</strong></p>")
         elif typ == "kv":
             k, v = content
             kv_rows.append(render_kv_row(k, v))
+        elif typ == "list":
+            body_parts.append(content)
         elif typ == "p":
-            body_parts.append(f"<p>{content}</p>")
+            body_parts.append(f"<p>{inline_md_to_html(content)}</p>")
     kv_html = f'<div class="kv-grid">\n{"\n".join(kv_rows)}\n</div>' if kv_rows else ""
     body_html = "\n".join(body_parts)
     return f"""  <div class="numbered-section">
@@ -297,14 +369,15 @@ def render_numbered(num, items):
 
 def render_kv_row(key, val):
     return f"""      <div class="kv-row">
-        <div class="kv-key">{key}</div>
-        <div class="kv-val">{val}</div>
+        <div class="kv-key">{inline_md_to_html(key)}</div>
+        <div class="kv-val">{inline_md_to_html(val)}</div>
       </div>"""
 
 
 def render_highlight(text):
     text = re.sub(r"^\*\*(.+?)：\*\*", r"<strong>\1：</strong>", text)
     text = re.sub(r"^\*\*(.+?):\*\*", r"<strong>\1：</strong>", text)
+    text = inline_md_to_html(text)
     return f"""      <div class="highlight-box">
         {text}
       </div>"""
@@ -317,8 +390,8 @@ def render_conclusion(lines):
         if len(line) < 50 and ("是" in line or "信用" in line or "承诺" in line):
             closing_line = line
         else:
-            paragraphs.append(f"<p>{line}</p>")
-    closing_html = f'\n    <div class="closing-line">{closing_line}</div>' if closing_line else ""
+            paragraphs.append(f"<p>{inline_md_to_html(line)}</p>")
+    closing_html = f'\n    <div class="closing-line">{inline_md_to_html(closing_line)}</div>' if closing_line else ""
     return f"""  <div class="conclusion">
     <h2>结语</h2>
 {"\n".join(["    " + p for p in paragraphs])}{closing_html}
@@ -364,6 +437,8 @@ body { font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Pin
 .kv-row:hover { background: var(--bg-warm); }
 .kv-key { font-size: 13px; font-weight: 600; color: var(--warm-gray); min-width: 80px; max-width: 120px; flex-shrink: 0; letter-spacing: 0.5px; padding-top: 2px; }
 .kv-val { font-size: 15px; color: var(--charcoal); line-height: 1.7; flex: 1; }
+.article-list { margin: 14px 0 14px 20px; padding: 0; font-size: 15px; line-height: 1.9; color: var(--charcoal); }
+.article-list li { margin-bottom: 6px; }
 .highlight-box { background: var(--parchment); border-left: 4px solid var(--brass); padding: 24px 28px; margin: 24px 0; font-size: 15px; line-height: 1.8; color: var(--charcoal); }
 .highlight-box strong { color: var(--ink); font-weight: 600; }
 .conclusion { margin-top: 64px; padding-top: 32px; border-top: 2px solid var(--ink); }
