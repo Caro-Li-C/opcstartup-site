@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 generate_analysis_pages.py - 政策解析页面生成脚本
-改进版：标题去重、装饰过滤、独立编号提升、section 对齐修复、列表解析、行内格式转换
+v3.2: 针对清洗后MD优化：严格去重、合并短行、严格KV、跳过表格残留
 """
 import os
 import re
@@ -9,71 +9,116 @@ import yaml
 from pathlib import Path
 from datetime import datetime
 
-SOURCE_DIR = Path("_tmp_source/analysis")
+SOURCE_DIR = Path("/workspaces/opc-content-source/analysis")
 OUTPUT_DIR = Path("policy/analysis")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-# 装饰性内容黑名单（小写）
 DECORATIVE_WORDS = {
-    "cold", "take", "labo", "▎", "---", "***", "===",
-    "policy depth interpretation", "policy interpretation",
+    "cold", "take", "labo", "policy depth interpretation", "policy interpretation",
     "政策深度解读", "深度解读", "政策解读"
 }
+CN_MAP = {'壹':'一','贰':'二','叁':'三','肆':'四','伍':'五','陆':'六','柒':'七','捌':'八','玖':'九','拾':'十'}
+FW_MAP = {'𝟎':'0','𝟏':'1','𝟐':'2','𝟑':'3','𝟒':'4','𝟓':'5','𝟔':'6','𝟕':'7','𝟖':'8','𝟗':'9'}
 
-DEDUP_THRESHOLD = 0.65
-
+def fw_to_cn(text):
+    s = ''.join(FW_MAP.get(c, c) for c in text)
+    num_map = {'01':'一','02':'二','03':'三','04':'四','05':'五','06':'六','07':'七','08':'八','09':'九','10':'十','11':'十一','12':'十二','1':'一','2':'二','3':'三','4':'四','5':'五','6':'六','7':'七','8':'八','9':'九'}
+    return num_map.get(s, s)
 
 def slugify(title):
     return re.sub(r"[^\w\s-]", "", title).strip().replace(" ", "-").replace("_", "-")[:50]
 
-
 def jaccard_similarity(a, b):
     set_a, set_b = set(a), set(b)
-    if not set_a and not set_b:
-        return 1.0
-    inter = len(set_a & set_b)
-    union = len(set_a | set_b)
-    return inter / union if union else 0.0
-
+    if not set_a and not set_b: return 1.0
+    return len(set_a & set_b) / len(set_a | set_b) if (set_a | set_b) else 0.0
 
 def is_decorative(text):
     t = text.strip()
-    if not t:
-        return True
-    if len(t) <= 2 and not any(c.isalnum() for c in t):
-        return True
-    lower = t.lower()
-    for word in DECORATIVE_WORDS:
-        if lower == word or lower.startswith(word + " ") or lower.endswith(" " + word):
-            return True
-    if re.match(r'^[A-Za-z]+$', t) and len(t) <= 6:
-        return True
+    if not t: return True
+    if len(t) <= 2 and not any(c.isalnum() for c in t): return True
+    if t.lower() in DECORATIVE_WORDS: return True
+    if re.match(r'^[A-Za-z]+$', t) and len(t) <= 6: return True
     return False
 
+def is_image_placeholder(line):
+    s = line.strip()
+    if not s: return False
+    if s == '图片': return True
+    if re.match(r'^.*\.(jpg|jpeg|png|gif|webp|svg)$', s, re.I): return True
+    if len(s) <= 12:
+        img_kws = ['航拍','全景','效果图','示意图','配图','封面','插图','摄影','实景','夜景']
+        if any(k in s for k in img_kws): return True
+    return False
 
-def is_title_duplicate(title, paragraph):
-    title_core = re.sub(r'^[^:]+[：:]', '', title).strip()
-    if title_core and len(title_core) > 8:
-        if title_core in paragraph or paragraph in title_core:
-            return True
-    return jaccard_similarity(title, paragraph) >= DEDUP_THRESHOLD
+def is_table_line(line):
+    s = line.strip()
+    return s.startswith('|') and s.endswith('|') and '|' in s[1:-1]
 
+def is_table_divider(line):
+    return re.match(r'^\s*\|?[\s\-:]+\|', line.strip())
+
+def is_intro_block(line):
+    s = line.strip()
+    return any(re.match(p, s) for p in [
+        r'^【导语】', r'^导读[：:]', r'^导语[：:]', r'^📖\s*导语',
+        r'^📅\s*\d{4}', r'^📄\s*文件', r'^京经信发〔\d{4}〕\d+号',
+        r'^发布时间[：:]', r'^发布主体[：:]', r'^政策名称[：:]',
+        r'^状态[：:]', r'^征求意见[：:]', r'^有效期[：:]', r'^文件全称[：:]',
+        r'^\d{4}年\d{1,2}月\d{1,2}日\s*·\s*政策解读',
+    ])
 
 def inline_md_to_html(text):
-    """行内 Markdown 格式转 HTML：粗体、斜体、链接、图片"""
-    # 删除图片（不渲染）
     text = re.sub(r'!\[([^\]]*)\]\([^)]+\)', '', text)
-    # 链接
     text = re.sub(r'\[([^\]]+)\]\(([^)]+)\)', r'<a href="\2">\1</a>', text)
-    # 粗体
     text = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', text)
-    # 斜体（排除被粗体消耗后的剩余）
     text = re.sub(r'\*(.+?)\*', r'<em>\1</em>', text)
-    return text
+    return text.strip()
 
 
-def parse_markdown_body(body, title):
-    lines = body.strip().split("\n")
+def parse_markdown_body(body, title, description=""):
+    lines = body.strip().split('\n')
+
+    # 严格去重：检查前3行累积文本与 title+description 的相似度
+    check_text = (title + " " + description).strip()
+    if check_text:
+        for cut in [3, 2, 1]:
+            if len(lines) >= cut:
+                leading = " ".join([l.strip() for l in lines[:cut] if l.strip()])
+                if leading and (leading in check_text or check_text in leading or jaccard_similarity(leading, check_text) > 0.55):
+                    lines = lines[cut:]
+                    break
+
+    # 预处理：合并连续短行（时间线、碎片）
+    merged = []
+    buffer = []
+    for line in lines:
+        s = line.strip()
+        if not s:
+            if buffer:
+                merged.append(" ".join(buffer))
+                buffer = []
+            merged.append("")
+            continue
+        # 标题、列表、KV、引用、粗体不合并
+        if (s.startswith("#") or re.match(r'^[-•]\s', s) or re.match(r'^\d+\.\s', s) or 
+            re.match(r'^[^，。；！？、:：\t]{1,12}[：:\t]+', s) or s.startswith(">") or 
+            (s.startswith("**") and s.endswith("**"))):
+            if buffer:
+                merged.append(" ".join(buffer))
+                buffer = []
+            merged.append(s)
+        elif len(s) <= 20 and not re.search(r'[。；！？]', s):
+            buffer.append(s)
+        else:
+            if buffer:
+                merged.append(" ".join(buffer))
+                buffer = []
+            merged.append(s)
+    if buffer:
+        merged.append(" ".join(buffer))
+    lines = [l for l in merged if l is not None]
+
     html_parts = []
     chapter_idx = 0
     in_chapter = False
@@ -87,20 +132,20 @@ def parse_markdown_body(body, title):
     first_para = True
     i = 0
 
+    # KV key 黑名单：这些词出现在key位置说明是正文，不是真正的key
+    KV_KEY_BLACKLIST = {"口径", "旧版", "保障型", "三年", "阶梯式", "模型券", "算力券", 
+                        "年度", "上限", "合计", "如理", "补贴", "人才", "公寓", "住房",
+                        "发布", "时间", "主体", "名称", "状态", "有效期", "文件", "全称"}
+
     def flush_list():
         nonlocal in_list, list_items, list_type
         if in_list and list_items:
+            tag = "ul" if list_type == "ul" else "ol"
             items_html = "\n".join([f'        <li>{inline_md_to_html(item)}</li>' for item in list_items])
-            if list_type == "ul":
-                list_html = f'<ul class="article-list">\n{items_html}\n</ul>'
-            else:
-                list_html = f'<ol class="article-list">\n{items_html}\n</ol>'
-            if in_numbered:
-                numbered_buffer.append(("list", list_html))
-            elif in_chapter:
-                chapter_buffer.append(("list", list_html))
-            else:
-                html_parts.append(list_html)
+            html = f'<{tag} class="article-list">\n{items_html}\n</{tag}>'
+            if in_numbered: numbered_buffer.append(("list", html))
+            elif in_chapter: chapter_buffer.append(("list", html))
+            else: html_parts.append(html)
             list_items = []
             in_list = False
 
@@ -120,45 +165,49 @@ def parse_markdown_body(body, title):
             numbered_num = ""
             in_numbered = False
 
+    def is_strict_kv(line):
+        """严格KV判断：key<=12字，无标点，不是正文词，val明显更长"""
+        m = re.match(r'^([^，。；！？、:：\t]{1,12})[：:\t]+(.+)$', line)
+        if not m: return False
+        key = m.group(1).strip()
+        val = m.group(2).strip()
+        if len(val) <= len(key): return False
+        if any(bw in key for bw in KV_KEY_BLACKLIST): return False
+        # key 应该是属性名（较短、较抽象），不是叙述句
+        if re.search(r'[是为在将了对从由向按]', key) and len(key) > 6: return False
+        return True
+
     while i < len(lines):
-        line = lines[i].strip()
-        if not line:
-            flush_list()
-            flush_chapter()
-            flush_numbered()
-            i += 1
-            continue
+        line = lines[i]
+        s = line.strip()
+        if not s:
+            flush_list(); flush_chapter(); flush_numbered()
+            i += 1; continue
 
-        if is_title_duplicate(title, line) or is_decorative(line):
-            i += 1
-            continue
+        if is_image_placeholder(s) or is_decorative(s) or is_intro_block(s):
+            i += 1; continue
 
-        # 列表项检测
-        ul_match = re.match(r'^-\s+(.+)$', line)
-        ol_match = re.match(r'^(\d+)\.\s+(.+)$', line)
-        if ul_match or ol_match:
-            flush_chapter()
-            flush_numbered()
-            if not in_list:
-                in_list = True
-                list_type = "ul" if ul_match else "ol"
-            elif ul_match and list_type != "ul":
-                flush_list()
-                in_list = True
-                list_type = "ul"
-            elif ol_match and list_type != "ol":
-                flush_list()
-                in_list = True
-                list_type = "ol"
-            item_text = ul_match.group(1) if ul_match else ol_match.group(2)
+        # 跳过表格残留
+        if is_table_line(s) or is_table_divider(s):
+            i += 1; continue
+
+        # 列表项
+        ul_m = re.match(r'^[-•]\s+(.+)$', s)
+        ol_m = re.match(r'^(\d+)\.\s+(.+)$', s)
+        if ul_m or ol_m:
+            flush_chapter(); flush_numbered()
+            new_type = "ul" if ul_m else "ol"
+            if in_list and list_type != new_type:
+                flush_list(); in_list = True; list_type = new_type
+            elif not in_list:
+                in_list = True; list_type = new_type
+            item_text = ul_m.group(1) if ul_m else ol_m.group(2)
             list_items.append(item_text)
-            i += 1
-            continue
+            i += 1; continue
 
-        if re.match(r"^#{1,2}\s*结语", line) or re.match(r"^#{1,2}\s*Conclusion", line, re.I):
-            flush_list()
-            flush_chapter()
-            flush_numbered()
+        # 结语
+        if re.match(r'^#{1,2}\s*结语', s) or re.match(r'^#{1,2}\s*Conclusion', s, re.I):
+            flush_list(); flush_chapter(); flush_numbered()
             conclusion_lines = []
             i += 1
             while i < len(lines) and not lines[i].strip().startswith("#"):
@@ -168,157 +217,121 @@ def parse_markdown_body(body, title):
             html_parts.append(render_conclusion(conclusion_lines))
             continue
 
-        m_num = re.match(r"^(\d{1,2})$", line)
-        if m_num:
-            next_line = lines[i + 1].strip() if i + 1 < len(lines) else ""
-            if next_line and not re.match(r"^\d{1,2}$", next_line) and not is_decorative(next_line):
-                flush_list()
-                flush_chapter()
-                flush_numbered()
-                in_numbered = True
-                numbered_num = m_num.group(1).zfill(2)
-                numbered_buffer.append(("title", next_line))
-                i += 2
-                continue
-
-        h2_match = re.match(r"^#{2}\s+(.+)$", line)
-        if h2_match:
-            h2_text = h2_match.group(1).strip()
-            cn_match = re.match(r"^(?:[一二三四五六七八九十]+、|第[一二三四五六七八九十\d]+条)\s*(.+)$", h2_text)
-            if cn_match and len(h2_text) < 60:
-                flush_list()
-                flush_numbered()
-                flush_chapter()
+        # h2
+        h2_m = re.match(r'^#{2}\s+(.+)$', s)
+        if h2_m:
+            h2_text = h2_m.group(1).strip()
+            cn_m = re.match(r'^(?:([一二三四五六七八九十]+)、|第([一二三四五六七八九十\d]+)条)\s*(.+)$', h2_text)
+            if cn_m:
+                flush_list(); flush_numbered(); flush_chapter()
                 in_chapter = True
-                chapter_buffer.append(("h2", cn_match.group(1)))
-                i += 1
-                continue
-            num_match = re.match(r"^(\d{1,2})[\.、\s)）]+(.+)$", h2_text)
-            if num_match:
-                flush_list()
-                flush_chapter()
-                flush_numbered()
+                chapter_buffer.append(("h2", cn_m.group(3) if cn_m.group(3) else h2_text))
+                i += 1; continue
+            num_m = re.match(r'^(\d{1,2})[\.、\s)）]+\s*(.+)$', h2_text)
+            if num_m:
+                flush_list(); flush_chapter(); flush_numbered()
                 in_numbered = True
-                numbered_num = num_match.group(1).zfill(2)
-                numbered_buffer.append(("title", num_match.group(2).strip()))
-                i += 1
-                continue
-            flush_list()
-            flush_numbered()
-            flush_chapter()
+                numbered_num = num_m.group(1).zfill(2)
+                numbered_buffer.append(("title", num_m.group(2).strip()))
+                i += 1; continue
+            flush_list(); flush_numbered(); flush_chapter()
             in_chapter = True
             chapter_buffer.append(("h2", h2_text))
-            i += 1
-            continue
+            i += 1; continue
 
-        h3_match = re.match(r"^#{3}\s+(.+)$", line)
-        if h3_match:
+        # h3
+        h3_m = re.match(r'^#{3}\s+(.+)$', s)
+        if h3_m:
             flush_list()
-            h3_text = h3_match.group(1).strip()
-            if in_numbered:
-                numbered_buffer.append(("h3", h3_text))
-            elif in_chapter:
-                chapter_buffer.append(("h3", h3_text))
-            else:
-                html_parts.append(f"<h3>{inline_md_to_html(h3_text)}</h3>")
-            i += 1
-            continue
+            h3_text = h3_m.group(1).strip()
+            if in_numbered: numbered_buffer.append(("h3", h3_text))
+            elif in_chapter: chapter_buffer.append(("h3", h3_text))
+            else: html_parts.append(f"<h3>{inline_md_to_html(h3_text)}</h3>")
+            i += 1; continue
 
-        cn_chapter = re.match(r"^(?:[一二三四五六七八九十]+、|第[一二三四五六七八九十\d]+条)\s*(.+)$", line)
-        if cn_chapter and len(line) < 60:
-            flush_list()
-            flush_numbered()
-            flush_chapter()
+        # 无#前缀中文编号
+        cn_chapter = re.match(r'^(?:[一二三四五六七八九十]+、|第[一二三四五六七八九十\d]+条)\s*(.+)$', s)
+        if cn_chapter and len(s) < 60:
+            flush_list(); flush_numbered(); flush_chapter()
             in_chapter = True
             chapter_buffer.append(("h2", cn_chapter.group(1)))
-            i += 1
-            continue
+            i += 1; continue
 
-        kv_match = re.match(r"^(.+?)[：:\t]+(.+)$", line)
-        if kv_match and len(line) < 300:
-            key = kv_match.group(1).strip()
-            val = kv_match.group(2).strip()
-            if not is_decorative(key) and not is_decorative(val) and not is_title_duplicate(title, key + val):
-                flush_list()
-                if in_numbered:
-                    numbered_buffer.append(("kv", (key, val)))
-                elif in_chapter:
-                    chapter_buffer.append(("kv", (key, val)))
-                else:
-                    html_parts.append(render_kv_row(key, val))
-                i += 1
-                continue
+        # 独立数字+下一行
+        m_num = re.match(r'^(\d{1,2})$', s)
+        if m_num:
+            next_s = lines[i+1].strip() if i+1 < len(lines) else ""
+            if next_s and len(next_s) < 40 and not next_s.startswith("#") and not re.match(r'^\d{1,2}$', next_s):
+                flush_list(); flush_chapter(); flush_numbered()
+                in_numbered = True
+                numbered_num = m_num.group(1).zfill(2)
+                numbered_buffer.append(("title", next_s))
+                i += 2; continue
 
-        if line.startswith(">"):
+        # 严格KV
+        if is_strict_kv(s):
+            m = re.match(r'^([^，。；！？、:：\t]{1,12})[：:\t]+(.+)$', s)
+            key = m.group(1).strip()
+            val = m.group(2).strip()
+            flush_list()
+            if in_numbered: numbered_buffer.append(("kv", (key, val)))
+            elif in_chapter: chapter_buffer.append(("kv", (key, val)))
+            else: html_parts.append(render_kv_row(key, val))
+            i += 1; continue
+
+        # 引用
+        if s.startswith(">"):
             flush_list()
             quote_lines = []
             while i < len(lines) and lines[i].strip().startswith(">"):
                 q = lines[i].strip()[1:].strip()
-                if q and not is_decorative(q):
-                    quote_lines.append(q)
+                if q and not is_decorative(q): quote_lines.append(q)
                 i += 1
             if quote_lines:
                 text = " ".join(quote_lines)
-                if in_numbered:
-                    numbered_buffer.append(("quote", text))
-                elif in_chapter:
-                    chapter_buffer.append(("quote", text))
-                else:
-                    html_parts.append(render_highlight(text))
+                if in_numbered: numbered_buffer.append(("quote", text))
+                elif in_chapter: chapter_buffer.append(("quote", text))
+                else: html_parts.append(render_highlight(text))
             continue
 
-        if line.startswith("**") and line.endswith("**"):
+        # 整行粗体
+        if s.startswith("**") and s.endswith("**"):
             flush_list()
-            text = line[2:-2]
-            if in_numbered:
-                numbered_buffer.append(("strong_p", text))
-            elif in_chapter:
-                chapter_buffer.append(("strong_p", text))
-            else:
-                html_parts.append(f"<p><strong>{inline_md_to_html(text)}</strong></p>")
-            i += 1
-            continue
+            text = s[2:-2]
+            if in_numbered: numbered_buffer.append(("strong_p", text))
+            elif in_chapter: chapter_buffer.append(("strong_p", text))
+            else: html_parts.append(f"<p><strong>{inline_md_to_html(text)}</strong></p>")
+            i += 1; continue
 
+        # 普通段落
         flush_list()
-        if in_numbered:
-            numbered_buffer.append(("p", line))
-        elif in_chapter:
-            chapter_buffer.append(("p", line))
+        p_text = inline_md_to_html(s)
+        if in_numbered: numbered_buffer.append(("p", p_text))
+        elif in_chapter: chapter_buffer.append(("p", p_text))
         else:
-            if first_para and 50 <= len(line) <= 200:
-                html_parts.append(f'<div class="drop-cap-section"><p>{inline_md_to_html(line)}</p></div>')
+            if first_para and 50 <= len(s) <= 200:
+                html_parts.append(f'<div class="drop-cap-section"><p>{p_text}</p></div>')
             else:
-                html_parts.append(f"<p>{inline_md_to_html(line)}</p>")
+                html_parts.append(f"<p>{p_text}</p>")
             first_para = False
         i += 1
 
-    flush_list()
-    flush_chapter()
-    flush_numbered()
+    flush_list(); flush_chapter(); flush_numbered()
     return "\n".join(html_parts)
 
 
 def render_chapter(idx, items):
-    h2_title = ""
-    h3_sub = ""
+    h2_title = h3_sub = ""
     body_parts = []
     kv_rows = []
     for typ, content in items:
-        if typ == "h2":
-            h2_title = content
-        elif typ == "h3":
-            h3_sub = content
-        elif typ == "quote":
-            body_parts.append(render_highlight(content))
-        elif typ == "strong_p":
-            body_parts.append(f"<p><strong>{inline_md_to_html(content)}</strong></p>")
-        elif typ == "kv":
-            k, v = content
-            kv_rows.append(render_kv_row(k, v))
-        elif typ == "list":
-            body_parts.append(content)
-        elif typ == "p":
-            body_parts.append(f"<p>{inline_md_to_html(content)}</p>")
+        if typ == "h2": h2_title = content
+        elif typ == "h3": h3_sub = content
+        elif typ == "quote": body_parts.append(render_highlight(content))
+        elif typ == "strong_p": body_parts.append(f"<p><strong>{inline_md_to_html(content)}</strong></p>")
+        elif typ == "kv": k, v = content; kv_rows.append(render_kv_row(k, v))
+        elif typ == "list": body_parts.append(content)
+        elif typ == "p": body_parts.append(f"<p>{inline_md_to_html(content)}</p>")
     sub_html = f'<div class="chapter-sub">{inline_md_to_html(h3_sub)}</div>' if h3_sub else ""
     kv_html = f'<div class="kv-grid">\n{"\n".join(kv_rows)}\n</div>' if kv_rows else ""
     body_html = "\n".join(body_parts)
@@ -338,21 +351,13 @@ def render_numbered(num, items):
     body_parts = []
     kv_rows = []
     for typ, content in items:
-        if typ == "title":
-            title = content
-        elif typ == "h3":
-            body_parts.append(f"<h3>{inline_md_to_html(content)}</h3>")
-        elif typ == "quote":
-            body_parts.append(render_highlight(content))
-        elif typ == "strong_p":
-            body_parts.append(f"<p><strong>{inline_md_to_html(content)}</strong></p>")
-        elif typ == "kv":
-            k, v = content
-            kv_rows.append(render_kv_row(k, v))
-        elif typ == "list":
-            body_parts.append(content)
-        elif typ == "p":
-            body_parts.append(f"<p>{inline_md_to_html(content)}</p>")
+        if typ == "title": title = content
+        elif typ == "h3": body_parts.append(f"<h3>{inline_md_to_html(content)}</h3>")
+        elif typ == "quote": body_parts.append(render_highlight(content))
+        elif typ == "strong_p": body_parts.append(f"<p><strong>{inline_md_to_html(content)}</strong></p>")
+        elif typ == "kv": k, v = content; kv_rows.append(render_kv_row(k, v))
+        elif typ == "list": body_parts.append(content)
+        elif typ == "p": body_parts.append(f"<p>{inline_md_to_html(content)}</p>")
     kv_html = f'<div class="kv-grid">\n{"\n".join(kv_rows)}\n</div>' if kv_rows else ""
     body_html = "\n".join(body_parts)
     return f"""  <div class="numbered-section">
@@ -502,7 +507,7 @@ for filename in sorted(os.listdir(SOURCE_DIR)):
         sub_title = ""
         lead_text = description if description and description != "政策深度解读" else ""
 
-    body_html = parse_markdown_body(body, title)
+    body_html = parse_markdown_body(body, title, description)
 
     sub_title_html = f'<div class="headline-sub">{sub_title}</div>' if sub_title else ""
 
