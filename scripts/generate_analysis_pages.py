@@ -20,7 +20,6 @@ DECORATIVE_WORDS = {
     "政策深度解读", "深度解读", "政策解读"
 }
 
-# 标题重复检测阈值
 DEDUP_THRESHOLD = 0.65
 
 
@@ -61,8 +60,7 @@ def is_title_duplicate(title, paragraph):
 
 
 def parse_markdown_body(body, title):
-    lines = body.strip().split("
-")
+    lines = body.strip().split("\n")
     html_parts = []
     chapter_idx = 0
     in_chapter = False
@@ -97,12 +95,10 @@ def parse_markdown_body(body, title):
             i += 1
             continue
 
-        # 1. 过滤与标题重复或装饰性内容
         if is_title_duplicate(title, line) or is_decorative(line):
             i += 1
             continue
 
-        # 2. 结语
         if re.match(r"^#{1,2}\s*结语", line) or re.match(r"^#{1,2}\s*Conclusion", line, re.I):
             flush_chapter()
             flush_numbered()
@@ -115,7 +111,6 @@ def parse_markdown_body(body, title):
             html_parts.append(render_conclusion(conclusion_lines))
             continue
 
-        # 3. 独立编号行：纯数字（如 03, 4）且下一行有内容
         m_num = re.match(r"^(\d{1,2})$", line)
         if m_num:
             next_line = lines[i + 1].strip() if i + 1 < len(lines) else ""
@@ -128,11 +123,9 @@ def parse_markdown_body(body, title):
                 i += 2
                 continue
 
-        # 4. ## 标题
         h2_match = re.match(r"^#{2}\s+(.+)$", line)
         if h2_match:
             h2_text = h2_match.group(1).strip()
-            # 中文大章节（一、二、三...）
             cn_match = re.match(r"^(?:[一二三四五六七八九十]+、|第[一二三四五六七八九十\d]+条)\s*(.+)$", h2_text)
             if cn_match and len(h2_text) < 60:
                 flush_numbered()
@@ -141,7 +134,6 @@ def parse_markdown_body(body, title):
                 chapter_buffer.append(("h2", cn_match.group(1)))
                 i += 1
                 continue
-            # 数字编号章节（1. 创业启动资金 / 01 政策全貌）
             num_match = re.match(r"^(\d{1,2})[\.、\s)）]+(.+)$", h2_text)
             if num_match:
                 flush_chapter()
@@ -151,7 +143,6 @@ def parse_markdown_body(body, title):
                 numbered_buffer.append(("title", num_match.group(2).strip()))
                 i += 1
                 continue
-            # 普通 h2 → 作为 chapter
             flush_numbered()
             flush_chapter()
             in_chapter = True
@@ -159,7 +150,6 @@ def parse_markdown_body(body, title):
             i += 1
             continue
 
-        # 5. ### 标题
         h3_match = re.match(r"^#{3}\s+(.+)$", line)
         if h3_match:
             h3_text = h3_match.group(1).strip()
@@ -172,7 +162,6 @@ def parse_markdown_body(body, title):
             i += 1
             continue
 
-        # 6. 中文编号行（无 # 前缀，如 "一、政策核心内容"）
         cn_chapter = re.match(r"^(?:[一二三四五六七八九十]+、|第[一二三四五六七八九十\d]+条)\s*(.+)$", line)
         if cn_chapter and len(line) < 60:
             flush_numbered()
@@ -182,8 +171,7 @@ def parse_markdown_body(body, title):
             i += 1
             continue
 
-        # 7. KV 行检测
-        kv_match = re.match(r"^(.+?)[：:	]+(.+)$", line)
+        kv_match = re.match(r"^(.+?)[：:\t]+(.+)$", line)
         if kv_match and len(line) < 300:
             key = kv_match.group(1).strip()
             val = kv_match.group(2).strip()
@@ -197,7 +185,6 @@ def parse_markdown_body(body, title):
                 i += 1
                 continue
 
-        # 8. 引用块
         if line.startswith(">"):
             quote_lines = []
             while i < len(lines) and lines[i].strip().startswith(">"):
@@ -215,7 +202,6 @@ def parse_markdown_body(body, title):
                     html_parts.append(render_highlight(text))
             continue
 
-        # 9. 粗体段落
         if line.startswith("**") and line.endswith("**"):
             text = line[2:-2]
             if in_numbered:
@@ -227,7 +213,6 @@ def parse_markdown_body(body, title):
             i += 1
             continue
 
-        # 10. 普通段落
         if in_numbered:
             numbered_buffer.append(("p", line))
         elif in_chapter:
@@ -242,8 +227,7 @@ def parse_markdown_body(body, title):
 
     flush_chapter()
     flush_numbered()
-    return "
-".join(html_parts)
+    return "\n".join(html_parts)
 
 
 def render_chapter(idx, items):
@@ -266,12 +250,8 @@ def render_chapter(idx, items):
         elif typ == "p":
             body_parts.append(f"<p>{content}</p>")
     sub_html = f'<div class="chapter-sub">{h3_sub}</div>' if h3_sub else ""
-    kv_html = f'<div class="kv-grid">
-{"
-".join(kv_rows)}
-</div>' if kv_rows else ""
-    body_html = "
-".join(body_parts)
+    kv_html = f'<div class="kv-grid">\n{"\n".join(kv_rows)}\n</div>' if kv_rows else ""
+    body_html = "\n".join(body_parts)
     return f"""  <div class="chapter">
     <div class="chapter-number">{idx}</div>
     <div class="chapter-content">
@@ -301,12 +281,8 @@ def render_numbered(num, items):
             kv_rows.append(render_kv_row(k, v))
         elif typ == "p":
             body_parts.append(f"<p>{content}</p>")
-    kv_html = f'<div class="kv-grid">
-{"
-".join(kv_rows)}
-</div>' if kv_rows else ""
-    body_html = "
-".join(body_parts)
+    kv_html = f'<div class="kv-grid">\n{"\n".join(kv_rows)}\n</div>' if kv_rows else ""
+    body_html = "\n".join(body_parts)
     return f"""  <div class="numbered-section">
     <div class="section-header">
       <span class="section-num">{num}</span>
@@ -327,8 +303,8 @@ def render_kv_row(key, val):
 
 
 def render_highlight(text):
-    text = re.sub(r"^\*\*(.+?)：\*\*", r"<strong>：</strong>", text)
-    text = re.sub(r"^\*\*(.+?):\*\*", r"<strong>：</strong>", text)
+    text = re.sub(r"^\*\*(.+?)：\*\*", r"<strong>\1：</strong>", text)
+    text = re.sub(r"^\*\*(.+?):\*\*", r"<strong>\1：</strong>", text)
     return f"""      <div class="highlight-box">
         {text}
       </div>"""
@@ -342,12 +318,10 @@ def render_conclusion(lines):
             closing_line = line
         else:
             paragraphs.append(f"<p>{line}</p>")
-    closing_html = f'
-    <div class="closing-line">{closing_line}</div>' if closing_line else ""
+    closing_html = f'\n    <div class="closing-line">{closing_line}</div>' if closing_line else ""
     return f"""  <div class="conclusion">
     <h2>结语</h2>
-{"
-".join(["    " + p for p in paragraphs])}{closing_html}
+{"\n".join(["    " + p for p in paragraphs])}{closing_html}
   </div>"""
 
 
@@ -370,8 +344,6 @@ body { font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Pin
 .drop-cap-section p { font-size: 16px; line-height: 2; color: var(--charcoal); text-align: justify; }
 .drop-cap-section p::first-letter { font-family: "Noto Serif SC", serif; font-size: 72px; font-weight: 900; float: left; line-height: 0.8; margin-right: 12px; margin-top: 8px; color: var(--brass); }
 .section-divider { height: 2px; background: linear-gradient(to right, var(--brass), transparent); margin: 48px 0; max-width: 200px; }
-
-/* Chapter */
 .chapter { margin-bottom: 48px; display: flex; gap: 24px; align-items: flex-start; }
 .chapter-number { flex-shrink: 0; width: 48px; height: 48px; background: var(--ink); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--brass-light); font-family: "Noto Serif SC", serif; font-size: 18px; font-weight: 700; margin-top: 4px; }
 .chapter-content { flex: 1; }
@@ -379,8 +351,6 @@ body { font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Pin
 .chapter-content .chapter-sub { font-size: 14px; color: var(--warm-gray); margin-bottom: 16px; font-style: italic; }
 .chapter-content p { font-size: 16px; line-height: 2; color: var(--charcoal); margin-bottom: 16px; text-align: justify; }
 .chapter-content p:last-child { margin-bottom: 0; }
-
-/* Numbered section — 核心对齐修复 */
 .numbered-section { margin: 24px 0; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; margin-left: -60px; padding: 24px; padding-left: 0; }
 .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--mist); padding-left: 52px; }
 .section-num { font-family: "Noto Serif SC", serif; font-size: 28px; font-weight: 700; color: var(--brass); width: 40px; min-width: 40px; max-width: 40px; text-align: center; flex-shrink: 0; line-height: 1; padding: 0; margin-left: -52px; }
@@ -388,26 +358,18 @@ body { font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Pin
 .section-body { padding-left: 52px; }
 .section-body p { font-size: 15px; line-height: 1.9; color: var(--charcoal); margin-bottom: 10px; }
 .section-body p:last-child { margin-bottom: 0; }
-
-/* KV grid */
 .kv-grid { margin: 20px 0; display: flex; flex-direction: column; gap: 2px; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; overflow: hidden; }
 .kv-row { display: flex; align-items: flex-start; gap: 16px; padding: 14px 20px; border-bottom: 1px solid var(--mist); }
 .kv-row:last-child { border-bottom: none; }
 .kv-row:hover { background: var(--bg-warm); }
 .kv-key { font-size: 13px; font-weight: 600; color: var(--warm-gray); min-width: 80px; max-width: 120px; flex-shrink: 0; letter-spacing: 0.5px; padding-top: 2px; }
 .kv-val { font-size: 15px; color: var(--charcoal); line-height: 1.7; flex: 1; }
-
-/* Highlight box */
 .highlight-box { background: var(--parchment); border-left: 4px solid var(--brass); padding: 24px 28px; margin: 24px 0; font-size: 15px; line-height: 1.8; color: var(--charcoal); }
 .highlight-box strong { color: var(--ink); font-weight: 600; }
-
-/* Conclusion */
 .conclusion { margin-top: 64px; padding-top: 32px; border-top: 2px solid var(--ink); }
 .conclusion h2 { font-family: "Noto Serif SC", serif; font-size: 24px; font-weight: 700; color: var(--ink); margin-bottom: 20px; }
 .conclusion p { font-size: 16px; line-height: 2; color: var(--charcoal); margin-bottom: 16px; text-align: justify; }
 .conclusion .closing-line { font-family: "Noto Serif SC", serif; font-size: 18px; font-weight: 700; color: var(--brass); margin-top: 24px; text-align: center; letter-spacing: 2px; }
-
-/* Footer */
 .article-footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--mist); display: flex; justify-content: space-between; align-items: center; }
 .footer-author { font-size: 14px; color: var(--warm-gray); }
 .footer-author strong { color: var(--ink); font-weight: 600; }
@@ -415,21 +377,7 @@ body { font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Pin
 .back-link { text-align: center; margin-top: 48px; }
 .back-link a { display: inline-flex; align-items: center; gap: 8px; color: var(--warm-gray); text-decoration: none; font-size: 14px; transition: color 0.2s; padding: 10px 24px; border: 1px solid var(--mist); }
 .back-link a:hover { color: var(--brass); border-color: var(--brass-light); }
-
-@media (max-width: 640px) {
-  .headline-area h1 { font-size: 28px; }
-  .chapter { gap: 16px; }
-  .chapter-number { width: 36px; height: 36px; font-size: 14px; }
-  .chapter-content h2 { font-size: 18px; }
-  .drop-cap-section p::first-letter { font-size: 56px; }
-  .numbered-section { margin-left: -46px; padding: 16px; padding-left: 0; }
-  .section-header { padding-left: 44px; }
-  .section-num { font-size: 22px; width: 32px; min-width: 32px; max-width: 32px; margin-left: -44px; }
-  .section-title { font-size: 16px; }
-  .section-body { padding-left: 44px; }
-  .kv-row { flex-direction: column; gap: 4px; padding: 12px 16px; }
-  .kv-key { min-width: auto; }
-}
+@media (max-width: 640px) { .headline-area h1 { font-size: 28px; } .chapter { gap: 16px; } .chapter-number { width: 36px; height: 36px; font-size: 14px; } .chapter-content h2 { font-size: 18px; } .drop-cap-section p::first-letter { font-size: 56px; } .numbered-section { margin-left: -46px; padding: 16px; padding-left: 0; } .section-header { padding-left: 44px; } .section-num { font-size: 22px; width: 32px; min-width: 32px; max-width: 32px; margin-left: -44px; } .section-title { font-size: 16px; } .section-body { padding-left: 44px; } .kv-row { flex-direction: column; gap: 4px; padding: 12px 16px; } .kv-key { min-width: auto; } }
 """
 
 
@@ -465,7 +413,6 @@ for filename in sorted(os.listdir(SOURCE_DIR)):
     tags = fm.get("tags", ["政策解析", "OPC"])
     city = fm.get("city", "")
 
-    # 去重标签
     display_tags = []
     for t in tags:
         if t not in display_tags and t != "政策解析":
@@ -473,7 +420,6 @@ for filename in sorted(os.listdir(SOURCE_DIR)):
     if not display_tags:
         display_tags = ["OPC"]
 
-    # 副标题：超过30字不显示，且永远删除「政策深度解读」
     if description and len(description) <= 30 and description != "政策深度解读":
         sub_title = description
         lead_text = ""
