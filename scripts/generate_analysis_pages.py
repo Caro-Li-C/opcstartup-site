@@ -9,7 +9,7 @@ import yaml
 from pathlib import Path
 from datetime import datetime
 
-SOURCE_DIR = Path("/workspaces/opc-content-source/analysis")
+SOURCE_DIR = Path("_tmp_source/analysis")
 OUTPUT_DIR = Path("policy/analysis")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
