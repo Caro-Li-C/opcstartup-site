@@ -22,8 +22,9 @@ jobs:
           python-version: '3.11'
       - name: Install dependencies
         run: |
-          pip install pyyaml
-          pip install -r requirements.txt || true
+          python -m pip install --upgrade pip
+          python -m pip install pyyaml
+          python -m pip install -r requirements.txt || true
       - name: Generate policy pages
         run: |
           python scripts/generate_policy_pages.py
