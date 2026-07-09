@@ -473,3 +473,4 @@ with open(data_dir / 'policies.yml', 'w', encoding='utf-8') as f:
 
 print(f"✓ 生成 _data/policies.yml，共 {len(policies_data)} 条")
 print("完成")
+ 
