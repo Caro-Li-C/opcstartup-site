@@ -2,6 +2,7 @@ name: Receive Policy Update
 on:
   repository_dispatch:
     types: [policy-updated]
+  workflow_dispatch:
 
 jobs:
   rebuild:
