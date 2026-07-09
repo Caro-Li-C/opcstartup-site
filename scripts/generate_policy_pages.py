@@ -378,8 +378,8 @@ title: {title}
 '''
 
 def make_slug(fname):
-    m = re.match(r'^(\d+)', fname)
-    return m.group(1) if m else '0'
+    return fname.replace('.md', '')  # 去掉 .md 后缀
+
 
 CN = ['一','二','三','四','五','六','七','八','九','十','十一','十二']
 
