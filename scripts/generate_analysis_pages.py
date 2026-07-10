@@ -509,7 +509,7 @@ for filename in sorted(os.listdir(SOURCE_DIR)):
 
     body_html = parse_markdown_body(body, title, description)
 
-    sub_title_html = f'<div class="headline-sub">{sub_title}</div>' if sub_title else ""
+    sub_title_html = f"<div class=\"headline-sub\">{sub_title}</div>" if sub_title else ""
 
     html = f"""---
 layout: default
@@ -536,7 +536,7 @@ title: "{title}"
   <div class="headline-area">
     <h1>{title}</h1>
 {sub_title_html}
-    {f'<p class="headline-lead">{lead_text}</p>' if lead_text else ''}
+    {f"<p class=\"headline-lead\">{lead_text}</p>" if lead_text else ""}
   </div>
 
 {body_html}
@@ -561,7 +561,9 @@ title: "{title}"
     with open(OUTPUT_DIR / f"{slug}.html", "w", encoding="utf-8") as f:
         f.write(html)
 
-    dt = datetime.strptime(str(date_str), "%Y-%m-%d")
+    # 修复：兼容带时间的日期字符串（如 2026-07-10 08:00:00 +0800）
+    date_match = re.match(r"(\d{4}-\d{2}-\d{2})", str(date_str))
+    dt = datetime.strptime(date_match.group(1) if date_match else str(date_str), "%Y-%m-%d")
     articles.append({
         "title": title,
         "url": f"/policy/analysis/{slug}.html",
