@@ -408,9 +408,94 @@ def make_slug(fname):
 
 CN = ['一','二','三','四','五','六','七','八','九','十','十一','十二']
 
+# 跳过的非政策章节
+SKIP_REGIONS = ['卷首语', '编制说明', 'OPC创业汇', '附录']
+
 policies_data = []
 
+# 生成总列表页
+print("生成总列表页...")
+
+total_index_html = """---
+layout: default
+title: 全国OPC政策汇编
+---
+
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    .original-page { max-width: 720px; margin: 0 auto; padding: 80px 24px 120px; }
+    .top-bar { background: #1a1a1a; padding: 16px 0; }
+    .top-bar a { display: block; max-width: 720px; margin: 0 auto; padding: 0 24px; color: #888; text-decoration: none; font-size: 12px; letter-spacing: 1px; transition: color 0.3s; }
+    .top-bar a:hover { color: #fff; }
+    .header { margin-bottom: 60px; }
+    .page-title { font-size: 42px; font-weight: 100; letter-spacing: 10px; margin-bottom: 16px; }
+    .divider { width: 60px; height: 1px; background: #1a1a1a; margin-bottom: 16px; }
+    .page-desc { font-size: 14px; color: #999; letter-spacing: 2px; }
+    .catalog { display: flex; flex-direction: column; gap: 48px; }
+    .part-block { background: #fff; padding: 36px 40px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); position: relative; }
+    .part-block::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: #1a1a1a; }
+    .part-header { margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid #eee; }
+    .part-number { font-size: 11px; color: #bbb; letter-spacing: 3px; margin-bottom: 4px; }
+    .part-name { font-size: 20px; font-weight: 500; letter-spacing: 2px; }
+    .chapter-list { display: flex; flex-direction: column; gap: 16px; }
+    .chapter-item { display: flex; align-items: baseline; gap: 16px; padding: 8px 0; text-decoration: none; color: #1a1a1a; transition: all 0.3s; }
+    .chapter-item:hover { padding-left: 8px; }
+    .chapter-item:hover .chapter-name { color: #1a1a1a; }
+    .chapter-number { font-size: 12px; color: #ccc; min-width: 48px; letter-spacing: 1px; }
+    .chapter-name { font-size: 15px; color: #666; transition: color 0.3s; }
+    .back { margin-top: 60px; font-size: 12px; }
+    .back a { color: #bbb; text-decoration: none; letter-spacing: 1px; transition: color 0.3s; }
+    .back a:hover { color: #1a1a1a; }
+    @media (max-width: 768px) { .page-title { font-size: 30px; letter-spacing: 5px; } .original-page { padding: 50px 20px 80px; } .part-block { padding: 28px 24px; } .chapter-item { gap: 12px; } }
+</style>
+
+<div class="top-bar">
+    <a href="../">← 返回 政策解读</a>
+</div>
+<div class="original-page">
+    <div class="header">
+        <h1 class="page-title">全国OPC政策汇编</h1>
+        <div class="divider"></div>
+        <p class="page-desc">""" + str(len(structure['regions'])) + """篇 · 全部政策</p>
+    </div>
+    <div class="catalog">
+"""
+
+for r_idx, region in enumerate(structure['regions']):
+    ch_links = ""
+    for c_idx, ch in enumerate(region['chapters']):
+        ch_links += f'        <a href="{region["id"]}/{ch["id"]}/" class="chapter-item">
+            <span class="chapter-number">第{CN[c_idx]}章</span>
+            <span class="chapter-name">{ch["name"]}</span>
+        </a>
+'
+
+    total_index_html += f"""        <div class="part-block">
+            <div class="part-header">
+                <div class="part-number">第{CN[r_idx]}篇</div>
+                <div class="part-name">{region["name"]}</div>
+            </div>
+            <div class="chapter-list">
+{ch_links}            </div>
+        </div>
+"""
+
+total_index_html += """    </div>
+    <div class="back">
+        <a href="../">← 返回 政策解读</a>
+    </div>
+</div>
+"""
+
+(output_base / 'index.html').write_text(total_index_html, encoding='utf-8')
+print("✓ 生成总列表页")
+
+
 for region in structure['regions']:
+    # 跳过非政策章节
+    if any(skip in region['name'] for skip in SKIP_REGIONS):
+        continue
+
     region_dir = output_base / region['id']
     region_dir.mkdir(parents=True, exist_ok=True)
     
@@ -418,24 +503,7 @@ for region in structure['regions']:
     for i, ch in enumerate(region['chapters']):
         ch_html += f'<li style="border-left:2px solid #1a1a1a;padding-left:20px;margin-bottom:24px;"><div style="font-size:12px;color:#888;letter-spacing:2px;margin-bottom:6px;">第{CN[i]}章</div><a href="{ch["id"]}/" style="color:#1a1a1a;text-decoration:none;font-size:16px;">{ch["name"]}</a></li>\n'
     
-    r_idx = structure['regions'].index(region)
-    
-    region_tpl = f'''---
-layout: default
-title: {region['name']}
----
-
-<style>
-  .article-container {{ max-width: 780px; margin: 0 auto; padding: 40px 24px 80px; }}
-</style>
-
-<div style="font-size:12px;color:#888;letter-spacing:2px;margin-bottom:10px;">第{CN[r_idx]}篇</div>
-<h1 style="font-size:28px;font-weight:400;padding-bottom:16px;margin-bottom:40px;letter-spacing:2px;">{region['name']}</h1>
-<ul style="list-style:none;padding:0;margin:0;">
-{ch_html}</ul>
-'''
-    (region_dir / 'index.html').write_text(region_tpl, encoding='utf-8')
-    
+    # 区域列表页已删除，直接链接到省份列表页
     for i, ch in enumerate(region['chapters']):
         ch_dir = region_dir / ch['id']
         ch_dir.mkdir(parents=True, exist_ok=True)
@@ -472,7 +540,7 @@ title: {region['name']}
                 'original_url': meta.get('original_url', f'https://github.com/Caro-Li-C/opc-content-source/blob/main/policy/{md}')
             })
             
-            p_html += f'<li style="border-left:2px solid #1a1a1a;padding-left:20px;margin-bottom:24px;"><a href="{slug}.html" style="color:#1a1a1a;text-decoration:none;font-size:16px;">{title}</a></li>\n'
+            p_html += f'      <div class="timeline-item">\n        <div class="timeline-date">{meta.get("date", "")}</div>\n        <a href="{slug}.html" class="timeline-content">\n          <div class="timeline-title">{title}</div>\n          <div class="timeline-city">{meta.get("city", "")}</div>\n        </a>\n      </div>\n'
         
         ch_tpl = f'''---
 layout: default
@@ -481,12 +549,37 @@ title: {ch['name']}
 
 <style>
   .article-container {{ max-width: 780px; margin: 0 auto; padding: 40px 24px 80px; }}
+  .timeline {{ position: relative; padding-left: 32px; }}
+  .timeline::before {{ content: ""; position: absolute; left: 6px; top: 0; bottom: 0; width: 2px; background: #eee; }}
+  .timeline-item {{ position: relative; padding-bottom: 32px; }}
+  .timeline-item::before {{ content: ""; position: absolute; left: -32px; top: 4px; width: 12px; height: 12px; border-radius: 50%; background: #1a1a1a; border: 3px solid #fff; box-shadow: 0 0 0 2px #1a1a1a; }}
+  .timeline-date {{ font-size: 12px; color: #bbb; letter-spacing: 1px; margin-bottom: 4px; font-family: "SF Mono", monospace; }}
+  .timeline-content {{ background: #fff; border: 1px solid #eee; padding: 20px 24px; border-radius: 8px; text-decoration: none; color: #1a1a1a; display: block; transition: all 0.3s; }}
+  .timeline-content:hover {{ box-shadow: 0 4px 12px rgba(0,0,0,0.08); border-color: #1a1a1a; }}
+  .timeline-title {{ font-size: 15px; line-height: 1.6; margin-bottom: 8px; font-weight: 500; }}
+  .timeline-city {{ font-size: 12px; color: #999; }}
+  .top-bar {{ background: #1a1a1a; padding: 16px 0; }}
+  .top-bar a {{ display: block; max-width: 780px; margin: 0 auto; padding: 0 24px; color: #888; text-decoration: none; font-size: 12px; letter-spacing: 1px; transition: color 0.3s; }}
+  .top-bar a:hover {{ color: #fff; }}
+  .back {{ margin-top: 60px; font-size: 12px; }}
+  .back a {{ color: #bbb; text-decoration: none; letter-spacing: 1px; transition: color 0.3s; }}
+  .back a:hover {{ color: #1a1a1a; }}
 </style>
 
-<div style="font-size:12px;color:#888;letter-spacing:2px;margin-bottom:10px;">第{CN[i]}章</div>
-<h1 style="font-size:28px;font-weight:400;padding-bottom:16px;margin-bottom:40px;letter-spacing:2px;">{ch['name']}</h1>
-<ul style="list-style:none;padding:0;margin:0;">
-{p_html if p_html else "<li style='border-left-color:#ccc;'><div style='color:#888;font-size:14px;'>暂无政策文件</div></li>"}</ul>
+<div class="top-bar">
+    <a href="../">← 返回 全国OPC政策汇编</a>
+</div>
+
+<div class="article-container">
+    <div style="font-size:12px;color:#888;letter-spacing:2px;margin-bottom:10px;">第{CN[i]}章</div>
+    <h1 style="font-size:28px;font-weight:400;padding-bottom:16px;margin-bottom:40px;letter-spacing:2px;">{ch['name']}</h1>
+    <div class="timeline">
+{p_html if p_html else "<div style='color:#888;font-size:14px;'>暂无政策文件</div>"}
+    </div>
+    <div class="back">
+        <a href="../../">← 返回 全国OPC政策汇编</a>
+    </div>
+</div>
 '''
         (ch_dir / 'index.html').write_text(ch_tpl, encoding='utf-8')
 
