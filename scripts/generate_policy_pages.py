@@ -8,7 +8,7 @@ from pathlib import Path
 with open('_tmp_source/structure.json', 'r', encoding='utf-8') as f:
     structure = json.load(f)
 
-# 兼容新旧 structure.json 格式
+# 兼容 structure 列表格式（每个元素有 name, provinces）
 if isinstance(structure, list):
     new_structure = {'regions': []}
     for i, region in enumerate(structure):
@@ -18,9 +18,14 @@ if isinstance(structure, list):
             ch_id = f"{j+1}-{prov['name'][:6]}"
             files = []
             for f in prov.get('files', []):
-                slug = f.get('slug', '')
-                if slug:
-                    files.append(f"{slug}.md")
+                if isinstance(f, dict):
+                    slug = f.get('slug', '')
+                    if slug:
+                        files.append(f"{slug}.md")
+                elif isinstance(f, str):
+                    if not f.endswith(".md"):
+                        f = f + ".md"
+                    files.append(f)
             chapters.append({
                 'id': ch_id,
                 'name': prov['name'],
@@ -470,6 +475,10 @@ total_index_html = (
 )
 
 for r_idx, region in enumerate(structure['regions']):
+    # 跳过非政策章节
+    if any(skip in region['name'] for skip in SKIP_REGIONS):
+        continue
+    
     ch_links = ""
     for c_idx, ch in enumerate(region['chapters']):
         ch_links += (
@@ -511,14 +520,13 @@ for region in structure['regions']:
     region_dir = output_base / region['id']
     region_dir.mkdir(parents=True, exist_ok=True)
     
-    # 区域列表页已删除，直接生成省份列表页
     for i, ch in enumerate(region['chapters']):
         ch_dir = region_dir / ch['id']
         ch_dir.mkdir(parents=True, exist_ok=True)
         
         p_html = ""
         for fname in ch.get('files', []):
-            md = fname if fname.endswith('.md') else fname + '.md'
+            md = fname if fname.endswith(".md") else fname + ".md"
             mp = Path('_tmp_source/policy') / md
             if not mp.exists():
                 print(f"跳过: {mp}")
@@ -558,6 +566,7 @@ for region in structure['regions']:
                 + '      </div>\n'
             )
         
+        # 修复：去掉 h1 中的"第X章"，只保留省份名；保留小字"第X章"
         ch_tpl = (
             "---\n"
             "layout: default\n"
@@ -581,6 +590,7 @@ for region in structure['regions']:
             "  .back { margin-top: 60px; font-size: 12px; }\n"
             "  .back a { color: #bbb; text-decoration: none; letter-spacing: 1px; transition: color 0.3s; }\n"
             "  .back a:hover { color: #1a1a1a; }\n"
+            "  .chapter-label { font-size: 12px; color: #888; letter-spacing: 2px; margin-bottom: 10px; }\n"
             "</style>\n"
             "\n"
             "<div class=\"top-bar\">\n"
@@ -588,8 +598,8 @@ for region in structure['regions']:
             "</div>\n"
             "\n"
             "<div class=\"article-container\">\n"
-            "    <div style=\"font-size:12px;color:#888;letter-spacing:2px;margin-bottom:10px;\">第" + CN[i] + "章</div>\n"
-            "    <h1 style=\"font-size:28px;font-weight:400;padding-bottom:16px;margin-bottom:40px;letter-spacing:2px;\">" + ch['name'] + "</h1>\n"
+            "    <div class=\"chapter-label\">第" + CN[i] + "章</div>\n"
+            "    <h1 style=\"font-size:28px;font-weight:400;padding-bottom:16px;margin-bottom:40px;letter-spacing:2px;\">" + ch['name'].split(" ", 1)[1] if " " in ch['name'] else ch['name'] + "</h1>\n"
             "    <div class=\"timeline\">\n"
             + (p_html if p_html else "<div style='color:#888;font-size:14px;'>暂无政策文件</div>") +
             "    </div>\n"
@@ -608,4 +618,3 @@ with open(data_dir / 'policies.yml', 'w', encoding='utf-8') as f:
 
 print(f"✓ 生成 _data/policies.yml，共 {len(policies_data)} 条")
 print("完成")
- 
