@@ -8,6 +8,31 @@ from pathlib import Path
 with open('_tmp_source/structure.json', 'r', encoding='utf-8') as f:
     structure = json.load(f)
 
+# 兼容新旧 structure.json 格式
+if isinstance(structure, list):
+    new_structure = {'regions': []}
+    for i, region in enumerate(structure):
+        region_id = f"{i+1}-{region['name'][:6]}"
+        chapters = []
+        for j, prov in enumerate(region.get('provinces', [])):
+            ch_id = f"{j+1}-{prov['name'][:6]}"
+            files = []
+            for f in prov.get('files', []):
+                slug = f.get('slug', '')
+                if slug:
+                    files.append(f"{slug}.md")
+            chapters.append({
+                'id': ch_id,
+                'name': prov['name'],
+                'files': files
+            })
+        new_structure['regions'].append({
+            'id': region_id,
+            'name': region['name'],
+            'chapters': chapters
+        })
+    structure = new_structure
+
 output_base = Path('policy/original')
 data_dir = Path('_data')
 data_dir.mkdir(exist_ok=True)
