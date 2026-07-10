@@ -29,19 +29,27 @@ jobs:
         run: |
           git clone https://x-access-token:${TOKEN}@github.com/Caro-Li-C/opc-content-source.git _tmp_source
 
-      # 2. 安装 Python 依赖（用于 md 转 HTML）
-      - name: Install Python dependencies
-        run: pip install markdown
+      # 2. 设置 Python 环境
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
-      # 3. 生成政策静态页面（关键：替代原来的 _posts/policy 方案）
+      # 3. 安装 Python 依赖（用于 md 转 HTML）
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install markdown pyyaml
+
+      # 4. 生成政策静态页面（关键：替代原来的 _posts/policy 方案）
       - name: Generate policy pages
         run: python scripts/generate_policy_pages.py
 
-      # 3.5 生成政策解析页面（新增）
+      # 5. 生成政策解析页面（新增）
       - name: Generate analysis pages
         run: python scripts/generate_analysis_pages.py
 
-      # 4. 清理临时文件（不进入构建产物）
+      # 6. 清理临时文件（不进入构建产物）
       - name: Clean up temp source
         run: rm -rf _tmp_source
 
