@@ -8,7 +8,7 @@ from pathlib import Path
 with open('_tmp_source/structure.json', 'r', encoding='utf-8') as f:
     structure = json.load(f)
 
-# 兼容 structure 列表格式（每个元素有 name, provinces）
+# 兼容 structure 列表格式
 if isinstance(structure, list):
     new_structure = {'regions': []}
     for i, region in enumerate(structure):
@@ -566,11 +566,15 @@ for region in structure['regions']:
                 + '      </div>\n'
             )
         
-        # 修复：去掉 h1 中的"第X章"，只保留省份名；保留小字"第X章"
+        # 提取省份名（去掉"第X章"前缀）
+        ch_name = ch['name']
+        if " " in ch_name:
+            ch_name = ch_name.split(" ", 1)[1]
+        
         ch_tpl = (
             "---\n"
             "layout: default\n"
-            "title: " + ch['name'] + "\n"
+            "title: " + ch_name + "\n"
             "---\n"
             "\n"
             "<style>\n"
@@ -599,7 +603,7 @@ for region in structure['regions']:
             "\n"
             "<div class=\"article-container\">\n"
             "    <div class=\"chapter-label\">第" + CN[i] + "章</div>\n"
-            "    <h1 style=\"font-size:28px;font-weight:400;padding-bottom:16px;margin-bottom:40px;letter-spacing:2px;\">" + ch['name'].split(" ", 1)[1] if " " in ch['name'] else ch['name'] + "</h1>\n"
+            "    <h1 style=\"font-size:28px;font-weight:400;padding-bottom:16px;margin-bottom:40px;letter-spacing:2px;\">" + ch_name + "</h1>\n"
             "    <div class=\"timeline\">\n"
             + (p_html if p_html else "<div style='color:#888;font-size:14px;'>暂无政策文件</div>") +
             "    </div>\n"
