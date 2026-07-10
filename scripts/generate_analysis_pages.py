@@ -536,7 +536,7 @@ title: "{title}"
   <div class="headline-area">
     <h1>{title}</h1>
 {sub_title_html}
-    {f"<p class=\"headline-lead\">{lead_text}</p>" if lead_text else ""}
+    {("<p class=\"headline-lead\">" + lead_text + "</p>") if lead_text else ""}
   </div>
 
 {body_html}
