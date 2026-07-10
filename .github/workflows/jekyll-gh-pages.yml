@@ -25,7 +25,7 @@ jobs:
       # 1. 从私库拉取内容（structure.json + 76 个 md）
       - name: Pull content from private source repo
         env:
-          TOKEN: ${{ secrets.POLICY_MD_TOKEN }}
+          TOKEN: ${{ secrets.CONTENT_REPO_PAT }}
         run: |
           git clone https://x-access-token:${TOKEN}@github.com/Caro-Li-C/opc-content-source.git _tmp_source
 
