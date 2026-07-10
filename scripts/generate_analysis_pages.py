@@ -333,7 +333,7 @@ def render_chapter(idx, items):
         elif typ == "list": body_parts.append(content)
         elif typ == "p": body_parts.append(f"<p>{inline_md_to_html(content)}</p>")
     sub_html = f'<div class="chapter-sub">{inline_md_to_html(h3_sub)}</div>' if h3_sub else ""
-    kv_html = f'<div class="kv-grid">\n{"\n".join(kv_rows)}\n</div>' if kv_rows else ""
+    kv_html = ('<div class="kv-grid">\n' + "\n".join(kv_rows) + '\n</div>') if kv_rows else ""
     body_html = "\n".join(body_parts)
     return f"""  <div class="chapter">
     <div class="chapter-number">{idx}</div>
@@ -358,7 +358,7 @@ def render_numbered(num, items):
         elif typ == "kv": k, v = content; kv_rows.append(render_kv_row(k, v))
         elif typ == "list": body_parts.append(content)
         elif typ == "p": body_parts.append(f"<p>{inline_md_to_html(content)}</p>")
-    kv_html = f'<div class="kv-grid">\n{"\n".join(kv_rows)}\n</div>' if kv_rows else ""
+    kv_html = ('<div class="kv-grid">\n' + "\n".join(kv_rows) + '\n</div>') if kv_rows else ""
     body_html = "\n".join(body_parts)
     return f"""  <div class="numbered-section">
     <div class="section-header">
@@ -399,7 +399,7 @@ def render_conclusion(lines):
     closing_html = f'\n    <div class="closing-line">{inline_md_to_html(closing_line)}</div>' if closing_line else ""
     return f"""  <div class="conclusion">
     <h2>结语</h2>
-{"\n".join(["    " + p for p in paragraphs])}{closing_html}
+"\n".join(["    " + p for p in paragraphs]){closing_html}
   </div>"""
 
 
