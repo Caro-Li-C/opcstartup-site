@@ -396,11 +396,9 @@ def render_conclusion(lines):
             closing_line = line
         else:
             paragraphs.append(f"<p>{inline_md_to_html(line)}</p>")
-    closing_html = f'\n    <div class="closing-line">{inline_md_to_html(closing_line)}</div>' if closing_line else ""
-    return f"""  <div class="conclusion">
-    <h2>结语</h2>
-"\n".join(["    " + p for p in paragraphs]){closing_html}
-  </div>"""
+    closing_html = "\n    <div class=\"closing-line\">" + inline_md_to_html(closing_line) + "</div>" if closing_line else ""
+    paragraphs_html = "\n".join(["    " + p for p in paragraphs])
+    return "  <div class=\"conclusion\">\n    <h2>结语</h2>\n" + paragraphs_html + closing_html + "\n  </div>"
 
 
 CSS_TEMPLATE = """
@@ -509,54 +507,16 @@ for filename in sorted(os.listdir(SOURCE_DIR)):
 
     body_html = parse_markdown_body(body, title, description)
 
-    sub_title_html = f"<div class=\"headline-sub\">{sub_title}</div>" if sub_title else ""
+    # 构建 sub_title_html 和 lead_text_html（避免 f-string 嵌套）
+    sub_title_html = ""
+    if sub_title:
+        sub_title_html = '<div class="headline-sub">' + sub_title + '</div>'
 
-    html = f"""---
-layout: default
-title: "{title}"
----
+    lead_text_html = ""
+    if lead_text:
+        lead_text_html = '<p class="headline-lead">' + lead_text + '</p>'
 
-<style>
-{CSS_TEMPLATE}
-</style>
-
-<article class="article-container">
-
-  <div class="article-meta-bar">
-    <div class="meta-left">
-      <span class="meta-tag">政策解析</span>
-      <div class="meta-divider"></div>
-      <span class="meta-text">{city if city else display_tags[0]}</span>
-      <div class="meta-divider"></div>
-      <span class="meta-text">{display_tags[1] if len(display_tags) > 1 else display_tags[0]}</span>
-    </div>
-    <div class="meta-right">{date_str}</div>
-  </div>
-
-  <div class="headline-area">
-    <h1>{title}</h1>
-{sub_title_html}
-    {("<p class=\"headline-lead\">" + lead_text + "</p>") if lead_text else ""}
-  </div>
-
-{body_html}
-
-  <div class="article-footer">
-    <div class="footer-author">
-      <strong>{author}</strong> · OPC创业汇
-    </div>
-    <div class="footer-source">POLICY · PRACTICE · PEOPLE</div>
-  </div>
-
-  <div class="back-link">
-    <a href="./">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-      返回政策解析列表
-    </a>
-  </div>
-
-</article>
-"""
+    html = "---\nlayout: default\ntitle: \"" + title + "\"\n---\n\n<style>\n" + CSS_TEMPLATE + "\n</style>\n\n<article class=\"article-container\">\n\n  <div class=\"article-meta-bar\">\n    <div class=\"meta-left\">\n      <span class=\"meta-tag\">政策解析</span>\n      <div class=\"meta-divider\"></div>\n      <span class=\"meta-text\">" + (city if city else display_tags[0]) + "</span>\n      <div class=\"meta-divider\"></div>\n      <span class=\"meta-text\">" + (display_tags[1] if len(display_tags) > 1 else display_tags[0]) + "</span>\n    </div>\n    <div class=\"meta-right\">" + str(date_str) + "</div>\n  </div>\n\n  <div class=\"headline-area\">\n    <h1>" + title + "</h1>\n" + sub_title_html + "\n    " + lead_text_html + "\n  </div>\n\n" + body_html + "\n\n  <div class=\"article-footer\">\n    <div class=\"footer-author\">\n      <strong>" + author + "</strong> · OPC创业汇\n    </div>\n    <div class=\"footer-source\">POLICY · PRACTICE · PEOPLE</div>\n  </div>\n\n  <div class=\"back-link\">\n    <a href=\"./\">\n      <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M19 12H5M12 19l-7-7 7-7\"/></svg>\n      返回政策解析列表\n    </a>\n  </div>\n\n</article>\n"
 
     with open(OUTPUT_DIR / f"{slug}.html", "w", encoding="utf-8") as f:
         f.write(html)
@@ -578,38 +538,9 @@ title: "{title}"
 
 items = ""
 for art in sorted(articles, key=lambda x: x["date"], reverse=True):
-    items += f"""
-    <article class="post-item">
-      <div class="post-left">
-        <div class="post-date-day">{art["day"]}</div>
-        <div class="post-date-month">{art["month_year"]}</div>
-      </div>
-      <div class="post-main">
-        <h2 class="post-title"><a href="{art["url"]}">{art["title"]}</a></h2>
-        <p class="post-description">{art["desc"]}</p>
-        <div class="post-footer">
-          <div class="post-tags-inline">
-            <span class="post-tag-inline">政策解析</span>
-          </div>
-        </div>
-      </div>
-    </article>"""
+    items += "\n    <article class=\"post-item\">\n      <div class=\"post-left\">\n        <div class=\"post-date-day\">" + art["day"] + "</div>\n        <div class=\"post-date-month\">" + art["month_year"] + "</div>\n      </div>\n      <div class=\"post-main\">\n        <h2 class=\"post-title\"><a href=\"" + art["url"] + "\">" + art["title"] + "</a></h2>\n        <p class=\"post-description\">" + art["desc"] + "</p>\n        <div class=\"post-footer\">\n          <div class=\"post-tags-inline\">\n            <span class=\"post-tag-inline\">政策解析</span>\n          </div>\n        </div>\n      </div>\n    </article>"
 
-index_html = f"""---
-layout: default
-title: "政策解析"
----
-
-<div class="articles-page">
-  <div class="page-header">
-    <h1 class="page-title">政策解析</h1>
-    <p class="page-subtitle">OPC创业汇对重点政策的深度解读</p>
-  </div>
-  <div class="post-list">
-{items}
-  </div>
-</div>
-"""
+index_html = "---\nlayout: default\ntitle: \"政策解析\"\n---\n\n<div class=\"articles-page\">\n  <div class=\"page-header\">\n    <h1 class=\"page-title\">政策解析</h1>\n    <p class=\"page-subtitle\">OPC创业汇对重点政策的深度解读</p>\n  </div>\n  <div class=\"post-list\">" + items + "\n  </div>\n</div>\n"
 
 with open(OUTPUT_DIR / "index.html", "w", encoding="utf-8") as f:
     f.write(index_html)
