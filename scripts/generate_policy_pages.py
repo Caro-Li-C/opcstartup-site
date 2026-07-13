@@ -527,9 +527,13 @@ for region in structure['regions']:
         p_html = ""
         for fname in ch.get('files', []):
             md = fname if fname.endswith(".md") else fname + ".md"
-            mp = Path('_tmp_source/policy') / md
-            if not mp.exists():
-                print(f"跳过: {mp}")
+            # 递归搜索文件（支持 region 子目录）
+            mp = None
+            for p in Path('_tmp_source/policy').rglob(md):
+                mp = p
+                break
+            if not mp or not mp.exists():
+                print(f"跳过: {md}")
                 continue
             
             raw = mp.read_text(encoding='utf-8')
