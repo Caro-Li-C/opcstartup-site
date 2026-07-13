@@ -418,13 +418,6 @@ def make_slug(fname):
 
 CN = ['一','二','三','四','五','六','七','八','九','十','十一','十二']
 
-def split_prefix(name):
-    """'第一篇 长三角地区' → ('第一篇', '长三角地区')"""
-    m = re.match(r'(第[一二三四五六七八九十百\d]+[篇章节卷部分])\s*(.+)', name)
-    if m:
-        return m.group(1), m.group(2)
-    return "", name
-
 # 跳过的非政策章节
 SKIP_REGIONS = ['卷首语', '编制说明', 'OPC创业汇', '附录']
 
@@ -490,16 +483,16 @@ for r_idx, region in enumerate(structure['regions']):
     for c_idx, ch in enumerate(region['chapters']):
         ch_links += (
             '        <a href="' + region["id"] + '/' + ch["id"] + '" class="chapter-item">\n'
-            '            <span class="chapter-number">' + split_prefix(ch["name"])[0] + '</span>\n'
-            '            <span class="chapter-name">' + split_prefix(ch["name"])[1] + '</span>\n'
+            '            <span class="chapter-number">第' + CN[c_idx] + '章</span>\n'
+            '            <span class="chapter-name">' + ch["name"] + '</span>\n'
             '        </a>\n'
         )
     
     total_index_html += (
         "        <div class=\"part-block\">\n"
         "            <div class=\"part-header\">\n"
-        "                <div class=\"part-number\">" + split_prefix(region["name"])[0] + "</div>\n"
-        "                <div class=\"part-name\">" + split_prefix(region["name"])[1] + "</div>\n"
+        "                <div class=\"part-number\">第" + CN[r_idx] + "篇</div>\n"
+        "                <div class=\"part-name\">" + region["name"] + "</div>\n"
         "            </div>\n"
         "            <div class=\"chapter-list\">\n"
         + ch_links +
