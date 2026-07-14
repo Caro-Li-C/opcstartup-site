@@ -12,10 +12,12 @@ with open('_tmp_source/structure.json', 'r', encoding='utf-8') as f:
 if isinstance(structure, list):
     new_structure = {'regions': []}
     for i, region in enumerate(structure):
-        region_id = f"{i+1}-{region['name'][:6]}"
+        # 关键修改：用完整 name，不截断
+        region_id = f"{i+1}-{region['name']}"
         chapters = []
         for j, prov in enumerate(region.get('provinces', [])):
-            ch_id = f"{j+1}-{prov['name'][:6]}"
+            # 关键修改：用完整 name，不截断
+            ch_id = f"{j+1}-{prov['name']}"
             files = []
             for f in prov.get('files', []):
                 if isinstance(f, dict):
@@ -430,6 +432,26 @@ SKIP_REGIONS = ['卷首语', '编制说明', 'OPC创业汇', '附录']
 
 policies_data = []
 
+# 关键修改：建立 region_name 到实际文件夹的映射
+policy_base = Path('_tmp_source/policy')
+region_folder_map = {}
+
+# 扫描实际存在的文件夹，建立映射
+if policy_base.exists():
+    for folder in policy_base.iterdir():
+        if folder.is_dir() and not folder.name.startswith('_') and not folder.name.startswith('.'):
+            # 尝试匹配：文件夹名如 "4-第一篇 长三角" 对应 region['name'] = "第一篇 长三角地区"
+            for r in structure.get('regions', []):
+                r_name = r['name']
+                # 匹配逻辑：文件夹名包含 region name 的核心部分
+                if r_name.replace('地区', '').replace('区域', '') in folder.name or folder.name in r_name:
+                    region_folder_map[r_name] = folder
+                    break
+
+print("Region 文件夹映射:")
+for k, v in region_folder_map.items():
+    print(f"  {k} -> {v.name}")
+
 # 生成总列表页
 print("生成总列表页...")
 
@@ -527,6 +549,12 @@ for region in structure['regions']:
     region_dir = output_base / region['id']
     region_dir.mkdir(parents=True, exist_ok=True)
     
+    # 关键修改：找到对应的实际源文件夹
+    source_region_folder = region_folder_map.get(region['name'])
+    if not source_region_folder:
+        print(f"警告: 找不到 region '{region['name']}' 对应的源文件夹")
+        continue
+    
     for i, ch in enumerate(region['chapters']):
         ch_dir = region_dir / ch['id']
         ch_dir.mkdir(parents=True, exist_ok=True)
@@ -534,7 +562,9 @@ for region in structure['regions']:
         p_html = ""
         for fname in ch.get('files', []):
             md = fname if fname.endswith(".md") else fname + ".md"
-            mp = Path('_tmp_source/policy') / md
+            
+            # 关键修改：在对应的子目录下查找文件
+            mp = source_region_folder / md
             if not mp.exists():
                 print(f"跳过: {mp}")
                 continue
@@ -560,7 +590,7 @@ for region in structure['regions']:
                 'date': str(meta.get('date', '2026-01-01')),
                 'category': meta.get('category', '政策原文'),
                 'url': f'/policy/original/{region["id"]}/{ch["id"]}/{slug}.html',
-                'original_url': meta.get('original_url', f'https://github.com/Caro-Li-C/opc-content-source/blob/main/policy/{md}')
+                'original_url': meta.get('original_url', f'https://github.com/Caro-Li-C/opc-content-source/blob/main/policy/{source_region_folder.name}/{md}')
             })
             
             p_html += (
