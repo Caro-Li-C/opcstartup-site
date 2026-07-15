@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "蒸汽、钢铁与无限心智：当AI超越"副驾驶""
+title:'蒸汽、钢铁与无限心智：当AI超越"副驾驶"'
 date: 2026-05-15 00:00:00 +0800
 category: 原文速递
 read_time: 20
