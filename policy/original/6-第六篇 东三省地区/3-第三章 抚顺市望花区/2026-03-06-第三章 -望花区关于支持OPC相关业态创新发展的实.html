@@ -1,0 +1,300 @@
+---
+layout: default
+title: 望花区关于支持 OPC 相关业态创新发展的实施意见（征求意见稿）
+---
+
+<style>
+  :root {
+    --bg: #f5f5f5;
+    --bg-elevated: #ebebeb;
+    --border: #d8d8d8;
+    --text-primary: #1a1a1a;
+    --text-secondary: #4a4a4a;
+    --text-muted: #7a7a7a;
+    --accent: #c4a35a;
+    --accent-dim: rgba(196, 163, 90, 0.1);
+    --accent-border: rgba(196, 163, 90, 0.25);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    color: var(--text-primary);
+    line-height: 1.9;
+    font-size: 16px;
+  }
+  .article-container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+  .policy-header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 32px;
+    margin-bottom: 40px;
+  }
+  .policy-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .meta-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 4px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+  }
+  .meta-tag.category {
+    background: var(--accent-dim);
+    border-color: var(--accent-border);
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .policy-title {
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.45;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+    letter-spacing: -0.3px;
+  }
+  .policy-doc-no {
+    font-size: 15px;
+    color: var(--accent);
+    font-family: "SF Mono", "Fira Code", "Courier New", monospace;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+  }
+  .policy-source-bar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 13px;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+  }
+  .source-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .source-item svg {
+    width: 14px;
+    height: 14px;
+    opacity: 0.5;
+  }
+  .policy-body {
+    font-size: 16px;
+    line-height: 2;
+    color: var(--text-primary);
+  }
+  .policy-body p {
+    margin-bottom: 16px;
+    text-align: justify;
+  }
+  .policy-body h2 {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 44px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    letter-spacing: 0.3px;
+  }
+  .policy-body h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 28px 0 14px;
+    padding-left: 12px;
+    border-left: 3px solid var(--accent);
+  }
+  .responsible-unit {
+    display: inline;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  .meta-paragraph {
+    color: var(--text-secondary);
+    font-size: 15px;
+  }
+  .inline-signature {
+    margin: 24px 0 36px;
+  }
+  .inline-signature .sig-line {
+    text-align: right;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 2.4;
+    margin: 0;
+  }
+  .inline-signature .pub-note {
+    text-align: left;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 2.4;
+    margin: 0;
+  }
+  .publish-note {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 2;
+  }
+  .publish-note p {
+    margin: 0;
+    text-align: left;
+  }
+  .effective-date {
+    margin-top: 24px;
+    padding: 16px 20px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+  .effective-date strong {
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .article-nav {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 24px 60px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s;
+    background: var(--bg);
+  }
+  .nav-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .back-to-list {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .back-to-list a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+  }
+  .back-to-list a:hover { color: var(--accent); }
+  @media (max-width: 640px) {
+    .policy-title { font-size: 21px; }
+    .policy-body { font-size: 15px; }
+    .policy-body h2 { font-size: 17px; }
+    .nav-links { display: none; }
+  }
+</style>
+<base target="_blank">
+
+<article class="article-container">
+  <header class="policy-header">
+    <div class="policy-meta">
+      <span class="meta-tag category">政策解读</span>
+      <span class="meta-tag">政策原文</span>
+      
+    </div>
+    <h1 class="policy-title">望花区关于支持 OPC 相关业态创新发展的实施意见（征求意见稿）</h1>
+    
+    <div class="policy-source-bar">
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 2026-03-06</div>
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg> 望花区</div>
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> 来源：公众号OPC创业汇</div>
+    </div>
+  </header>
+  <div class="policy-body">
+    <p>为深入贯彻落实《中华人民共和国国民经济和社会发展第十四个五年规划和2035年远景目标纲要》中关于“加快数字化发展，建设数字中国”的总要求，积极响应《数字辽宁发展规划（2.0版）》等政策文件精神，加快培育OPC相关业态、构建产业生态，不断增强地区投资吸引力，加速推动数字经济发展，进一步促进关联行业数字化转型和智能化升级，现颁布《望花区关于支持OPC相关业态创新发展的实施意见》（以下简称《意见》）。</p>
+<p>OPC（人工智能“一人公司”）其广义概念是指个体或较少人力依托“开源 LLM 驱动型自主任务智能体系统”等 AI 工具实现从产品设计、研发、运营、管理到市场投放的全链路闭环的新型创新创业模式。其核心是“人机协同”，人类负责创意与决策AI ，承担执行与产出。这种模式具有轻资产、快迭代和生态化特征，是显著降低创业门槛、提升创新效率的 AI 业态关键细分赛道，对驱动地方经济转型升级具有重要意义。</p>
+<h2>一、指导思想</h2>
+<p>坚持市场主导与政府引导相结合，聚焦 OPC 相关业态，培育产业生态，以创新驱动为核心内涵，以创新个体（或少量人力）为实施主体，以创新项目和应用场景为任务目标，通过政策扶持和营商环境优化，有效激发地区 OPC 关联领域的创新活力和投资吸引力。</p>
+<h2>二、工作目标</h2>
+<p>1.推动数字经济重点产业发展：通过 OPC 模式赋能望花区人工智能、工业互联网和跨境电商等重点数字经济产业，促进技术融合与应用创新，打造区域经济增长新引擎。</p>
+<p>2.促进“开源 LLM 驱动型自主任务智能体系统”关联项目和应用场景落地：重点支持以大语言模型为基础的任务代理系统场景应用，推动其在生产、服务等领域的深度集成，助力产业智能化升级。</p>
+<p>3.吸引专业领域高端人才：构建 OPC 友好型创新创业环境，吸引 AI、工业互联网和跨境电商、具身智能、虚拟现实等领域人才集聚望花区，形成“人才—创新—产业”良性循环。</p>
+<p>4.拓宽创新创业渠道：通过鼓励单一个体凭借数字科技与创意，实现从研发到运营的全链路闭环，大幅降低创业门槛，多元化开辟创新路径，有效提升高校毕业生的留抚比例。</p>
+<h2>三、适用范围</h2>
+<p>本实施意见适用望花区辖区范围的民营企业，国有企业、高校、科研机构、党政机关和事业单位以较少人力实现 AI 人机协同的项目和应用场景可视具体情况参照执行。</p>
+<h2>四、支持方向</h2>
+<p>1.重点支持利用 AI 工具开展 OPC 创业，优先支持人工智能、工业互联网和跨境电商相关项目。</p>
+<p>2.鼓励广泛开发 OPC 应用场景，赋能千行百业，对典型案例进行不断优化提升，加大复制和推广力度。</p>
+<p>3.倡导“轻资产、快迭代”模式，引导 OPC 向垂直细分领域深耕，形成“小而美、深而专”的创新生态。</p>
+<p>4.推动产学研结合，鼓励高校、科研机构与 OPC 实施主体协作，加速技术转化升级。</p>
+<h2>五、支持方式</h2>
+<h3>（一）项目和场景直接补贴</h3>
+<p>1.补贴对象：一是面向望花区辖区内的民营小微企业 OPC 相关项目或应用场景进行补贴。二是对于中、大型企业和科研机构（含国企、机关和事业单位）以较少人力实现 AI 人机协同的应用场景典型案例进行补贴。三是针对在校或毕业 2 年内的大学生和研究生在望花区创办企业所开展的 OPC 相关项目或应用场景进行补贴。</p>
+<p>2.实施流程：由望花区行业部门面向社会发布通知，组织申报，由专家团队对申报项目和应用场景进行评审打分，遴选优秀项目和应用场景作为典型范例并对其给予资金奖励。</p>
+<p>3.奖励机制：每个类别每年遴选 1-5 个优秀创业项目或应用场景，单体项目和应用场景给予实施主体不高于 10 万元的资金奖励。</p>
+<h3>（二）税收政策</h3>
+<p>对于符合小微企业、小规模纳税人法定条件的OPC主体，严格落实小微企业“六税两费”减免政策，以及对月销售额未超过10万元，季度销售额未超过30万元的小规模纳税人免征增值税的政策。</p>
+<h3>（三）创业担保贷款、贴息及一次性创业补贴</h3>
+<p>全面支持符合条件的 OPC 创业主体申请最高额度不超过400万元，贷款期限不超过2年的小微企业创业担保贷款，并按规定执行实际贷款利率50%的财政贴息。对于离校5年内的高校毕业生，且成功申领创业担保贷款的，给予3000元一次性创业补贴，并根据从事新产业、新业态等模式创业的小微企业补贴标准上浮30%，有效降低 OPC 创业启动成本。</p>
+<h3>（四）普惠算力补贴</h3>
+<p>对年算力使用成本达到 5 万元及以上的 OPC 企业，按照其实际发生算力费用的一定比例，发放普惠算力券，具体补贴标准、额度及申领流程以后续实施细则为准。</p>
+<h3>（五）专属政务服务</h3>
+<p>在区行政服务大厅增设“OPC 专属一站式服务专窗”，提供政策咨询、企业注册、业务办理、问题转接等全流程便捷服务，提升 OPC 主体办事效率。</p>
+<h3>（六）人才政策</h3>
+<p>支持 OPC 相关企业及人才全面适用“兴辽英才计划”“抚顺英才计划”等政策，在人才引进、培育、留存、使用等方面给予重点支持。相关具体认定、申报及待遇落实工作，严格按照国家、辽宁省及抚顺市最新人才政策规定执行。</p>
+<h3>（七）强化资源优化</h3>
+<p>OPC 相关企业和机构在符合规定标准前提下，可优先入驻数字经济产业园区。并由政府相关部门通过各类招商活动和载体，帮助企业协调对接国内优质产业和服务资源。</p>
+<h2>六、成立工作专班</h2>
+<p>成立望花区 OPC 业态发展工作专班，专班组长由分管副区长担任，办公室设在区商务局。成员单位：区商务局、工信局、科技局、数据局、人社局、财政局、市场监督管理局及区委人才办。</p>
+<p>专班主要职责为通过常态化会商机制，制定 OPC 业态发展工作方案，统筹协调相关重点工作安排；负责政策的解读、宣传与落地兑现；协调解决工作推进中的难点、堵点问题，优化整合各类资源，保障 OPC 相关业态高质量发展。</p>
+<h2>七、合规性条款</h2>
+<h3>（一）OPC运营主体的法律与AI合规义务。</h3>
+<p>OPC实施主体在运营与创新过程中应严格遵守国家法律法规，落实以下主体责任：</p>
+<p>1、企业设立与经营合规：如设立一人有限责任公司，须严格遵守《中华人民共和国公司法》关于一人有限责任公司的相关规定。</p>
+<p>2、人工智能与数据安全合规：业务开展须遵循《中华人民共和国数据安全法》《中华人民共和国个人信息保护法》《生成式人工智能服务管理暂行办法》等法律法规及监管要求，确保算法安全、数据来源合法、个人信息依法脱敏处理，对人工智能生成内容进行显著标识，不得侵犯他人知识产权、肖像权等合法权益。</p>
+<p>3、自主合规责任：企业应自主履行法律法规规定的各项合规义务。本政策所提供的扶持措施，不替代、不减轻实施主体在自身经营、数据安全、算法伦理等方面的法定责任。</p>
+<h3>（二）公平竞争审查声明。</h3>
+<p>本《意见》的制定与实施，已严格履行《公平竞争审查条例》规定的公平竞争审查程序。</p>
+<h3>（三）财政支持与程序规范。</h3>
+<p>本《意见》所涉及的各类补贴、贷款贴息、算力券等财政支持措施，资金来源均纳入规范预算管理与绩效评价体系。具体实施须遵循以下原则：</p>
+<p>程序公开公正：项目补贴、普惠算力券等评审工作，须遵循发布通知、自主申报、专家评审、结果公示、异议受理与反馈的规范流程。评审过程实行专家回避制度，确保评审工作的公平、公正。</p>
+<p>监管与责任：申报主体应对所提交材料的真实性、合法性负责。任何通过虚报、瞒报、伪造等手段骗取财政资金的行为，一经查实，将依法追回已拨付资金，并追究相关主体法律责任。财政资金的拨付、使用全过程接受审计与纪检监察部门的监督。</p>
+<h3>（四）与上位法衔接声明。</h3>
+<p>本《意见》中引述或涉及的各项政策均是对国家、辽宁省、抚顺市现行有效法律法规及政策的落实与执行。如上述上位法、上级政策发生调整，本《意见》相关条款将自动按最新规定执行。</p>
+<h2>八、其他事项</h2>
+<p>1、本《意见》中涉及的“项目与场景直接补贴”“普惠算力补贴”“创业担保贷款及贴息”等各项支持措施的具体申请条件、评审标准、补贴额度、申领与拨付流程、绩效评价及监督管理要求，由区商务局会同区财政局、人社局等相关部门另行制定实施细则予以明确。</p>
+<p>2、本《意见》自正式发布之日起试行一年，期满后进行评估优化。</p>
+<p>3、本《意见》由望花区OPC业态发展工作专班负责统筹推进与解释。</p>
+<p>抚顺市望花区商务局2026年3月6日发布，征求意见时间为2026年3月6日至4月5日。</p>
+  </div>
+</article>
+
+<div class="back-to-list">
+  <a href="./">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    返回政策原文列表
+  </a>
+</div>
+
+<nav class="article-nav">
+  <a href="#" class="nav-btn" style="visibility: hidden;">← 上一篇</a>
+  <a href="#" class="nav-btn">下一篇 →</a>
+</nav>

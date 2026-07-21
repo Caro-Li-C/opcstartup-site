@@ -1,0 +1,268 @@
+---
+layout: default
+title: 莱西市支持人工智能OPC发展政策清单（第一批）
+---
+
+<style>
+  :root {
+    --bg: #f5f5f5;
+    --bg-elevated: #ebebeb;
+    --border: #d8d8d8;
+    --text-primary: #1a1a1a;
+    --text-secondary: #4a4a4a;
+    --text-muted: #7a7a7a;
+    --accent: #c4a35a;
+    --accent-dim: rgba(196, 163, 90, 0.1);
+    --accent-border: rgba(196, 163, 90, 0.25);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    color: var(--text-primary);
+    line-height: 1.9;
+    font-size: 16px;
+  }
+  .article-container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+  .policy-header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 32px;
+    margin-bottom: 40px;
+  }
+  .policy-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .meta-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 4px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+  }
+  .meta-tag.category {
+    background: var(--accent-dim);
+    border-color: var(--accent-border);
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .policy-title {
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.45;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+    letter-spacing: -0.3px;
+  }
+  .policy-doc-no {
+    font-size: 15px;
+    color: var(--accent);
+    font-family: "SF Mono", "Fira Code", "Courier New", monospace;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+  }
+  .policy-source-bar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 13px;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+  }
+  .source-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .source-item svg {
+    width: 14px;
+    height: 14px;
+    opacity: 0.5;
+  }
+  .policy-body {
+    font-size: 16px;
+    line-height: 2;
+    color: var(--text-primary);
+  }
+  .policy-body p {
+    margin-bottom: 16px;
+    text-align: justify;
+  }
+  .policy-body h2 {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 44px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    letter-spacing: 0.3px;
+  }
+  .policy-body h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 28px 0 14px;
+    padding-left: 12px;
+    border-left: 3px solid var(--accent);
+  }
+  .responsible-unit {
+    display: inline;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  .meta-paragraph {
+    color: var(--text-secondary);
+    font-size: 15px;
+  }
+  .inline-signature {
+    margin: 24px 0 36px;
+  }
+  .inline-signature .sig-line {
+    text-align: right;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 2.4;
+    margin: 0;
+  }
+  .inline-signature .pub-note {
+    text-align: left;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 2.4;
+    margin: 0;
+  }
+  .publish-note {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 2;
+  }
+  .publish-note p {
+    margin: 0;
+    text-align: left;
+  }
+  .effective-date {
+    margin-top: 24px;
+    padding: 16px 20px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+  .effective-date strong {
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .article-nav {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 24px 60px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s;
+    background: var(--bg);
+  }
+  .nav-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .back-to-list {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .back-to-list a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+  }
+  .back-to-list a:hover { color: var(--accent); }
+  @media (max-width: 640px) {
+    .policy-title { font-size: 21px; }
+    .policy-body { font-size: 15px; }
+    .policy-body h2 { font-size: 17px; }
+    .nav-links { display: none; }
+  }
+</style>
+<base target="_blank">
+
+<article class="article-container">
+  <header class="policy-header">
+    <div class="policy-meta">
+      <span class="meta-tag category">政策解读</span>
+      <span class="meta-tag">政策原文</span>
+      <span class="meta-tag">莱西</span>
+    </div>
+    <h1 class="policy-title">莱西市支持人工智能OPC发展政策清单（第一批）</h1>
+    
+    <div class="policy-source-bar">
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 2026-03-12</div>
+      
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> 来源：公众号OPC创业汇</div>
+    </div>
+  </header>
+  <div class="policy-body">
+    <p>一、提供普惠算力服务。支持企业购买算力服务,降低算力使用门槛,按照实际支付算力费用不超过20%的比例,给予企业最高100万元补贴。</p>
+<p>二、实施"模型券"奖补政策。鼓励参与垂直领域行业大模型"揭榜挂帅",对开展大模型推理或训练优化并通过国家级专业评测机构水平评测的垂直领域大模型产品,按规定进行奖补,每个给予最高100万元补助。</p>
+<p>三、实施"语料券"奖补政策。实施人工智能语料库"聚智凝源"工程,对用于大模型开发、训练和微调的高质量语料库按规定进行奖补,每个给予最高150万元补助。</p>
+<p>四、研究生实习生活补贴。集聚青年人才后备力量,鼓励高校在校生来莱西实习,对全日制在校硕博研究生在企业实习的,按每人每月3000元标准给予实习生活补贴。</p>
+<p>五、高校毕业生住房补贴。对在莱西就业落户的国内普通高校全日制毕业生和国外高等院校毕业生,按照博士每月1200元、硕士每月800元、本科每月500元标准,发放不超过36个月的住房补贴。</p>
+<p>六、青年人才一次性安家费。对在莱西创新创业落户,并购买唯一商品住房的40周岁以下博士、35周岁以下硕士,分别给予15万元、10万元一次性安家费。</p>
+<p>七、选拔产业领军人才。在三年管理期内按照领军人才团队一类最高500万元、二类最高300万元、创新领军人才和创业领军人才最高50万元给予人才津贴支持。</p>
+<p>八、提供创业政策支持。首次创办小微企业等创业实体,最高可申领1.2万元创业补贴;符合条件的还可申请最高30万元创业担保贷款,合伙创业最高99万元,并给予全额贴息;创办小微企业可申请最高400万元创业担保贷款,给予50%贴息。</p>
+<p>九、引导社会资本投入。通过"青科保""青科担"等系列金融产品,对采用投保贷联动业务获得贷款,且符合科技金融政策补贴条件的科技型企业,给予最高30万元的贴息贴保奖补。</p>
+<h2>十、支持软件创新产品推广。对人工智能软件项目符合省级工业软件研发推广项目要求的,每个给予最高300万元奖励。</h2>
+<p>十一、推进开源生态建设。聚焦提升企业自主创新能力,推动一批基础性、前瞻性开源项目在重点应用场景落地。鼓励企业向国家级开源基金会捐赠开源项目,对被接收的项目,给予30万元一次性奖励。</p>
+<h2>十二、培育高新技术企业。对首次认定的高新技术企业给予最高10万元奖补,对再次认定的高新技术企业给予最高5万元奖补。</h2>
+<p>十三、打造算力调度服务平台。支持平台企业、算力服务机构等打造面向OPC的算力调度服务平台,提供便捷算力服务。OPC通过平台购买算力服务,可按规定享受"算力券"补贴。</p>
+<h2>十四、入驻创业孵化园区。对入驻政府投资开发的创业孵化园区,符合条件的给予最长3年房租减免。</h2>
+<p>十五、强化科技企业孵化器支撑。为来莱西的青年人才创新团队提供技术服务、投资融资、创业辅导等支持。对新获批的工业和信息化部科技型企业孵化器,根据入选层级依法依规给予最高200万元奖补。</p>
+<p>十六、支持参加"创在青岛"创新创业大赛项目。对参加"创在青岛"等青岛市创新创业大赛的获奖项目,由青岛市给予最高10万元资金支持。鼓励在莱西创新创业的优秀青年人才参加青岛市实施的大学生创业明星评选机制,符合条件的由青岛市给予最高3万元奖励。</p>
+<p>十七、实施"创业陪跑"行动。围绕我市重点产业筛选一批创新创业项目申请纳入青岛市陪跑项目库,探索建立创业导师工作室,提供资源链接、融资支持、培训交流等全周期赋能服务。鼓励高校健全在校大学生全周期创业培育体系,支持院校加强创业教育课程建设,探索开展创业见习活动。</p>
+<p>十八、强化创业培训。强化创业师资队伍建设,支持青年创业者参加创业理论和创业经营及网络创业培训,定期举办"创业第一课""创业元宇宙"等培训活动。</p>
+<h2>十九、发挥场景需求牵引作用。依托"青岛场景"服务平台,发布场景清单,指导企业按需寻找场景能力和场景机会。</h2>
+<p>二十、组织市直国有企业开放应用场景。鼓励广大青年人才以"揭榜挂帅"等方式参与场景建设,放大国有企业对青年人才的吸引集聚效应。</p>
+<p>二十一、用好海洋科技大市场资源。充分利用青岛市成果库、人才库、机构库、企业库,缩短产研对接周期,提高供需匹配精准度,加速科技成果转化进程。</p>
+<p>二十二、设置OPC企业登记注册专用通道。为OPC企业做好线上线下"一站式"服务,完成登记注册。线下,设置OPC企业开办专区,提供"一对一"专业指导登记注册服务;线上,OPC企业可通过"青岛市企业开办智能一体化平台"完成登记注册申请信息。</p>
+<p>2026年3月12日发布</p>
+  </div>
+</article>
+
+<div class="back-to-list">
+  <a href="./">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    返回政策原文列表
+  </a>
+</div>
+
+<nav class="article-nav">
+  <a href="#" class="nav-btn" style="visibility: hidden;">← 上一篇</a>
+  <a href="#" class="nav-btn">下一篇 →</a>
+</nav>

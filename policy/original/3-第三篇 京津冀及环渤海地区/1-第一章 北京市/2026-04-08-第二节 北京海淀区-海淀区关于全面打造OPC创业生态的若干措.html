@@ -1,0 +1,264 @@
+---
+layout: default
+title: 海淀区关于全面打造OPC创业生态的若干措施
+---
+
+<style>
+  :root {
+    --bg: #f5f5f5;
+    --bg-elevated: #ebebeb;
+    --border: #d8d8d8;
+    --text-primary: #1a1a1a;
+    --text-secondary: #4a4a4a;
+    --text-muted: #7a7a7a;
+    --accent: #c4a35a;
+    --accent-dim: rgba(196, 163, 90, 0.1);
+    --accent-border: rgba(196, 163, 90, 0.25);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    color: var(--text-primary);
+    line-height: 1.9;
+    font-size: 16px;
+  }
+  .article-container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+  .policy-header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 32px;
+    margin-bottom: 40px;
+  }
+  .policy-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .meta-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 4px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+  }
+  .meta-tag.category {
+    background: var(--accent-dim);
+    border-color: var(--accent-border);
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .policy-title {
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.45;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+    letter-spacing: -0.3px;
+  }
+  .policy-doc-no {
+    font-size: 15px;
+    color: var(--accent);
+    font-family: "SF Mono", "Fira Code", "Courier New", monospace;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+  }
+  .policy-source-bar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 13px;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+  }
+  .source-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .source-item svg {
+    width: 14px;
+    height: 14px;
+    opacity: 0.5;
+  }
+  .policy-body {
+    font-size: 16px;
+    line-height: 2;
+    color: var(--text-primary);
+  }
+  .policy-body p {
+    margin-bottom: 16px;
+    text-align: justify;
+  }
+  .policy-body h2 {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 44px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    letter-spacing: 0.3px;
+  }
+  .policy-body h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 28px 0 14px;
+    padding-left: 12px;
+    border-left: 3px solid var(--accent);
+  }
+  .responsible-unit {
+    display: inline;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  .meta-paragraph {
+    color: var(--text-secondary);
+    font-size: 15px;
+  }
+  .inline-signature {
+    margin: 24px 0 36px;
+  }
+  .inline-signature .sig-line {
+    text-align: right;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 2.4;
+    margin: 0;
+  }
+  .inline-signature .pub-note {
+    text-align: left;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 2.4;
+    margin: 0;
+  }
+  .publish-note {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 2;
+  }
+  .publish-note p {
+    margin: 0;
+    text-align: left;
+  }
+  .effective-date {
+    margin-top: 24px;
+    padding: 16px 20px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+  .effective-date strong {
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .article-nav {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 24px 60px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s;
+    background: var(--bg);
+  }
+  .nav-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .back-to-list {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .back-to-list a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+  }
+  .back-to-list a:hover { color: var(--accent); }
+  @media (max-width: 640px) {
+    .policy-title { font-size: 21px; }
+    .policy-body { font-size: 15px; }
+    .policy-body h2 { font-size: 17px; }
+    .nav-links { display: none; }
+  }
+</style>
+<base target="_blank">
+
+<article class="article-container">
+  <header class="policy-header">
+    <div class="policy-meta">
+      <span class="meta-tag category">政策解读</span>
+      <span class="meta-tag">政策原文</span>
+      
+    </div>
+    <h1 class="policy-title">海淀区关于全面打造OPC创业生态的若干措施</h1>
+    
+    <div class="policy-source-bar">
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 2026-04-08</div>
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg> 海淀区</div>
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> 来源：公众号OPC创业汇</div>
+    </div>
+  </header>
+  <div class="policy-body">
+    <p>中科城发〔2026〕39号</p>
+<p>各相关单位：</p>
+<p>《海淀区关于全面打造OPC创业生态的若干措施》经2026年第6次中关村科学城工委会审议通过，现印发执行，请认真落实。</p>
+<div class="inline-signature">
+  <p class="sig-line">中关村科学城管理委员会</p>
+  <p class="sig-line">2026年4月8日</p>
+</div>
+
+<p>海淀区关于全面打造OPC创业生态的若干措施</p>
+<p>为强化人工智能引领作用，抢抓科技产业创新发展范式变革机遇，进一步激发"人工智能+"创业活力，大力培育基于人工智能的创业新模式，构建创新活跃、潜力迸发的OPC创业生态，全力打造世界级人工智能创新区，特制定本政策。</p>
+<p>1.支持科技人才创办OPC。鼓励高校院所的科研人员、在读学生、毕业5年内校友以及重点企业技术人才等各类科技人才，围绕"1+X+1"现代化产业体系方向创办OPC企业，经认定对符合条件的新创企业给予10万元创业资金支持。</p>
+<p>2.支持优质创赛项目转化。对在"中国创新创业大赛""创客中国"中小企业创新创业大赛、"中国国际大学生创新大赛""HICOOL全球创业大赛""中关村国际前沿科技创新大赛"等赛事中获奖项目，由其获奖人（团队）在海淀创办的OPC企业，给予最高50万元支持。</p>
+<p>3.提供模型券补贴支持。鼓励OPC企业使用Openclaw等智能体工具提升智能化水平，对优质OPC企业给予模型券补贴，符合条件的OPC企业按照不超过50%标准给予补贴，每家OPC企业每年补贴上限不超过200万元。</p>
+<p>4.向OPC人才提供安居保障。对OPC企业青年创始人，定向配租人才保障住房，享受租金5折、最长3年租期优惠。未享受人才保障住房的，可申领每月2000元、最长2年的安居补贴；在北部四镇租赁市场房屋的，增加给予每月1000元、最长2年的安居奖励。</p>
+<p>5.加强OPC企业金融服务供给。鼓励OPC企业依托"海淀区财金协同平台"申请专项贷款支持。OPC企业通过该平台从合作银行获得贷款后，可享受总计约1.5%的利息补助，单户企业贷款最高支持1000万元。面向OPC企业开展普惠型综合科技保险统保并给予全额保费支持，单家企业最高支持3年。依托中关村科学城成果转化基金、科技成长基金，为科技含量高、创新能力强的OPC企业提供投融资对接支持。</p>
+<p>6.支持OPC企业加强研发创新。对自主研发获得知识产权的OPC企业，每新增一项知识产权授权奖励2000元，其中获得I类知识产权授权的每项奖励3万元，每家企业每年最高支持10万元。</p>
+<p>7.激励OPC实现商业化突破。对实现首订单的OPC企业，给予一次性2万元奖励；对于成立两年内累计订单额达到100万元的OPC企业，给予一次性10万元奖励。对完成首轮融资且融资额度超过100万元的OPC企业，给予一次性10万元奖励。</p>
+<p>8.支持建设OPC友好社区。鼓励园区和孵化器积极打造OPC创业友好社区，对经认定的OPC创业友好社区，按照其培育OPC企业数量，每年给予最高200万元资金支持。</p>
+<div class="effective-date"><strong>施行说明：</strong>本措施自公布之日起施行，有效期一年。</div>
+  </div>
+</article>
+
+<div class="back-to-list">
+  <a href="./">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    返回政策原文列表
+  </a>
+</div>
+
+<nav class="article-nav">
+  <a href="#" class="nav-btn" style="visibility: hidden;">← 上一篇</a>
+  <a href="#" class="nav-btn">下一篇 →</a>
+</nav>

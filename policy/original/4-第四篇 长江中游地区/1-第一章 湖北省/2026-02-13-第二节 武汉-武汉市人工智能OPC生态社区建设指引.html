@@ -1,0 +1,266 @@
+---
+layout: default
+title: 武汉市人工智能OPC生态社区建设指引
+---
+
+<style>
+  :root {
+    --bg: #f5f5f5;
+    --bg-elevated: #ebebeb;
+    --border: #d8d8d8;
+    --text-primary: #1a1a1a;
+    --text-secondary: #4a4a4a;
+    --text-muted: #7a7a7a;
+    --accent: #c4a35a;
+    --accent-dim: rgba(196, 163, 90, 0.1);
+    --accent-border: rgba(196, 163, 90, 0.25);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    color: var(--text-primary);
+    line-height: 1.9;
+    font-size: 16px;
+  }
+  .article-container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+  .policy-header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 32px;
+    margin-bottom: 40px;
+  }
+  .policy-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .meta-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 4px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+  }
+  .meta-tag.category {
+    background: var(--accent-dim);
+    border-color: var(--accent-border);
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .policy-title {
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.45;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+    letter-spacing: -0.3px;
+  }
+  .policy-doc-no {
+    font-size: 15px;
+    color: var(--accent);
+    font-family: "SF Mono", "Fira Code", "Courier New", monospace;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+  }
+  .policy-source-bar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 13px;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+  }
+  .source-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .source-item svg {
+    width: 14px;
+    height: 14px;
+    opacity: 0.5;
+  }
+  .policy-body {
+    font-size: 16px;
+    line-height: 2;
+    color: var(--text-primary);
+  }
+  .policy-body p {
+    margin-bottom: 16px;
+    text-align: justify;
+  }
+  .policy-body h2 {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 44px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    letter-spacing: 0.3px;
+  }
+  .policy-body h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 28px 0 14px;
+    padding-left: 12px;
+    border-left: 3px solid var(--accent);
+  }
+  .responsible-unit {
+    display: inline;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  .meta-paragraph {
+    color: var(--text-secondary);
+    font-size: 15px;
+  }
+  .inline-signature {
+    margin: 24px 0 36px;
+  }
+  .inline-signature .sig-line {
+    text-align: right;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 2.4;
+    margin: 0;
+  }
+  .inline-signature .pub-note {
+    text-align: left;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 2.4;
+    margin: 0;
+  }
+  .publish-note {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 2;
+  }
+  .publish-note p {
+    margin: 0;
+    text-align: left;
+  }
+  .effective-date {
+    margin-top: 24px;
+    padding: 16px 20px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+  .effective-date strong {
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .article-nav {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 24px 60px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s;
+    background: var(--bg);
+  }
+  .nav-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .back-to-list {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .back-to-list a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+  }
+  .back-to-list a:hover { color: var(--accent); }
+  @media (max-width: 640px) {
+    .policy-title { font-size: 21px; }
+    .policy-body { font-size: 15px; }
+    .policy-body h2 { font-size: 17px; }
+    .nav-links { display: none; }
+  }
+</style>
+<base target="_blank">
+
+<article class="article-container">
+  <header class="policy-header">
+    <div class="policy-meta">
+      <span class="meta-tag category">政策解读</span>
+      <span class="meta-tag">政策原文</span>
+      <span class="meta-tag">武汉</span>
+    </div>
+    <h1 class="policy-title">武汉市人工智能OPC生态社区建设指引</h1>
+    
+    <div class="policy-source-bar">
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 2026-02-13</div>
+      
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> 来源：公众号OPC创业汇</div>
+    </div>
+  </header>
+  <div class="policy-body">
+    <p>为推动武汉市人工智能OPC创新发展,构建全链条、便利化、低成本的创新创业服务生态,培育建设一批高质量人工智能OPC生态社区,制定本指引。</p>
+<p>本指引所称人工智能OPC（以下简称OPC）,是指由具备AI应用开发与整合能力的人才或者微型团队创办,以大模型为基础,AI编程、智能体等为核心工具,在研发、生产、运营等全流程实现效率超线性放大的"AI+超级个体"新型创业实体。</p>
+<p>本指引所称OPC生态社区,是指由各区主导建设,依托区域产业基础与创新资源,具备创业空间、算力调度、数据开放、模型工具、投融资对接、综合服务等功能,为OPC提供全链条、便利化、低成本服务的创新创业集聚区。</p>
+<h2>一、工作目标</h2>
+<p>营造有利于OPC创新发展的良好生态,统筹布局一批"低成本空间+全链条生态服务"的OPC生态社区,构建集创业空间、算力调度、数据开放、模型工具、投融资对接、综合服务等功能为一体的"一站式"创新创业高地,推动形成以人工智能为支撑的OPC创新创业新范式。各区结合"一城三廊多带"建设和城市更新规划,科学布局OPC生态社区,聚焦智慧医疗、数字创意、城市服务、网络安全、工业软件、智能芯片、自动驾驶等一个或者多个优势领域,形成差异化、专业化发展格局。</p>
+<p>到2026年底,建成3个OPC生态社区。到2028年,东湖高新区打造OPC创新集聚区,建成3个OPC生态社区;中心城区实现OPC生态社区全覆盖;全市OPC生态社区超过10个,其中具有示范效应的标杆型社区2—3个;集聚OPC人才5000人;孵化OPC企业500家。</p>
+<h2>二、建设主体</h2>
+<p>各区政府统筹推进OPC生态社区建设,加强资源要素供给和政策支持力度,引入或者培育具备产业生态构建能力的市场化专业机构作为社区运营方,开展社区品牌打造、生态构建、算力调度、数据开放、场景推进、招商协同与日常服务,运营团队应当具有丰富的人工智能行业经验、资源整合与孵化投资能力,主动链接产业资源、资本市场与应用场景。</p>
+<h2>三、基本条件</h2>
+<p>（一）专业服务：具备接入或者高效链接普惠算力、高质量数据集、主流开发工具与模型的能力,为入驻OPC提供算力补贴、数据资源、模型服务等支持。</p>
+<p>（二）场地设施：核心办公面积不少于3000平方米,入孵人工智能相关企业不少于20家,其中OPC不少于10家。为入驻者提供租金减免、拎包入住、零租工位、设施共享等便利。</p>
+<p>（三）金融服务：设立专项投资基金,建立快速投资决策机制,为OPC提供投融资支持。社区入驻金融机构不少于2家,每年组织投融资路演活动不少于5场。</p>
+<p>（四）生活配套：周边或者内部应当具备人才公寓、餐饮、商务等生活与商业服务设施,满足OPC创业者便捷生活需求,构建10分钟办公生活圈。</p>
+<p>（五）公共服务：整合区域内中试平台、概念验证中心及各类中介服务资源,为OPC生态社区入驻企业提供最长2年的免费公共服务包,涵盖财务代账、税务申报、法律咨询及专利申报等。</p>
+<p>（六）生态活动：举办创新创业赛事、创新资源对接、创业培训等活动,为OPC提供多元化交流合作渠道。每年组织活动不少于10场。</p>
+<h3>（七）场景支持：所在区组建专班,每年为社区内OPC挖掘不少于20个应用场景,促成不少于5个场景落地。</h3>
+<h2>四、认定流程</h2>
+<p>市科创局每年发布OPC生态社区认定通知,明确申报时间、材料要求及流程。各区科创管理部门负责审核推荐。市科创局组织专家论证和现场核实,经集体研究、公示等程序,正式认定为OPC生态社区。</p>
+<h2>五、政策支持</h2>
+<p>依据OPC生态社区认定标准与评估结果,对符合条件的OPC生态社区给予最高500万元资金支持。</p>
+<p>武汉市人民政府《关于印发武汉市支持人工智能OPC创新发展若干措施的通知》（武政规〔2026〕4号）附件，2026年2月13日。</p>
+  </div>
+</article>
+
+<div class="back-to-list">
+  <a href="./">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    返回政策原文列表
+  </a>
+</div>
+
+<nav class="article-nav">
+  <a href="#" class="nav-btn" style="visibility: hidden;">← 上一篇</a>
+  <a href="#" class="nav-btn">下一篇 →</a>
+</nav>

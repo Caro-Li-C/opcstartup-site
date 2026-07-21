@@ -1,0 +1,255 @@
+---
+layout: default
+title: 杭州高新区（滨江）人工智能OPC社区建设指引
+---
+
+<style>
+  :root {
+    --bg: #f5f5f5;
+    --bg-elevated: #ebebeb;
+    --border: #d8d8d8;
+    --text-primary: #1a1a1a;
+    --text-secondary: #4a4a4a;
+    --text-muted: #7a7a7a;
+    --accent: #c4a35a;
+    --accent-dim: rgba(196, 163, 90, 0.1);
+    --accent-border: rgba(196, 163, 90, 0.25);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    color: var(--text-primary);
+    line-height: 1.9;
+    font-size: 16px;
+  }
+  .article-container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+  .policy-header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 32px;
+    margin-bottom: 40px;
+  }
+  .policy-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .meta-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 4px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+  }
+  .meta-tag.category {
+    background: var(--accent-dim);
+    border-color: var(--accent-border);
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .policy-title {
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.45;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+    letter-spacing: -0.3px;
+  }
+  .policy-doc-no {
+    font-size: 15px;
+    color: var(--accent);
+    font-family: "SF Mono", "Fira Code", "Courier New", monospace;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+  }
+  .policy-source-bar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 13px;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+  }
+  .source-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .source-item svg {
+    width: 14px;
+    height: 14px;
+    opacity: 0.5;
+  }
+  .policy-body {
+    font-size: 16px;
+    line-height: 2;
+    color: var(--text-primary);
+  }
+  .policy-body p {
+    margin-bottom: 16px;
+    text-align: justify;
+  }
+  .policy-body h2 {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 44px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    letter-spacing: 0.3px;
+  }
+  .policy-body h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 28px 0 14px;
+    padding-left: 12px;
+    border-left: 3px solid var(--accent);
+  }
+  .responsible-unit {
+    display: inline;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  .meta-paragraph {
+    color: var(--text-secondary);
+    font-size: 15px;
+  }
+  .inline-signature {
+    margin: 24px 0 36px;
+  }
+  .inline-signature .sig-line {
+    text-align: right;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 2.4;
+    margin: 0;
+  }
+  .inline-signature .pub-note {
+    text-align: left;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 2.4;
+    margin: 0;
+  }
+  .publish-note {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 2;
+  }
+  .publish-note p {
+    margin: 0;
+    text-align: left;
+  }
+  .effective-date {
+    margin-top: 24px;
+    padding: 16px 20px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+  .effective-date strong {
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .article-nav {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 24px 60px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s;
+    background: var(--bg);
+  }
+  .nav-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .back-to-list {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .back-to-list a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+  }
+  .back-to-list a:hover { color: var(--accent); }
+  @media (max-width: 640px) {
+    .policy-title { font-size: 21px; }
+    .policy-body { font-size: 15px; }
+    .policy-body h2 { font-size: 17px; }
+    .nav-links { display: none; }
+  }
+</style>
+<base target="_blank">
+
+<article class="article-container">
+  <header class="policy-header">
+    <div class="policy-meta">
+      <span class="meta-tag category">政策解读</span>
+      <span class="meta-tag">政策原文</span>
+      
+    </div>
+    <h1 class="policy-title">杭州高新区（滨江）人工智能OPC社区建设指引</h1>
+    
+    <div class="policy-source-bar">
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 2026-04-10</div>
+      
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> 来源：公众号OPC创业汇</div>
+    </div>
+  </header>
+  <div class="policy-body">
+    <p>为深入贯彻国家"人工智能+"行动战略，构建全链条、便利化、低成本的创新创业生态，培育建设一批高质量人工智能OPC社区，推动我区AI OPC产业创新发展，加快形成新质生产力，结合我区实际，制定本建设指引。</p>
+<p>运营主体。运营主体应具有独立法人资格，建立完善的运营管理体系，配备不少于2个具备相关领域从业经验的专职服务人员以及一定数量的专业化导师。运营主体应具备品牌建设、算力调度、招商协同、生态构建等综合运营能力以及与线上社区建立联结的能力，集聚一批具备AI应用开发与整合能力的AI OPC。</p>
+<p>空间配套服务。社区自有、租赁或协议使用的场地面积不少于500平方米，提供不少于30个可供使用的创业工位。鼓励配备储物柜、升降式办公桌、人体工学椅、智能门禁等设施。周边应配套餐饮、商务、通勤等生活与商业设施。</p>
+<p>设施共享服务。社区应具备完善的办公、会议与活动空间，配备或就近提供共享会议室、培训室或隔音舱等设施，开辟小型路演、洽谈空间，支持共享办公、设施共用、弹性租赁等灵活使用方式，为入驻AI OPC提供租金减免、物业优惠、设备共享等服务，降低创业成本。</p>
+<p>中介资源服务。社区应建立"合规经营"一体化专业服务体系，能够提供人力资源、知识产权、法律咨询等服务，并具备对接区内中试平台、概念验证中心、检验检测机构及各类中介服务资源的能力，支撑企业从研发到产业化的全链条需求。</p>
+<p>政务帮办服务。社区应建立政务服务帮办机制，能够帮助企业开展工商登记、财务记账、税务申报、社保缴纳等工作，降低AI OPC创业制度性成本。</p>
+<p>金融投资服务。社区应设立或引进专项投资基金，建立快速投资决策机制，支持优质AI OPC获得早期融资支持。鼓励引入金融机构驻点，定期组织开展投融资路演、项目对接、资本对接等活动，构建多元化、多层次的融资渠道。</p>
+<p>交流合作服务。社区应建立常态化活动机制，定期组织开展技术沙龙、产业对接、创业培训、项目路演等交流合作活动，促进产业链上下游协同、产学研用联动，营造开放活跃的创新生态。</p>
+<p>场景对接服务。社区应建立应用场景挖掘与对接机制，围绕人工智能重点应用领域，为入驻AI OPC挖掘、开放、匹配典型应用场景，推动技术成果在真实场景中的验证落地，提升企业产品成熟度和市场竞争力。</p>
+<p>2016年4月10日发布</p>
+  </div>
+</article>
+
+<div class="back-to-list">
+  <a href="./">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    返回政策原文列表
+  </a>
+</div>
+
+<nav class="article-nav">
+  <a href="#" class="nav-btn" style="visibility: hidden;">← 上一篇</a>
+  <a href="#" class="nav-btn">下一篇 →</a>
+</nav>

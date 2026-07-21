@@ -1,0 +1,265 @@
+---
+layout: default
+title: 上城区支持人工智能OPC社区建设的若干政策措施
+---
+
+<style>
+  :root {
+    --bg: #f5f5f5;
+    --bg-elevated: #ebebeb;
+    --border: #d8d8d8;
+    --text-primary: #1a1a1a;
+    --text-secondary: #4a4a4a;
+    --text-muted: #7a7a7a;
+    --accent: #c4a35a;
+    --accent-dim: rgba(196, 163, 90, 0.1);
+    --accent-border: rgba(196, 163, 90, 0.25);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    color: var(--text-primary);
+    line-height: 1.9;
+    font-size: 16px;
+  }
+  .article-container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+  .policy-header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 32px;
+    margin-bottom: 40px;
+  }
+  .policy-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .meta-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 4px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+  }
+  .meta-tag.category {
+    background: var(--accent-dim);
+    border-color: var(--accent-border);
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .policy-title {
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.45;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+    letter-spacing: -0.3px;
+  }
+  .policy-doc-no {
+    font-size: 15px;
+    color: var(--accent);
+    font-family: "SF Mono", "Fira Code", "Courier New", monospace;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+  }
+  .policy-source-bar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 13px;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+  }
+  .source-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .source-item svg {
+    width: 14px;
+    height: 14px;
+    opacity: 0.5;
+  }
+  .policy-body {
+    font-size: 16px;
+    line-height: 2;
+    color: var(--text-primary);
+  }
+  .policy-body p {
+    margin-bottom: 16px;
+    text-align: justify;
+  }
+  .policy-body h2 {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 44px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    letter-spacing: 0.3px;
+  }
+  .policy-body h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 28px 0 14px;
+    padding-left: 12px;
+    border-left: 3px solid var(--accent);
+  }
+  .responsible-unit {
+    display: inline;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  .meta-paragraph {
+    color: var(--text-secondary);
+    font-size: 15px;
+  }
+  .inline-signature {
+    margin: 24px 0 36px;
+  }
+  .inline-signature .sig-line {
+    text-align: right;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 2.4;
+    margin: 0;
+  }
+  .inline-signature .pub-note {
+    text-align: left;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 2.4;
+    margin: 0;
+  }
+  .publish-note {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 2;
+  }
+  .publish-note p {
+    margin: 0;
+    text-align: left;
+  }
+  .effective-date {
+    margin-top: 24px;
+    padding: 16px 20px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+  .effective-date strong {
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .article-nav {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 24px 60px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s;
+    background: var(--bg);
+  }
+  .nav-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .back-to-list {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .back-to-list a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+  }
+  .back-to-list a:hover { color: var(--accent); }
+  @media (max-width: 640px) {
+    .policy-title { font-size: 21px; }
+    .policy-body { font-size: 15px; }
+    .policy-body h2 { font-size: 17px; }
+    .nav-links { display: none; }
+  }
+</style>
+<base target="_blank">
+
+<article class="article-container">
+  <header class="policy-header">
+    <div class="policy-meta">
+      <span class="meta-tag category">政策解读</span>
+      <span class="meta-tag">政策原文</span>
+      
+    </div>
+    <h1 class="policy-title">上城区支持人工智能OPC社区建设的若干政策措施</h1>
+    
+    <div class="policy-source-bar">
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 2026-03-17</div>
+      
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> 来源：公众号OPC创业汇</div>
+    </div>
+  </header>
+  <div class="policy-body">
+    <p>为深入贯彻国家"人工智能+"行动战略，抢抓省市一体推进人工智能高质量发展机遇，推进上城区中央创新区（CID）建设，打造"OPC创业第一城"，特制定本政策措施。</p>
+<h2>一、支持对象</h2>
+<p>本政策适用于在上城区合法经营的人工智能OPC，以及按本措施规定可享受扶持政策的OPC社区运营主体及其他支持对象。</p>
+<h2>二、政策内容</h2>
+<p>1.完善一站式创业服务。设立"上城区OPC政务服务云窗"，为OPC提供政策咨询、企业开办、社保医保等全流程服务，实现线上一键呼叫、线下精准对接。组建"上城区OPC专业陪跑团"，围绕合规经营、资源链接、品牌打造等关键环节，为OPC提供财务代理、法务咨询、人力资源、商务经纪、知识产权、人才实训等专业服务，助力OPC由"一人创业者"向"一人独角兽"跃升。（牵头单位：区审管办、区人力社保局）</p>
+<p>2.降低创业启动成本。打造不少于两万平方米的专业化智创空间，为OPC提供设施完善、开放共享、拎包入驻的办公空间。实施OPC育苗计划，对符合条件的青年创业者，给予最高50万元的创新创业资助。〔牵头单位：区委组织部（人才办）、区科技经信局、区人力社保局〕</p>
+<p>3.加强关键要素保障。设立AI智能体工具池，支持OPC使用人工智能产业创新生态伙伴企业AI智能体工具包。鼓励掌握高质量数据集的主体为OPC提供数据资源，根据数据实际应用成效，给予每个高质量数据集最高10万元支持。（牵头单位：区科技经信局、区数据资源局）</p>
+<p>4.支持个性化生产工具供给。支持模型、智能体开发企业打造轻量化、高效率的AI开发工具与中间件，为OPC提供任务规划、代码生成、内容创作等关键环节的智能化辅助工具，提升从创意到产品的转化效率。对适配度高、服务成效显著的开发企业，经认定，给予最高100万元奖励。（牵头单位：区数据资源局）</p>
+<p>5.推动场景资源开放。围绕消费、文旅、文创、民生、治理等领域挖掘适配OPC的场景"机会"，支持OPC积极参与企事业单位、央国企的"AI+"场景建设。每年评选一批有引领性、创新性的标杆示范场景项目，按照核定总投入给予最高30%、单个项目最高300万元的补助。（牵头单位：区审管办、区数据资源局）</p>
+<p>6.提供人才安居保障。对符合条件的OPC人才，按需配置人才驿站、科创公寓，给予最长三年租金支持。符合条件的OPC创始人，给予最长半年租金支持，所需房源在科创公寓中统筹调剂。〔牵头单位：区委组织部（区委人才办）、区科技经信局、区人力社保局、区住建局、区城发集团、区城投集团〕</p>
+<p>7.建设OPC社区矩阵。在环东站片区、基金小镇等重点区域布局"万方级"OPC社区矩阵，打造功能完备、服务聚合的创新生态空间。支持国内外优秀OPC运营主体通过整合资源、定制孵化方案和全周期服务，帮助创业者突破发展瓶颈，实现加速成长。对创业氛围浓厚、服务体系完善、运营成效好的OPC社区，经认定，给予最高200万元的分档奖励。（牵头单位：区科技经信局）</p>
+<p>8.打造金融综合服务。为符合条件的OPC人才提供最高50万元创业担保贷款，企业最高可申请300万元贴息贷款。组建规模不低于10亿元的区级OPC专项产业基金，为优秀创业企业提供融资支持。组织开展"山南投融汇—OPC专场对接活动"，鼓励各类社会资本加大对优质OPC的投资力度。支持OPC股权融资，对获得机构直接股权投资的OPC，按实际获得股权投资额的5%给予奖励，最高200万元。成长性较好的OPC，经评定，可享受国企物业租金折股。（牵头单位：区财政局、区人力社保局、区金融服务中心、上城资本）</p>
+<p>9.评定"OPC超级个体"。结合人才专业能力、AI工具应用能力、商业模式、内容影响力等维度，面向OPC社区创业个体开展人才评定。对经评定的"OPC超级个体"，给予最高20万元一次性奖励和杭州市高层次人才授权认定名额，并在落户、人才公寓等方面予以支持。〔牵头单位：区委组织部（区委人才办）〕</p>
+<p>10.打造OPC活力社群。支持OPC社区举办高质量赛事、论坛等活动，打造开放活力迸发、创业氛围浓厚的OPC生态。对符合条件的活动，按照核定总投入给予最高50%、单个社区最高100万元支持。（牵头单位：区科技经信局）</p>
+<h2>三、附则</h2>
+<p>1. 扶持资金由区财政局统筹平衡。同一项目按"从优、从高、不重复"和进档差额原则进行补助。</p>
+<p>2. 申报单位须信用记录良好，未被列入杭州市公共信用信息平台严重失信名单。</p>
+<p>3. 本政策措施由区科技经信局和相关责任部门负责牵头组织实施，根据政策成效及国内外发展形势动态调整。</p>
+<p>4. 此前发布的有关政策，凡与本文件不一致的，按照本文件执行。</p>
+<p>杭州市上城区人民政府办公室2026年3月17日发布。</p>
+  </div>
+</article>
+
+<div class="back-to-list">
+  <a href="./">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    返回政策原文列表
+  </a>
+</div>
+
+<nav class="article-nav">
+  <a href="#" class="nav-btn" style="visibility: hidden;">← 上一篇</a>
+  <a href="#" class="nav-btn">下一篇 →</a>
+</nav>

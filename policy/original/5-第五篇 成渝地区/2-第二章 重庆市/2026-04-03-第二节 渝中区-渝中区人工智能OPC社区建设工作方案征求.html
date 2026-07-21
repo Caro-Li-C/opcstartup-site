@@ -1,0 +1,266 @@
+---
+layout: default
+title: 渝中区人工智能OPC社区建设工作方案（征求意见稿）
+---
+
+<style>
+  :root {
+    --bg: #f5f5f5;
+    --bg-elevated: #ebebeb;
+    --border: #d8d8d8;
+    --text-primary: #1a1a1a;
+    --text-secondary: #4a4a4a;
+    --text-muted: #7a7a7a;
+    --accent: #c4a35a;
+    --accent-dim: rgba(196, 163, 90, 0.1);
+    --accent-border: rgba(196, 163, 90, 0.25);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    color: var(--text-primary);
+    line-height: 1.9;
+    font-size: 16px;
+  }
+  .article-container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+  .policy-header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 32px;
+    margin-bottom: 40px;
+  }
+  .policy-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .meta-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 4px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+  }
+  .meta-tag.category {
+    background: var(--accent-dim);
+    border-color: var(--accent-border);
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .policy-title {
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.45;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+    letter-spacing: -0.3px;
+  }
+  .policy-doc-no {
+    font-size: 15px;
+    color: var(--accent);
+    font-family: "SF Mono", "Fira Code", "Courier New", monospace;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+  }
+  .policy-source-bar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 13px;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+  }
+  .source-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .source-item svg {
+    width: 14px;
+    height: 14px;
+    opacity: 0.5;
+  }
+  .policy-body {
+    font-size: 16px;
+    line-height: 2;
+    color: var(--text-primary);
+  }
+  .policy-body p {
+    margin-bottom: 16px;
+    text-align: justify;
+  }
+  .policy-body h2 {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 44px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    letter-spacing: 0.3px;
+  }
+  .policy-body h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 28px 0 14px;
+    padding-left: 12px;
+    border-left: 3px solid var(--accent);
+  }
+  .responsible-unit {
+    display: inline;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  .meta-paragraph {
+    color: var(--text-secondary);
+    font-size: 15px;
+  }
+  .inline-signature {
+    margin: 24px 0 36px;
+  }
+  .inline-signature .sig-line {
+    text-align: right;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 2.4;
+    margin: 0;
+  }
+  .inline-signature .pub-note {
+    text-align: left;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 2.4;
+    margin: 0;
+  }
+  .publish-note {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 2;
+  }
+  .publish-note p {
+    margin: 0;
+    text-align: left;
+  }
+  .effective-date {
+    margin-top: 24px;
+    padding: 16px 20px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+  .effective-date strong {
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .article-nav {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 24px 60px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s;
+    background: var(--bg);
+  }
+  .nav-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .back-to-list {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .back-to-list a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+  }
+  .back-to-list a:hover { color: var(--accent); }
+  @media (max-width: 640px) {
+    .policy-title { font-size: 21px; }
+    .policy-body { font-size: 15px; }
+    .policy-body h2 { font-size: 17px; }
+    .nav-links { display: none; }
+  }
+</style>
+<base target="_blank">
+
+<article class="article-container">
+  <header class="policy-header">
+    <div class="policy-meta">
+      <span class="meta-tag category">政策解读</span>
+      <span class="meta-tag">政策原文</span>
+      
+    </div>
+    <h1 class="policy-title">渝中区人工智能OPC社区建设工作方案（征求意见稿）</h1>
+    
+    <div class="policy-source-bar">
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 2026-04-03</div>
+      
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> 来源：公众号OPC创业汇</div>
+    </div>
+  </header>
+  <div class="policy-body">
+    <p>为深入贯彻国家“人工智能+”行动战略，全面落实全市推进软信产业高质量发展工作要求，前瞻布局人工智能OPC（One Person Company，一人公司）社区矩阵，助力渝中区打造全国知名、西部领先的创新创业之城，特制定本方案。</p>
+<h2>一、总体目标</h2>
+<p>立足渝中区软件和信息服务业与人工智能产业基础，聚焦“AI+数字内容”“AI+工业设计”“AI+数智医疗”等赛道，推动AI由效率工具向创新伙伴演进，着力培育基于“AI+应用”的模式创新型、场景应用型“一人公司”，打造“超级个体”创业生态。实施“OPC十百千万”工程，到2028年，打造标杆OPC社区不少于10个，开放OPC轻量化智能工具不少于100个，培育OPC创业先锋不少于1000户，新增OPC社区面积不少于10万平方米，带动高质量就业不少于5万人，构建渝中人工智能OPC社区创新创业品牌。</p>
+<h2>二、重点任务</h2>
+<h3>（一）优化载体服务。</h3>
+<p>1.构建具有渝中辨识度的OPC社区。立足渝中区“都市极核、品质半岛、首善之区”定位，依托辖区创新资源富集、产业基础雄厚、服务配套完善的核心优势，布局一批市区联动、协同创新、渝中特色的OPC社区。先行依托上清寺互联网产业园、总部城、通远大厦等优质载体，联动数字经济产业园、重庆市算力产业园、重庆信息与智慧医学研究院等平台建设OPC社区，提质升级现有创业孵化空间资源。充分激发社会主体力量，联动辖区软信企业、行业龙头企业及创业孵化机构，强化政策引导与服务保障，将OPC社区逐步拓展至全区有条件的街道片区。</p>
+<p>2.提供一站式OPC创业服务。依托渝中服务业集聚优势，全面落实“一站式OPC创业服务”，探索建立“零租金、零等待、零审批”的开办绿色通道，在“AI+企业码上服务”平台开设OPC公共服务专区，集成工商注册、法律财税、风险防控、信用评价等全流程服务，打造“载体、数据、工具”三全安全环境；结合辖区楼宇经济密集特点，盘活解放碑、化龙桥等区域闲置商业资源，提质升级为“拎包入住”的共享办公空间与零租工位，切实降低创业成本。同时发挥区内律所、会计师事务所等专业机构集聚优势，组建OPC专业服务联盟，构建“技术评估—知识产权保护—商业化对接”全链条成果转化体系，为超级个体提供从入驻到成长的全周期保障，营造低成本、高效率、强保障的创业生态。</p>
+<p>3.布局轻量化数字工具链。聚焦“国际消费中心城市核心区”场景优势，加快布局轻量化数字工具链，支持建设面向OPC企业的主流大模型智能体聚合平台与可信数据通道，鼓励辖区商贸、文旅、金融龙头企业开放人工智能辅助设计、快速原型生成等模块化能力工具库，提供低代码、零代码开发环境以降低技术门槛；重点围绕数字营销、智慧文旅、工业设计等优势领域，推动公共平台和工具库申请市级平台支持，助力“超级个体”便捷获取AI生产力工具，实现技术与场景的精准匹配与高效赋能，培育具有渝中辨识度的“AI+应用”生态。</p>
+<h3>（二）强化人才保障。</h3>
+<p>4.加强创业人才集聚。聚焦OPC企业发展与创业人才成长需求，依托渝中区大学生留渝来渝“扶摇计划”，构建全周期服务保障体系，打造富有吸引力的创业生态。支持OPC在园区开展生产经营活动，提供创业人才补贴、创业贷款担保及贴息补贴等一系列人才支持措施。探索将OPC创业者纳入渝中区软信人才紧缺岗位就业补贴政策支持范围，吸引各领域、各层次创业人才来渝留渝，释放创新活力。</p>
+<p>5.优化人才服务保障。坚持投资于物与投资于人紧密结合，依托数智经济人才会客厅等载体，打造人才服务特色场景，建立开放多元的人才评价体系，探索建立“企业认定、政府认账”的软信人才服务机制。对在社区建设、场景创新、应用开发、商业落地等领域表现杰出的创业人才，用好“青创十条”人才政策，切实解决人才住房及“一老一小”等关键诉求。</p>
+<p>6.提升人才核心能力。围绕“AI+工具应用”、商业模式、市场拓展等核心能力，以“定单、定岗、定向”的方式集中开展专题培训、交流研讨、技能提升课程等活动。联动行业龙头企业，联合软信人才实习实训基地、现代产业学院，共同构建OPC协同培训和实训体系，鼓励OPC社区搭建线上持续性学习平台，助力“超级个体”实现持续成长与能力迭代，为渝中软信产业的高质量发展注入强劲动力。</p>
+<h3>（三）培育创新主体。</h3>
+<p>7.构建政策引领新高地。联动市级政策，系统整合渝中产业扶持、载体保障、人才创业等政策资源，鼓励从算力、模型、语料等要素保障方面支持人工智能OPC社区发展，出台渝中区支持OPC发展专项政策。</p>
+<p>8.打造金融赋能强引擎。充分利用渝中区金融资源集聚优势，探索构建以产业基金为引导、以银行信贷为辅助的全周期投融资服务体系，培育重点OPC企业。积极争取市级投资基金支持，并设立渝中区OPC企业专项种子基金和天使投资基金，依托渝中“产科金”等平台，建立常态化项目对接机制，吸引社会资本投向潜力型、成长型OPC企业。鼓励区内金融机构为OPC企业提供低息融资担保，定期举办“金桥行动”等对接活动，为优秀创业项目提供启动资金支持。</p>
+<p>9.开拓场景应用试验场。发挥数字内容集聚区与医疗健康产业高地优势，鼓励区内龙头企业向OPC企业开放“切片化”“分包化”场景机会，重点围绕智慧商圈、金融科技、数字内容等领域，建立“能力—机会”双清单动态对接机制，依托渝中区数字经济产业园、区块链产业基地等载体，常态化梳理并发布OPC企业“能力清单”与全市场景“机会清单”，推动供需精准匹配，助力OPC企业快速成长。</p>
+<h3>（四）持续营造氛围。</h3>
+<p>10.举办生态活动。定期举办“AI+文旅”“AI+金融”等专题沙龙，持续开展数字技术交流会、创新创业大赛等多元活动，为创业人才搭建展示成果、拓展合作的开放平台。持续营造“创新+创业+学习”的泛OPC互动氛围，助力渝中区构建“场景驱动、生态协同、活力迸发”的AI创新创业良性发展局面，打造人工智能创业生态新标杆。</p>
+<h2>三、保障措施</h2>
+<p>强化组织领导，依托区软信产业高质量发展工作专班工作机制定期调度，协调解决关键问题，形成推进合力。优化政策落地，通过软信产业大脑、企业码上服务等平台建立常态化企业沟通与诉求响应机制，动态评估并完善支持政策。强化宣传推广，定期发布典型案例、开展媒体宣传，编制解读材料，持续营造创新创业氛围。</p>
+<p>重庆市渝中区经济和信息化委员会2026年4月3日，征求意见截止时间为2026年4月9日。</p>
+  </div>
+</article>
+
+<div class="back-to-list">
+  <a href="./">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    返回政策原文列表
+  </a>
+</div>
+
+<nav class="article-nav">
+  <a href="#" class="nav-btn" style="visibility: hidden;">← 上一篇</a>
+  <a href="#" class="nav-btn">下一篇 →</a>
+</nav>

@@ -1,0 +1,260 @@
+---
+layout: default
+title: 嘉善县支持人工智能OPC社区建设的若干措施（试行）（征求意见稿）
+---
+
+<style>
+  :root {
+    --bg: #f5f5f5;
+    --bg-elevated: #ebebeb;
+    --border: #d8d8d8;
+    --text-primary: #1a1a1a;
+    --text-secondary: #4a4a4a;
+    --text-muted: #7a7a7a;
+    --accent: #c4a35a;
+    --accent-dim: rgba(196, 163, 90, 0.1);
+    --accent-border: rgba(196, 163, 90, 0.25);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    color: var(--text-primary);
+    line-height: 1.9;
+    font-size: 16px;
+  }
+  .article-container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+  .policy-header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 32px;
+    margin-bottom: 40px;
+  }
+  .policy-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .meta-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 4px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+  }
+  .meta-tag.category {
+    background: var(--accent-dim);
+    border-color: var(--accent-border);
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .policy-title {
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.45;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+    letter-spacing: -0.3px;
+  }
+  .policy-doc-no {
+    font-size: 15px;
+    color: var(--accent);
+    font-family: "SF Mono", "Fira Code", "Courier New", monospace;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+  }
+  .policy-source-bar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 13px;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+  }
+  .source-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .source-item svg {
+    width: 14px;
+    height: 14px;
+    opacity: 0.5;
+  }
+  .policy-body {
+    font-size: 16px;
+    line-height: 2;
+    color: var(--text-primary);
+  }
+  .policy-body p {
+    margin-bottom: 16px;
+    text-align: justify;
+  }
+  .policy-body h2 {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 44px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    letter-spacing: 0.3px;
+  }
+  .policy-body h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 28px 0 14px;
+    padding-left: 12px;
+    border-left: 3px solid var(--accent);
+  }
+  .responsible-unit {
+    display: inline;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  .meta-paragraph {
+    color: var(--text-secondary);
+    font-size: 15px;
+  }
+  .inline-signature {
+    margin: 24px 0 36px;
+  }
+  .inline-signature .sig-line {
+    text-align: right;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 2.4;
+    margin: 0;
+  }
+  .inline-signature .pub-note {
+    text-align: left;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 2.4;
+    margin: 0;
+  }
+  .publish-note {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 2;
+  }
+  .publish-note p {
+    margin: 0;
+    text-align: left;
+  }
+  .effective-date {
+    margin-top: 24px;
+    padding: 16px 20px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+  .effective-date strong {
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .article-nav {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 24px 60px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s;
+    background: var(--bg);
+  }
+  .nav-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .back-to-list {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .back-to-list a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+  }
+  .back-to-list a:hover { color: var(--accent); }
+  @media (max-width: 640px) {
+    .policy-title { font-size: 21px; }
+    .policy-body { font-size: 15px; }
+    .policy-body h2 { font-size: 17px; }
+    .nav-links { display: none; }
+  }
+</style>
+<base target="_blank">
+
+<article class="article-container">
+  <header class="policy-header">
+    <div class="policy-meta">
+      <span class="meta-tag category">政策解读</span>
+      <span class="meta-tag">政策原文</span>
+      
+    </div>
+    <h1 class="policy-title">嘉善县支持人工智能OPC社区建设的若干措施（试行）（征求意见稿）</h1>
+    
+    <div class="policy-source-bar">
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 2026-04-19</div>
+      
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> 来源：公众号OPC创业汇</div>
+    </div>
+  </header>
+  <div class="policy-body">
+    <p>为深入贯彻国家“人工智能＋”行动战略，前瞻布局OPC（OnePersonCompany，一人公司）社区矩阵，加快集聚OPC，推动人工智能赋能千行百业，催生新业态新模式，培育经济发展新动能，全力打造长三角人工智能应用高地和OPC创业首选地，结合嘉善实际，特制定本措施。</p>
+<h2>一、支持对象</h2>
+<p>本措施适用于注册在经认定的OPC社区内，主要从事与OPC相关的研发、生产和服务的法人主体（人员规模一般不超过10人），以及OPC社区的运营主体。</p>
+<p>本措施所称的OPC（OnePersonCompany），是指在人工智能技术的协同支持下，创业者可独立完成从产品设计、技术研发、产品制造到市场投放、用户运营、客户服务等全链路业务闭环的新型创业组织形态。</p>
+<h2>二、措施内容</h2>
+<p>1.建设OPC社区矩阵。打造一批OPC创业者特色集聚空间，对入驻率高、产业氛围浓厚、辐射带动力强的OPC社区，经认定，给予运营主体每年最高300万元奖励。</p>
+<p>2.打造多元化活力社群。支持高质量举办有较大影响力的OPC大赛、OPC展会、产学研对接会、供需对接会、投融资对接会、行业沙龙、交友联谊会等各类生态活动，打造充满活力、多元开放的OPC生态，营造“单人成军”的浓厚创业氛围。对其中具有影响力的活动，按照不超过活动总支出金额的30%，给予最高100万元支持。</p>
+<p>3.强化专业综合服务。聚焦OPC全生命周期需求，整合政策咨询、企业注册、安居落户、融资对接、市场拓展等全要素服务，打造线上“OPC服务专区”、线下服务窗口，为OPC提供全天候、全链条、全流程服务，实现线上一键呼叫、线下精准对接。</p>
+<p>4.降低创业启动成本。打造不少于10000平方米的专业化智创空间，为OPC提供设施完善、开放共享、拎包入驻的办公空间，鼓励各个OPC社区为OPC提供最长3年的场地免租、零租工位等优惠。实施OPC育苗计划，对正常经营满6个月的OPC，给予5000元的一次性创业补贴。对参加县级创业大赛获奖，给予0.5万元—3万元奖励。通过“先用后转”方式成功实现产业化的科技成果转化项目，根据项目投入的50%可申请最高15万元财政补助。组织相关OPC社区举办训练营，开设OPC快评专场，对评审通过的项目给予5万元支持。在“梦想中国·智汇嘉善”创新创业大赛开设OPC赛道，对获奖项目给予5万—30万的资助，对特别优秀项目可经“一事一议”给予最高1000万元资助。</p>
+<p>5.加强关键要素保障。为OPC提供完善的公共技术平台服务，助力OPC有效降低研发成本。鼓励OPC开展模型训练、智能体搭建、API调用等研发活动，对符合条件的OPC，按照实际支付算力费用的50％给予每年最高200万元支持。对采购非关联方高质量数据集、语料库的，按照实际支付费用的30％给予每年最高100万元支持。每年安排100万元资金用于采购OpenClaw类智能体、AI工具包会员，奖励符合条件的OPC社区。</p>
+<p>6.统筹金融服务支持。符合条件的OPC可申请最高300万元的创业担保贷款，并按贷款合同签订日LPR给予全额贴息，贴息期限不超过3年。鼓励银行设立OPC专项信贷产品，提供符合OPC发展特征的金融服务。引导社会资本共同参与支持OPC发展，探索设立OPC天使基金，突出投早投小，完善快速投资决策机制，为优秀OPC提供投融资支持。</p>
+<p>7.深化场景应用建设。推进各类应用场景向OPC开放，支持OPC积极参与企事业单位的“AI+”场景建设，对新建设且发挥实效的人工智能应用场景，给予场景建设单位最高10万元奖励，每家企业每年不超过50万元。每年评选一批具有引领性、创新性的标杆示范场景项目，按照核定总投入给予最高30%、单个项目最高20万元的奖励。对入选省级人工智能应用标杆企业和省级人工智能应用场景的企业，最高给予50万元奖励。</p>
+<p>8.提供人才生活保障。鼓励OPC人才来嘉善就业创业，对符合条件的博士、硕士生，每年分别给予10万元、5万元生活补贴；嘉善县首次引进或培育且符合条件的OPC人才，给予最高500万元的购房补助。对符合条件的OPC人才可提供最长六个月免费过渡性住宿，免租期后可按5折入住嘉善县人才公寓。为外籍人才提供申领“上海市海外人才居住证”的渠道和服务，使其在子女教育、医疗保险等方面享受上海同城待遇。</p>
+<p>本措施自印发之日起试行两年，由县发改局牵头组织实施，各条款由有关单位按职责分工制定实施细则或操作流程。本措施与我县相关政策重叠的，按就高不重复原则执行。</p>
+<p>嘉善县发展和改革局2026年4月19日发布，征求意见时间为2026年4月19日—2026年4月28日。</p>
+  </div>
+</article>
+
+<div class="back-to-list">
+  <a href="./">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    返回政策原文列表
+  </a>
+</div>
+
+<nav class="article-nav">
+  <a href="#" class="nav-btn" style="visibility: hidden;">← 上一篇</a>
+  <a href="#" class="nav-btn">下一篇 →</a>
+</nav>

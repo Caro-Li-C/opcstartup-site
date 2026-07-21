@@ -1,0 +1,257 @@
+---
+layout: default
+title: 栖霞高新区关于支持OpenClaw等开源AI智能体工具与OPC融合发展的若干措施（征求意见稿）
+---
+
+<style>
+  :root {
+    --bg: #f5f5f5;
+    --bg-elevated: #ebebeb;
+    --border: #d8d8d8;
+    --text-primary: #1a1a1a;
+    --text-secondary: #4a4a4a;
+    --text-muted: #7a7a7a;
+    --accent: #c4a35a;
+    --accent-dim: rgba(196, 163, 90, 0.1);
+    --accent-border: rgba(196, 163, 90, 0.25);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    color: var(--text-primary);
+    line-height: 1.9;
+    font-size: 16px;
+  }
+  .article-container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+  .policy-header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 32px;
+    margin-bottom: 40px;
+  }
+  .policy-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .meta-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 4px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+  }
+  .meta-tag.category {
+    background: var(--accent-dim);
+    border-color: var(--accent-border);
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .policy-title {
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.45;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+    letter-spacing: -0.3px;
+  }
+  .policy-doc-no {
+    font-size: 15px;
+    color: var(--accent);
+    font-family: "SF Mono", "Fira Code", "Courier New", monospace;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+  }
+  .policy-source-bar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 13px;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+  }
+  .source-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .source-item svg {
+    width: 14px;
+    height: 14px;
+    opacity: 0.5;
+  }
+  .policy-body {
+    font-size: 16px;
+    line-height: 2;
+    color: var(--text-primary);
+  }
+  .policy-body p {
+    margin-bottom: 16px;
+    text-align: justify;
+  }
+  .policy-body h2 {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 44px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    letter-spacing: 0.3px;
+  }
+  .policy-body h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 28px 0 14px;
+    padding-left: 12px;
+    border-left: 3px solid var(--accent);
+  }
+  .responsible-unit {
+    display: inline;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  .meta-paragraph {
+    color: var(--text-secondary);
+    font-size: 15px;
+  }
+  .inline-signature {
+    margin: 24px 0 36px;
+  }
+  .inline-signature .sig-line {
+    text-align: right;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 2.4;
+    margin: 0;
+  }
+  .inline-signature .pub-note {
+    text-align: left;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 2.4;
+    margin: 0;
+  }
+  .publish-note {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 2;
+  }
+  .publish-note p {
+    margin: 0;
+    text-align: left;
+  }
+  .effective-date {
+    margin-top: 24px;
+    padding: 16px 20px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+  .effective-date strong {
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .article-nav {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 24px 60px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s;
+    background: var(--bg);
+  }
+  .nav-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .back-to-list {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .back-to-list a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+  }
+  .back-to-list a:hover { color: var(--accent); }
+  @media (max-width: 640px) {
+    .policy-title { font-size: 21px; }
+    .policy-body { font-size: 15px; }
+    .policy-body h2 { font-size: 17px; }
+    .nav-links { display: none; }
+  }
+</style>
+<base target="_blank">
+
+<article class="article-container">
+  <header class="policy-header">
+    <div class="policy-meta">
+      <span class="meta-tag category">政策解读</span>
+      <span class="meta-tag">政策原文</span>
+      
+    </div>
+    <h1 class="policy-title">栖霞高新区关于支持OpenClaw等开源AI智能体工具与OPC融合发展的若干措施（征求意见稿）</h1>
+    
+    <div class="policy-source-bar">
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 2026-03-10</div>
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg> 栖霞高新区</div>
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> 来源：公众号OPC创业汇</div>
+    </div>
+  </header>
+  <div class="policy-body">
+    <p>为深入贯彻新质生产力培育要求，依托栖霞区人工智能OPC社区建设基础，推动OpenClaw及阿里JVS Claw、腾讯QClaw等开源AI智能体工具与区域产业深度融合，集聚创新资源、降低开发门槛、优化发展生态，赋能智能制造、生物医药、新型显示等优势产业升级，结合实际，制定以下措施。本措施适用于入驻栖霞区人工智能OPC社区，从事开源AI智能体工具研发、应用、推广的各类市场主体、高校团队及开发者个体（以下统称“开发主体”）。</p>
+<p>一、云平台全维赋能。依托栖智OPC云平台，为开发主体免费提供OpenClaw等部署服务及配套开发工具包，集成主流AI开发框架、开源代码库实现生产要素快速调用。对入驻OPC社区的开发主体，给予相应额度的免费算力资源和国内头部大模型API调用费用补贴，支持按小时、按天租用“弹性算力”，降低开发初期技术成本。</p>
+<p>二、产业融合应用扶持。支持开发主体基于OpenClaw等框架，开发面向智能制造装备、生物医药、新型显示等优势产业的垂直应用解决方案，重点鼓励具身智能、工业质检、设备预测性维护等场景应用。对实现落地应用的项目，按研发投入的20%给予补贴，单个项目最高100万元。</p>
+<p>三、标杆应用场景培育。推动基于OpenClaw等开源AI智能体工具开发的产品在OPC社区、企事业单位及智慧园区开展“先行先试”。每年遴选一批创新性强、应用效果好的开源AI智能体工具深度应用项目，按项目实际投入的20%给予一次性奖励，最高100万元，示范项目成果优先推广</p>
+<p>四、科教协同创业培育。支持高校、科研院所围绕开源AI智能体工具开展核心技术研究。对以团队名义在主流开源社区发布且下载量或技术贡献度达到标准的开源项目，经认定给予5万至20万元一次性奖励。高校师生团队入驻开展OpenClaw等创业项目的，可优先申报“AI栖霞”奖学金，最高给予5万元奖励支持；成果成功转化为市场产品的，推动纳入高校科研成果统计与职称评审认定范围。</p>
+<p>五、社区办公孵化支持。为从事OpenClaw等研发的OPC社区入驻主体提供最长2年免费独立工位使用期，免缴水电、物业及网络使用费，开放社区共享空间、路演大厅、测试场域等孵化资源，实现“零成本启动”开发。</p>
+<p>六、人才培育专项赋能。依托专业培训团队，每年免费开展不少于8场专项实战培训，定期组织行业专家为开发主体提供“一对一”创业辅导。将OpenClaw等开源AI智能体工具核心开发人才纳入人才重点培育范围，优先推荐申报各级各类人才项目，入选后享受人才安居、医疗健康等保障服务。</p>
+<p>七、金融基金联动支持。发挥种子基金协同作用，定期举办OpenClaw创新项目路演，对遴选出的优秀项目给予最高50万元创业资助，对拥有核心技术的优质项目给予最高50万元政策性股权投资支持，占股比例不超过50%。对获得市场化股权投资机构投资的创新创业项目，按实际到账投资额的5%给予配套奖励，单个项目最高100万元。</p>
+<p>八、政务合规一站式保障。为开发主体提供企业注册登记、许可审批、税务代办、专利代理等“一站式”政务服务。同步提供数据合规查询、安全调用咨询及政策匹配服务，依托OPC政策大模型为开发主体解读OpenClaw等研发、应用相关的省、市、区政策，实现政策查询、解读、申报全流程赋能。</p>
+<p>九、成果转化资源对接。依托栖智OPC云平台为开发主体开放高校科研、企业产业、政府治理三类场景资源。对成功落地且成效显著的OpenClaw等开源AI智能体项目，优先推荐申报省、市各类人工智能场景项目。</p>
+<p>十、安全合规生态建设。支持开发主体使用国产化适配方案部署OpenClaw等开发环境，要求入驻OPC社区的开发主体完成OpenClaw等国产化适配认证，降低供应链安全风险。依托OPC社区定期开展安全攻防演练，为开发主体提供数据跨境流动等专项服务。</p>
+<p>南京栖霞高新技术产业开发区管理委员会2026年3月10日发布，根据官媒报道整理。</p>
+  </div>
+</article>
+
+<div class="back-to-list">
+  <a href="./">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    返回政策原文列表
+  </a>
+</div>
+
+<nav class="article-nav">
+  <a href="#" class="nav-btn" style="visibility: hidden;">← 上一篇</a>
+  <a href="#" class="nav-btn">下一篇 →</a>
+</nav>

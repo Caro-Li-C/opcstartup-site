@@ -1,0 +1,267 @@
+---
+layout: default
+title: 望城区人才工作"十大赋能行动"
+---
+
+<style>
+  :root {
+    --bg: #f5f5f5;
+    --bg-elevated: #ebebeb;
+    --border: #d8d8d8;
+    --text-primary: #1a1a1a;
+    --text-secondary: #4a4a4a;
+    --text-muted: #7a7a7a;
+    --accent: #c4a35a;
+    --accent-dim: rgba(196, 163, 90, 0.1);
+    --accent-border: rgba(196, 163, 90, 0.25);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    color: var(--text-primary);
+    line-height: 1.9;
+    font-size: 16px;
+  }
+  .article-container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+  .policy-header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 32px;
+    margin-bottom: 40px;
+  }
+  .policy-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .meta-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 4px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+  }
+  .meta-tag.category {
+    background: var(--accent-dim);
+    border-color: var(--accent-border);
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .policy-title {
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.45;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+    letter-spacing: -0.3px;
+  }
+  .policy-doc-no {
+    font-size: 15px;
+    color: var(--accent);
+    font-family: "SF Mono", "Fira Code", "Courier New", monospace;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+  }
+  .policy-source-bar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 13px;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+  }
+  .source-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .source-item svg {
+    width: 14px;
+    height: 14px;
+    opacity: 0.5;
+  }
+  .policy-body {
+    font-size: 16px;
+    line-height: 2;
+    color: var(--text-primary);
+  }
+  .policy-body p {
+    margin-bottom: 16px;
+    text-align: justify;
+  }
+  .policy-body h2 {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 44px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    letter-spacing: 0.3px;
+  }
+  .policy-body h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 28px 0 14px;
+    padding-left: 12px;
+    border-left: 3px solid var(--accent);
+  }
+  .responsible-unit {
+    display: inline;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  .meta-paragraph {
+    color: var(--text-secondary);
+    font-size: 15px;
+  }
+  .inline-signature {
+    margin: 24px 0 36px;
+  }
+  .inline-signature .sig-line {
+    text-align: right;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 2.4;
+    margin: 0;
+  }
+  .inline-signature .pub-note {
+    text-align: left;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 2.4;
+    margin: 0;
+  }
+  .publish-note {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 2;
+  }
+  .publish-note p {
+    margin: 0;
+    text-align: left;
+  }
+  .effective-date {
+    margin-top: 24px;
+    padding: 16px 20px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+  .effective-date strong {
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .article-nav {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 24px 60px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s;
+    background: var(--bg);
+  }
+  .nav-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .back-to-list {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .back-to-list a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+  }
+  .back-to-list a:hover { color: var(--accent); }
+  @media (max-width: 640px) {
+    .policy-title { font-size: 21px; }
+    .policy-body { font-size: 15px; }
+    .policy-body h2 { font-size: 17px; }
+    .nav-links { display: none; }
+  }
+</style>
+<base target="_blank">
+
+<article class="article-container">
+  <header class="policy-header">
+    <div class="policy-meta">
+      <span class="meta-tag category">政策解读</span>
+      <span class="meta-tag">政策原文</span>
+      
+    </div>
+    <h1 class="policy-title">望城区人才工作"十大赋能行动"</h1>
+    
+    <div class="policy-source-bar">
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 2026-03-18</div>
+      
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> 来源：公众号OPC创业汇</div>
+    </div>
+  </header>
+  <div class="policy-body">
+    <p>系统集成政策、资本、平台、服务等要素资源，助力广大创客在望城真正实现"背上双肩包，实现创业梦"。</p>
+<h2>一、超级OPC行动 —— 有场可栖</h2>
+<p>实施大泽湖OPC创业中心赋能计划，为"一人成军"的超级个体提供场地无忧、办事无虑的全要素支撑，让一人公司"有场可栖"。</p>
+<h2>二、资本润芽行动 —— 有源可汲</h2>
+<p>依托望城经开区创新创业种子基金，投早、投小、投硬科技，为高潜力初创型项目提供5万至100万元的资金支持，让科创梦想"有源可汲"。</p>
+<h2>三、资源直达行动 —— 有图可索</h2>
+<p>在望城区人才综合服务平台集成展示创新创业十大孵化空间、人才政策、重点企业等关键资源，创新打造"空间引力场"资源地图，配套资源可视导航、实时信息查询、机构联络对接等功能，让入驻项目"有图可索"。</p>
+<h2>四、全程陪跑行动 —— 有伴可依</h2>
+<p>推动成立长沙市高层次人才创业经纪人协会，链接投资机构、产业领军企业、高校科研院所，为创业者提供全过程专业支撑，让创业征途"有伴可依"。</p>
+<h2>五、链主领航行动 —— 有师可循</h2>
+<p>聚焦"一特两主"产业方向和5条重点产业链，每条产业链选树1—2家龙头企业担任产业链导师，深化开展"问道名企"系列活动，推动规上企业带动小微企业、大学生创新创业项目共同成长，形成"大手拉小手"的良性生态，让成长之路"有师可循"。</p>
+<h2>六、设备共享行动 —— 有器可用</h2>
+<p>围绕智能终端、生物医药、人工智能等重点领域，开放十大标准化、专业化共享实验室，推动研发设备应开尽开，探索形成"实验室研发—中试验证—产业化落地"的全链条产学研用协同创新机制，让研发创造"有器可用"。</p>
+<h2>七、产研融通行动 —— 有渠可通</h2>
+<p>创新开展技术经理人引育，帮助企业挖掘技术需求、突破技术瓶颈、抢占创新赛道，推动高校、科研院所的优质科技成果转化落地，打通实验室到生产线的"最后一公里"，让成果转化"有渠可通"。</p>
+<h2>八、聚力振兴行动 —— 有景可期</h2>
+<p>创新成立中部地区乡村CEO联盟，以首批乡村CEO团队为核心，吸纳中部各省乡村运营人才等各类乡土能人，组建乡村CEO专家智库，建立健全乡村技能人才评聘机制，构建跨区域协作平台，探索打造集品牌策划、活动执行、整村运营、农文旅项目等业务开发于一体的市场化运营模式，让乡村沃土"有景可期"。</p>
+<h2>九、竞创未来行动 —— 有技可施</h2>
+<p>举办"望见美好 城就未来""千年窑火 创意新生""雁归桑梓 兴业在望"等创新创业品牌赛事，以赛引才，为各类"土专家""田秀才""乡创客"等乡土人才搭建技能比武与风采展示平台，让专才能手"有技可施"。</p>
+<h2>十、英才闪耀行动 —— 有誉可享</h2>
+<p>聚焦智能制造、量子科技、低空经济、乡村运营、民生事业等重点领域，选树"人才之星"100名，通过"望城发布""望城党建""望城青年"等新媒体矩阵集中展示，让时代群星"有誉可享"。</p>
+<p>长沙市望城区人民政府2026年3月18日在大泽湖OPC创业中心揭牌仪式暨"创新创业在望城"人才系列活动发布，根据发布会相关权威报道整理。</p>
+  </div>
+</article>
+
+<div class="back-to-list">
+  <a href="./">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    返回政策原文列表
+  </a>
+</div>
+
+<nav class="article-nav">
+  <a href="#" class="nav-btn" style="visibility: hidden;">← 上一篇</a>
+  <a href="#" class="nav-btn">下一篇 →</a>
+</nav>

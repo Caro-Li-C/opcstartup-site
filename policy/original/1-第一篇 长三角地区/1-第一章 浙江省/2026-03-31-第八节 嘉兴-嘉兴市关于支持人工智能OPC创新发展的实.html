@@ -1,0 +1,259 @@
+---
+layout: default
+title: 嘉兴市关于支持人工智能OPC创新发展的实施方案（试行）（征求意见稿）
+---
+
+<style>
+  :root {
+    --bg: #f5f5f5;
+    --bg-elevated: #ebebeb;
+    --border: #d8d8d8;
+    --text-primary: #1a1a1a;
+    --text-secondary: #4a4a4a;
+    --text-muted: #7a7a7a;
+    --accent: #c4a35a;
+    --accent-dim: rgba(196, 163, 90, 0.1);
+    --accent-border: rgba(196, 163, 90, 0.25);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    color: var(--text-primary);
+    line-height: 1.9;
+    font-size: 16px;
+  }
+  .article-container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+  .policy-header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 32px;
+    margin-bottom: 40px;
+  }
+  .policy-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .meta-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 4px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+  }
+  .meta-tag.category {
+    background: var(--accent-dim);
+    border-color: var(--accent-border);
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .policy-title {
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.45;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+    letter-spacing: -0.3px;
+  }
+  .policy-doc-no {
+    font-size: 15px;
+    color: var(--accent);
+    font-family: "SF Mono", "Fira Code", "Courier New", monospace;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+  }
+  .policy-source-bar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 13px;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+  }
+  .source-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .source-item svg {
+    width: 14px;
+    height: 14px;
+    opacity: 0.5;
+  }
+  .policy-body {
+    font-size: 16px;
+    line-height: 2;
+    color: var(--text-primary);
+  }
+  .policy-body p {
+    margin-bottom: 16px;
+    text-align: justify;
+  }
+  .policy-body h2 {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 44px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    letter-spacing: 0.3px;
+  }
+  .policy-body h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 28px 0 14px;
+    padding-left: 12px;
+    border-left: 3px solid var(--accent);
+  }
+  .responsible-unit {
+    display: inline;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  .meta-paragraph {
+    color: var(--text-secondary);
+    font-size: 15px;
+  }
+  .inline-signature {
+    margin: 24px 0 36px;
+  }
+  .inline-signature .sig-line {
+    text-align: right;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 2.4;
+    margin: 0;
+  }
+  .inline-signature .pub-note {
+    text-align: left;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 2.4;
+    margin: 0;
+  }
+  .publish-note {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 2;
+  }
+  .publish-note p {
+    margin: 0;
+    text-align: left;
+  }
+  .effective-date {
+    margin-top: 24px;
+    padding: 16px 20px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+  .effective-date strong {
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .article-nav {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 24px 60px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s;
+    background: var(--bg);
+  }
+  .nav-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .back-to-list {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .back-to-list a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+  }
+  .back-to-list a:hover { color: var(--accent); }
+  @media (max-width: 640px) {
+    .policy-title { font-size: 21px; }
+    .policy-body { font-size: 15px; }
+    .policy-body h2 { font-size: 17px; }
+    .nav-links { display: none; }
+  }
+</style>
+<base target="_blank">
+
+<article class="article-container">
+  <header class="policy-header">
+    <div class="policy-meta">
+      <span class="meta-tag category">政策解读</span>
+      <span class="meta-tag">政策原文</span>
+      <span class="meta-tag">嘉兴</span>
+    </div>
+    <h1 class="policy-title">嘉兴市关于支持人工智能OPC创新发展的实施方案（试行）（征求意见稿）</h1>
+    
+    <div class="policy-source-bar">
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 2026-03-31</div>
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg> 嘉兴市</div>
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> 来源：公众号OPC创业汇</div>
+    </div>
+  </header>
+  <div class="policy-body">
+    <p>为深入贯彻国家和省“人工智能+”发展战略，构建人工智能OPC（One Person Company）创新生态，培育经济发展新动能，结合我市实际，制定本措施。</p>
+<p>一、建设高质量OPC社区。结合各地资源禀赋、产业基础，选择人才密度高、创业环境好的片区，布局一批特色OPC社区，重点发展AI服务、跨境电商、软件开发、大视听产业等领域，聚焦主导产业，避免同质化发展。鼓励改造利用星级商务楼宇、工业遗存等优质闲置空间。依托秀洲运河湾、经开双溪湖板块先行打造2-3个带动力强的示范社区。对企业入驻率高、产业氛围浓厚、辐射带动力强的OPC社区，给予运营主体每年最高300万元资金支持。</p>
+<p>二、提升OPC社区服务能力。聘用职业化运营团队，配备专业孵化服务人员和创业导师，提供普惠算力、数据资源等专业配套服务，整合产业对接、市场推广、企业管理等增值服务。构建“15分钟办公生活圈”，为创业者配备人才公寓、餐饮、商业综合体等生活与商业服务设施，满足OPC创业者便捷生活需求。OPC社区对符合条件的创业者提供最长不超过1年的零租工位，并提供共享会议室、路演大厅、闭关工作室等公共配套服务设施，降低创业成本。</p>
+<p>三、畅通算力资源供给。高水平打造算力服务平台，探索建立全市算力服务和赋能产业发展调度机制，纳入省级算力网络一体化调度平台统一管理，参与跨主体、跨区域的算力调度，为OPC提供即开即用的普惠智算服务。对使用智算、超算算力且符合条件的企业，按照实际使用金额的50%给予算力补贴，单家企业年度算力补贴金额不超过200万元，其中对新获得中央网信办生成式人工智能模型备案的企业年度算力补贴金额不超过500万元。</p>
+<p>四、强化OPC支撑底座。支持企业开发适配OPC创业需求的人工智能工具包，包括低代码开发、智能体搭建、API调用、大模型微调、AIGC内容创作等工具，满足OPC创业的高频使用需求。加快引育智能体开发企业，对新认定的省级人工智能服务商、省级“数智优品”分别给予50万元、30万元的一次性奖励。</p>
+<p>五、降低数据获取成本。加大公共数据开放力度，提升数据运用与安全技术保障能力，推动公共数据资源在重点领域实现场景应用创新与数据产品开发，为OPC企业提供更多高可用公共数据资源。加快培育一批行业性数据应用企业，发展数据服务新业态及数据密集型产业，打造嘉兴数据产业集聚区，为OPC企业提供海量高质量数据资源及专业技术支撑。支持OPC企业利用公共数据、行业原始数据、高质量数据集等，构建面向特定场景的知识库，开发具有自主知识产权的数据产品和算法模型。对经认定符合条件的单位，根据数据采购投入给予最高不超过200万元补助。</p>
+<p>六、深化场景资源对接。加大场景开放力度,支持行业主管部门、企事业单位向OPC开放政务服务、行业应用等场景，打造更多综合性重大场景、行业领域集成式场景、高价值小切口场景。定期在OPC社区发布“场景机会清单”“技术能力清单”，开展智能匹配与精准推送。对入选省级人工智能应用标杆企业和省级人工智能应用场景的企业，给予50万元的奖励。每年评选不超过10个市级人工智能应用场景标杆项目，每个项目按照不超过投资额30%的标准给予最高200万元的补助。</p>
+<p>七、加强人才引育保障。根据OPC企业人才需求，组织开展招才引智活动。支持高校、科研院所与OPC开展产学研合作，开放共享科研仪器设备，共同推进技术研发与成果转化。鼓励在嘉高校通过开设OPC创业训练营、实践课程，共建创业实践基地等方式，深化创新创业教育。组织开展智能体应用专项培训，引导行业人才面向行业需求创办OPC。推进人才“企业认定、政府认账”模式，将OPC纳入人才分层分类自主认定授权范围。优先支持OPC人才申报“星耀南湖”人才计划，给予相应政策支持。提供青年人才驿站，来嘉创业就业的OPC人才可享受每年2次、单次最长7天的免费住宿。对符合条件的OPC人才，给予购房补贴、不高于50%的人才住房租金优惠等安居保障，各地可根据实际情况确定。</p>
+<p>八、完善科创金融服务。支持银行业金融机构探索建立以企业创新能力为核心的信用等级评估模型和授信制度，在产品渠道、还款续贷、担保模式、风险保障等方面进行创新，降低OPC融资成本。发挥政府性融资担保机构作用，创新推出“算力保”等专属融资担保产品，为OPC企业及创业者提供单户最高不超过1000万元的信用融资担保。发挥天使基金作用，按市场化方式给予投资支持，单个企业最高不超过500万元。常态化举办OPC专场投融资路演活动，鼓励南湖基金小镇等本地金融业集聚区主动对接OPC社区，提供优质金融服务。为符合条件的OPC提供最高200万元、最长2年的创业担保贷款；为符合条件的OPC创业者提供最高50万元、最长3年的个人创业担保贷款。</p>
+<p>九、优化企业创业服务。聚焦OPC全生命周期需求，依托政务服务网，打造“OPC创业服务专区”，畅通企业注册、法务、知识产权等服务，实现精准对接，持续提升创业服务专业化、精细化水平。每年给予OPC企业最高20万元创新券额度，支持其用于开展试验开发、检验检测、验证熟化等科技创新活动，降低企业创新创业成本。</p>
+<p>十、营造OPC创业氛围。结合乌镇峰会、“十链百场万企”等活动大力开展OPC产业对接活动，推进产业链、创新链、资金链和人才链深度融合。鼓励举办有影响力的OPC大赛、展会、产学研对接会、供需对接会、投融资对接会、行业沙龙、交友联谊会等各类生态活动，打造“投资嘉兴”OPC专场活动品牌，构建充满活力、多元开放的OPC生态。对符合条件的高质量、高影响力OPC赛会活动，单场活动给予最高100万元支持。</p>
+<p>建立部门联动机制，各地针对OPC社区制定专项方案。建立媒体矩阵，及时总结、宣传经验做法、优秀案例，提高社会认知度和关注度，营造浓厚的创新创业氛围。到2029年底，全市建成若干个标杆型OPC社区，孵化OPC企业500家，集聚OPC人才2000人，形成产业特色鲜明、要素供给充足、服务体系完善、创业氛围浓厚的OPC创新创业生态，打造长三角区域具有影响力的OPC创业优选地和集聚地。</p>
+<p>本政策涉及的财政补助，由各涉及的专项资金承担，对同一事项涉及多项奖励（补助）的，按“就高不重复”原则执行。已有市级政策与本政策不一致的，以本政策为准。各县（市、区）可参照本政策执行。</p>
+<p>嘉兴市发展和改革委员会2026年3月31日发布，征求意见时间为2026年3月31日—2026年4月10日。</p>
+  </div>
+</article>
+
+<div class="back-to-list">
+  <a href="./">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    返回政策原文列表
+  </a>
+</div>
+
+<nav class="article-nav">
+  <a href="#" class="nav-btn" style="visibility: hidden;">← 上一篇</a>
+  <a href="#" class="nav-btn">下一篇 →</a>
+</nav>

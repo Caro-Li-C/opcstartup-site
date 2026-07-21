@@ -1,0 +1,278 @@
+---
+layout: default
+title: 济南市支持数智生态OPC社区十大政策举措
+---
+
+<style>
+  :root {
+    --bg: #f5f5f5;
+    --bg-elevated: #ebebeb;
+    --border: #d8d8d8;
+    --text-primary: #1a1a1a;
+    --text-secondary: #4a4a4a;
+    --text-muted: #7a7a7a;
+    --accent: #c4a35a;
+    --accent-dim: rgba(196, 163, 90, 0.1);
+    --accent-border: rgba(196, 163, 90, 0.25);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    color: var(--text-primary);
+    line-height: 1.9;
+    font-size: 16px;
+  }
+  .article-container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+  .policy-header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 32px;
+    margin-bottom: 40px;
+  }
+  .policy-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .meta-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 4px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+  }
+  .meta-tag.category {
+    background: var(--accent-dim);
+    border-color: var(--accent-border);
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .policy-title {
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.45;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+    letter-spacing: -0.3px;
+  }
+  .policy-doc-no {
+    font-size: 15px;
+    color: var(--accent);
+    font-family: "SF Mono", "Fira Code", "Courier New", monospace;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+  }
+  .policy-source-bar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 13px;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+  }
+  .source-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .source-item svg {
+    width: 14px;
+    height: 14px;
+    opacity: 0.5;
+  }
+  .policy-body {
+    font-size: 16px;
+    line-height: 2;
+    color: var(--text-primary);
+  }
+  .policy-body p {
+    margin-bottom: 16px;
+    text-align: justify;
+  }
+  .policy-body h2 {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 44px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    letter-spacing: 0.3px;
+  }
+  .policy-body h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 28px 0 14px;
+    padding-left: 12px;
+    border-left: 3px solid var(--accent);
+  }
+  .responsible-unit {
+    display: inline;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  .meta-paragraph {
+    color: var(--text-secondary);
+    font-size: 15px;
+  }
+  .inline-signature {
+    margin: 24px 0 36px;
+  }
+  .inline-signature .sig-line {
+    text-align: right;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 2.4;
+    margin: 0;
+  }
+  .inline-signature .pub-note {
+    text-align: left;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 2.4;
+    margin: 0;
+  }
+  .publish-note {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 2;
+  }
+  .publish-note p {
+    margin: 0;
+    text-align: left;
+  }
+  .effective-date {
+    margin-top: 24px;
+    padding: 16px 20px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+  .effective-date strong {
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .article-nav {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 24px 60px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s;
+    background: var(--bg);
+  }
+  .nav-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .back-to-list {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .back-to-list a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+  }
+  .back-to-list a:hover { color: var(--accent); }
+  @media (max-width: 640px) {
+    .policy-title { font-size: 21px; }
+    .policy-body { font-size: 15px; }
+    .policy-body h2 { font-size: 17px; }
+    .nav-links { display: none; }
+  }
+</style>
+<base target="_blank">
+
+<article class="article-container">
+  <header class="policy-header">
+    <div class="policy-meta">
+      <span class="meta-tag category">政策解读</span>
+      <span class="meta-tag">政策原文</span>
+      <span class="meta-tag">济南</span>
+    </div>
+    <h1 class="policy-title">济南市支持数智生态OPC社区十大政策举措</h1>
+    
+    <div class="policy-source-bar">
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 2026-02-05</div>
+      
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> 来源：公众号OPC创业汇</div>
+    </div>
+  </header>
+  <div class="policy-body">
+    <p>为抢抓人工智能时代万众创新创业新机遇，构建人工智能OPC创业新生态，助力济南打造"OPC数智生态最优城市"，结合济南市国家人工智能创新应用先导区和国家新一代人工智能创新发展试验区"双区"同建优势，特制定以下十大政策举措。</p>
+<h2>一、给空间｜免租入驻，拎包创业</h2>
+<p>在济南高新、历下、市中、起步区等7个人工智能主导产业区县，首批开放12个数智生态OPC社区，统筹超2万平方米专业孵化空间，目标孵化1000家以上OPC团队。所有入驻团队均可享受免租办公服务及完善的办公设施、公共服务。济南城投集团打造的"大模型工场"建成超2万平方米OPC创业空间，集AI研发区、会议洽谈区、项目路演厅、展览展示厅等于一体，实现创业者"拎包入驻、轻装上阵"。</p>
+<h2>二、给身份｜人才认定，补贴有力</h2>
+<p>将数智生态OPC人才正式纳入全市"人工智能专项人才认定"体系，认定后即可享受相应层级的生活补贴：最高每月5000元，最长连续支持5年。博士学历人才每月1500元、硕士学历人才每月1000元，最长可享3年。</p>
+<h2>三、给安居｜住房无忧，生活有依</h2>
+<p>为OPC人才提供专项购房支持，最高可达100万元专项购房优惠。博士、硕士还可分别申领15万元、10万元一次性购房补贴。租房方面，本科每月700元、专科每月500元；部分人才可享最长5年免租。统筹提供公租房、人才公寓，并配套免费乘坐公共交通、配偶随迁安置、优质医疗保健、编制保障等服务（具体待遇根据人才认定级别确定）。</p>
+<h2>四、给资源｜生态链接，合作共赢</h2>
+<p>依托济南市人工智能产业联盟，联动1200余家人工智能上下游企业，定期向OPC团队发布应用合作机会清单，助力OPC快速对接市场资源，打破信息孤岛，告别"单打独斗"。</p>
+<h2>五、给服务｜全国招募，落地无忧</h2>
+<p>整合省人工智能协会、市人工智能产业联盟、省市大数据协会、山大校友会等多元主体，组建数智生态OPC联合运营机构，引入南湖梦科技集团作为国内首家人工智能OPC社区专业运营商，提供全国范围内的招募对接、落地代办等全流程服务，确保项目从"有意向"到"能扎根"一路畅通。</p>
+<h2>六、给算力｜普惠共享，成本直降</h2>
+<p>实施省市联动算力券政策，最高可抵扣60%算力使用费用。向初创团队免费开放济南数算法平台、城市MaaS平台等核心算力资源。整合3000P高性能算力，全部定向开放给数智生态OPC团队，保障研发需求。</p>
+<h2>七、给数据｜可信数据，赋能创新</h2>
+<p>开放济南"城市可信数据空间"，支持OPC企业免费入驻并开展融合应用，构建安全可信的数据流通环境。依托数算法平台，提供不少于100TB的高质量公共数据集，保持动态更新，为模型训练提供充足燃料。</p>
+<h2>八、给场景｜开放应用，揭榜挂帅</h2>
+<p>围绕政务、生产制造、公共服务、消费等六大圈层，开放56个细分应用场景，释放真实市场需求。采用"揭榜挂帅""先付后建"等灵活机制，鼓励优秀团队攻克技术难题。联合济南城投提供资金与技术双重保障，加速创新想法从实验室走向产业化落地。</p>
+<h2>九、给资金｜耐心资本，长情陪伴</h2>
+<p>统筹组建50亿元人工智能产业基金，聚焦数智生态OPC项目，精准扶持早期创新团队，大幅提升OPC初创团队融资可获得性，强化耐心资本供给，助力渡过创业关键期。</p>
+<h2>十、给便利｜"一网通办"，省时省心</h2>
+<p>在济南市数算法流通服务平台开设数智生态OPC服务专区（https：//www.ssfssp.com/opcZone），集成"一网通办"政务服务能力，涵盖企业注册、资质认定、政策申报、知识产权保护等全生命周期高频服务，实现线上便捷通办，让创业者少跑腿、好办事。</p>
+<p>附：社区架构与首批节点</p>
+<p>济南市数智生态OPC社区创新性地采用"1个核心生态体系+N个分布式节点"的物理架构，以全市统筹的顶层设计为核心，串联各数智生态OPC社区，形成全域协同网络。首批物理节点包括：</p>
+<p>济南城投大厦</p>
+<p>济南科金大厦</p>
+<p>齐鲁软件园</p>
+<p>济南人工智能岛</p>
+<p>山东未来云谷</p>
+<p>山东大学国家大学科技园</p>
+<p>万融汇金金融中心（槐荫区）</p>
+<p>其他产业载体</p>
+<p>共9个城市产业载体被授予"济南市数据要素赋能AI OPC创新示范社区"牌匾，成为社区首批物理节点。社区计划两年内培育10000名AI独立开发者，孵化超1000家数智生态OPC团队。</p>
+<p>济南市大数据局于2026年2月5日，在"一人之境 智链未来"济南市AI赋能OPC生态发布会暨济南市数智生态OPC社区启动活动上发布。该部分内容根据权威媒体报道整理。</p>
+  </div>
+</article>
+
+<div class="back-to-list">
+  <a href="./">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    返回政策原文列表
+  </a>
+</div>
+
+<nav class="article-nav">
+  <a href="#" class="nav-btn" style="visibility: hidden;">← 上一篇</a>
+  <a href="#" class="nav-btn">下一篇 →</a>
+</nav>

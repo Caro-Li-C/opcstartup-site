@@ -1,0 +1,267 @@
+---
+layout: default
+title: 望城区大泽OPC创业中心十大举措
+---
+
+<style>
+  :root {
+    --bg: #f5f5f5;
+    --bg-elevated: #ebebeb;
+    --border: #d8d8d8;
+    --text-primary: #1a1a1a;
+    --text-secondary: #4a4a4a;
+    --text-muted: #7a7a7a;
+    --accent: #c4a35a;
+    --accent-dim: rgba(196, 163, 90, 0.1);
+    --accent-border: rgba(196, 163, 90, 0.25);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    color: var(--text-primary);
+    line-height: 1.9;
+    font-size: 16px;
+  }
+  .article-container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+  .policy-header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 32px;
+    margin-bottom: 40px;
+  }
+  .policy-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .meta-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 4px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+  }
+  .meta-tag.category {
+    background: var(--accent-dim);
+    border-color: var(--accent-border);
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .policy-title {
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.45;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+    letter-spacing: -0.3px;
+  }
+  .policy-doc-no {
+    font-size: 15px;
+    color: var(--accent);
+    font-family: "SF Mono", "Fira Code", "Courier New", monospace;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+  }
+  .policy-source-bar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 13px;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+  }
+  .source-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .source-item svg {
+    width: 14px;
+    height: 14px;
+    opacity: 0.5;
+  }
+  .policy-body {
+    font-size: 16px;
+    line-height: 2;
+    color: var(--text-primary);
+  }
+  .policy-body p {
+    margin-bottom: 16px;
+    text-align: justify;
+  }
+  .policy-body h2 {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 44px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    letter-spacing: 0.3px;
+  }
+  .policy-body h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 28px 0 14px;
+    padding-left: 12px;
+    border-left: 3px solid var(--accent);
+  }
+  .responsible-unit {
+    display: inline;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  .meta-paragraph {
+    color: var(--text-secondary);
+    font-size: 15px;
+  }
+  .inline-signature {
+    margin: 24px 0 36px;
+  }
+  .inline-signature .sig-line {
+    text-align: right;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 2.4;
+    margin: 0;
+  }
+  .inline-signature .pub-note {
+    text-align: left;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 2.4;
+    margin: 0;
+  }
+  .publish-note {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 2;
+  }
+  .publish-note p {
+    margin: 0;
+    text-align: left;
+  }
+  .effective-date {
+    margin-top: 24px;
+    padding: 16px 20px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+  .effective-date strong {
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .article-nav {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 24px 60px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s;
+    background: var(--bg);
+  }
+  .nav-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .back-to-list {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .back-to-list a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+  }
+  .back-to-list a:hover { color: var(--accent); }
+  @media (max-width: 640px) {
+    .policy-title { font-size: 21px; }
+    .policy-body { font-size: 15px; }
+    .policy-body h2 { font-size: 17px; }
+    .nav-links { display: none; }
+  }
+</style>
+<base target="_blank">
+
+<article class="article-container">
+  <header class="policy-header">
+    <div class="policy-meta">
+      <span class="meta-tag category">政策解读</span>
+      <span class="meta-tag">政策原文</span>
+      
+    </div>
+    <h1 class="policy-title">望城区大泽OPC创业中心十大举措</h1>
+    
+    <div class="policy-source-bar">
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 2026-03-18</div>
+      
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> 来源：公众号OPC创业汇</div>
+    </div>
+  </header>
+  <div class="policy-body">
+    <p>为抢抓人工智能发展机遇，培育"AI+超级个体"新型创业生态，湖南省首个OPC（One Person Company，一人公司）创业中心——大泽湖OPC创业中心正式揭牌成立。立足OPC创业需求，望城区从办公空间、投融资、算力服务、安居住房、生活配套等方面推出"十大举措"，以真心实意、真金白银、真抓实干打造全周期、全链条的OPC创业生态，让创客们心无旁骛搞创新、谋发展。</p>
+<h2>一、多梯度办公空间支持</h2>
+<p>提供"一席办公位、一间办公室、一层办公楼"多梯度办公空间，对入驻项目给予租金减免，打造低成本、高品质创新创业环境，实现"拎包入驻"。一期4000平方米配备独立办公室、开放工位、共享服务区、智能会议室、路演展示区、创业服务中心等完善设施，可为约200名创业人员提供智慧、共享的科创孵化空间；后续二期项目预计再容纳600名创业人才。</p>
+<h2>二、创业启动资助</h2>
+<p>对落地的优质项目给予一次性创业启动资助。对OPC创业主体提供创业贷款及贴息支持。对在各级创新创业大赛中获奖项目，按层级与等次给予相应资金支持。</p>
+<h2>三、全生命周期金融赋能</h2>
+<p>依托振望产业发展基金、海归科创引导母基金、"望见未来"创新创业种子基金，坚持投早、投小、投未来、投硬科技，建立快速投融资机制，为创业项目提供全生命周期金融赋能。</p>
+<h2>四、算力券专项支持</h2>
+<p>设立"算力券"专项支持，补贴企业算力使用成本，对接长沙证通云计算等本地优质算力资源，为人工智能等领域提供低成本、高适配解决方案，降低AI研发与技术攻关成本。</p>
+<h2>五、应用场景开放</h2>
+<p>加大应用场景开放力度，定期发布政府及国有企业数字化转型、智慧城市、智能制造等领域应用场景需求，优先向中心入驻企业开放并组织精准对接，助力创业者获取"首笔订单"。重点围绕低空经济领域、智能网联系统等前沿领域发布场景需求。</p>
+<h2>六、人才评定与安居保障</h2>
+<p>择优推荐入驻创业者参与骨干人才评定，对符合条件创业者给予购房补贴、租房补贴，并优先推荐参评长沙市高层次人才。构建"一张床、一间屋、一套房"安居保障体系，人才公寓就近配套，租房补贴、购房优惠应享尽享。</p>
+<h2>七、创新创业活动平台</h2>
+<p>高水平举办创新创业大赛、项目路演、技术沙龙、产业对接等活动，搭建人才展示与资源对接平台。组建创新创业导师团，提供一对一专业辅导，常态化开展资源对接与赋能服务。</p>
+<h2>八、一站式政务服务</h2>
+<p>搭建"一站式"服务平台，设立OPC创业服务专窗，集成人社、市场监管、社保、出入境等职能，提供企业注册、政策申报、人才落户、社保办理等全流程服务，实行"一窗受理、集成服务、全程帮办"。</p>
+<h2>九、优质生活配套</h2>
+<p>统筹生态、教育、医疗、文体优质资源，依托近自然湿地公园与国际人才公园打造生态休闲空间，联动湖南师大附中大泽湖校区、市四医院滨水院区提供优质教育医疗保障，建设国际人才研修院，构建"宜居宜业、乐享生活"15分钟优质生活圈。</p>
+<h2>十、产业赛道聚焦</h2>
+<p>紧扣大泽湖·海归小镇"3+3+1"现代产业体系，聚焦"AI+软件服务""AI+先进制造""AI+文创设计"等潜力赛道，构建极具望城特色与竞争力的OPC创业集聚高地。</p>
+<p>长沙市望城区人民政府2026年3月18日在大泽湖OPC创业中心揭牌仪式暨"创新创业在望城"人才系列活动发布，根据发布会相关权威报道整理。</p>
+  </div>
+</article>
+
+<div class="back-to-list">
+  <a href="./">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    返回政策原文列表
+  </a>
+</div>
+
+<nav class="article-nav">
+  <a href="#" class="nav-btn" style="visibility: hidden;">← 上一篇</a>
+  <a href="#" class="nav-btn">下一篇 →</a>
+</nav>

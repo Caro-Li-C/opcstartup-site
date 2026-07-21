@@ -1,0 +1,268 @@
+---
+layout: default
+title: 常熟市加快打造OpenClaw等开源社区推动产业高质量发展的若干措施（征求意见稿）
+---
+
+<style>
+  :root {
+    --bg: #f5f5f5;
+    --bg-elevated: #ebebeb;
+    --border: #d8d8d8;
+    --text-primary: #1a1a1a;
+    --text-secondary: #4a4a4a;
+    --text-muted: #7a7a7a;
+    --accent: #c4a35a;
+    --accent-dim: rgba(196, 163, 90, 0.1);
+    --accent-border: rgba(196, 163, 90, 0.25);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    color: var(--text-primary);
+    line-height: 1.9;
+    font-size: 16px;
+  }
+  .article-container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+  .policy-header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 32px;
+    margin-bottom: 40px;
+  }
+  .policy-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .meta-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 4px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+  }
+  .meta-tag.category {
+    background: var(--accent-dim);
+    border-color: var(--accent-border);
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .policy-title {
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.45;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+    letter-spacing: -0.3px;
+  }
+  .policy-doc-no {
+    font-size: 15px;
+    color: var(--accent);
+    font-family: "SF Mono", "Fira Code", "Courier New", monospace;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+  }
+  .policy-source-bar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 13px;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+  }
+  .source-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .source-item svg {
+    width: 14px;
+    height: 14px;
+    opacity: 0.5;
+  }
+  .policy-body {
+    font-size: 16px;
+    line-height: 2;
+    color: var(--text-primary);
+  }
+  .policy-body p {
+    margin-bottom: 16px;
+    text-align: justify;
+  }
+  .policy-body h2 {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 44px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    letter-spacing: 0.3px;
+  }
+  .policy-body h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 28px 0 14px;
+    padding-left: 12px;
+    border-left: 3px solid var(--accent);
+  }
+  .responsible-unit {
+    display: inline;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  .meta-paragraph {
+    color: var(--text-secondary);
+    font-size: 15px;
+  }
+  .inline-signature {
+    margin: 24px 0 36px;
+  }
+  .inline-signature .sig-line {
+    text-align: right;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 2.4;
+    margin: 0;
+  }
+  .inline-signature .pub-note {
+    text-align: left;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 2.4;
+    margin: 0;
+  }
+  .publish-note {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 2;
+  }
+  .publish-note p {
+    margin: 0;
+    text-align: left;
+  }
+  .effective-date {
+    margin-top: 24px;
+    padding: 16px 20px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+  .effective-date strong {
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .article-nav {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 24px 60px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s;
+    background: var(--bg);
+  }
+  .nav-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .back-to-list {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .back-to-list a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+  }
+  .back-to-list a:hover { color: var(--accent); }
+  @media (max-width: 640px) {
+    .policy-title { font-size: 21px; }
+    .policy-body { font-size: 15px; }
+    .policy-body h2 { font-size: 17px; }
+    .nav-links { display: none; }
+  }
+</style>
+<base target="_blank">
+
+<article class="article-container">
+  <header class="policy-header">
+    <div class="policy-meta">
+      <span class="meta-tag category">政策解读</span>
+      <span class="meta-tag">政策原文</span>
+      <span class="meta-tag">常熟</span>
+    </div>
+    <h1 class="policy-title">常熟市加快打造OpenClaw等开源社区推动产业高质量发展的若干措施（征求意见稿）</h1>
+    
+    <div class="policy-source-bar">
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 2026-03-09</div>
+      
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> 来源：公众号OPC创业汇</div>
+    </div>
+  </header>
+  <div class="policy-body">
+    <p>为抢抓生成式人工智能与具身智能融合爆发的战略窗口期，直击初创团队在算力获取、数据供给及技术落地上的"起步难"痛点，聚焦AI赋能产业高质量发展，打造全国具有引领力的AI+创新应用示范区，制定以下措施。</p>
+<h2>一、主要措施（龙虾十三条）</h2>
+<p>（一）免费部署与技能培训支持。政策为OpenClaw用户提供全流程的免费部署实施与技能培训服务，鼓励市场化、专业化平台加入，对服务成效显著、符合认定条件的平台机构，给予最高300万元的专项补贴，让"上手"不再难。</p>
+<p>（二）专属数据服务支持。面向符合条件的开发主体，免费开放经脱敏处理的政府公共服务数据资源，并全额减免相关公共数据使用费用，为OpenClaw开发者提供高质量数据供给。</p>
+<p>（三）智能体安全与适配认证服务。率先推出智能体安全与适配认证服务，支持平台公司为OpenClawSkill社区开发者提供全方位的安全认证及环境适配认证服务。根据年度认证服务规模与质量，给予服务提供商一定支持，确保技术应用安全可控。</p>
+<p>（四）智能算力资源协调机制。建立智能算力资源协调机制，为经认定的OPC社区新入驻的有关OpenClaw开发应用类企业提供算力资源补贴及相关基础技术支持服务，降低算力使用成本。</p>
+<p>（五）OPC社区建设支持。聚焦具身智能、纺织服装、直播电商等常熟特色领域建设OPC社区，每年遴选产业引领型示范社区，对建设运营方给予最高200万元补贴，搭建产业协同"朋友圈"。</p>
+<p>（六）人工智能专项基金支持。依托人工智能专项基金，精准支持人才运用"OpenClaw"工具创办OPC。鼓励各类资本进行长期战略投资，支持OPC全生命周期成长。对入选各级人才计划的OPC项目，最高给予600万元综合支持。</p>
+<p>（七）创新创业大赛奖励。在常熟市主办或承办的各级创新创业大赛等活动中获奖的OPC项目，符合条件的给予资金奖励，并可直接立项为市级"昆承英才"。</p>
+<h3>（八）数据标注与采购补贴。对OPC开展数据标注服务，费用最高补贴50万元；购买数据最高补贴10万元，降低数据获取成本。</h3>
+<p>（九）工业大模型开发支持。支持综合利用各类开源工具开展工业大模型开发。开发面向工业质检、设备预测性维护垂直大模型，通过国家级备案的，给予50万元奖励。</p>
+<h3>（十）关键技术突破支持。利用OpenClaw等开源工具实现具身智能机器人、智能质检等关键技术突破，最高支持500万元。</h3>
+<p>（十一）联合开源实验室建设。鼓励设立"AI+制造"联合开源实验室。制造业龙头企业牵头建设开源实验室、制定开源标准，奖励最高100万元。</p>
+<p>（十二）典型场景应用评选。每年组织典型场景应用评选，对入选示范项目，按企业采购相关技术和产品金额的20%给予补助，最高200万元。</p>
+<h3>（十三）办公场地与人才安居支持。</h3>
+<p>初创项目：最长3年办公场地"零房租"支持。</p>
+<p>高成长企业：最长5年租金补贴，每年最高3000平方米。</p>
+<p>OpenClaw开源社区优秀贡献者：首次来区创业，最高12万元生活补贴。</p>
+<p>分层分类保障OPC人才多元安居需求，从每月最高1500元的租房补贴到最高6万元的一次性落户（租房）补贴和最高200万元的购房补贴。</p>
+<h2>二、配套保障</h2>
+<p>加强安全标准体系管理。部署OpenClaw时必须通过国产化适配认证，降低供应链风险。</p>
+<p>加强出海支持和安全服务。提供OpenClaw服务的云服务平台应用强制实施最小权限原则，禁止访问敏感数据目录，定期开展安全攻防演练。探索设立"AI合规服务中心"，为企业提供数据跨境流动、知识产权保护等专项服务。</p>
+<p>常熟市人民政府2026年3月9日在"i常熟"微信公众号，根据公众号内容整理。</p>
+  </div>
+</article>
+
+<div class="back-to-list">
+  <a href="./">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    返回政策原文列表
+  </a>
+</div>
+
+<nav class="article-nav">
+  <a href="#" class="nav-btn" style="visibility: hidden;">← 上一篇</a>
+  <a href="#" class="nav-btn">下一篇 →</a>
+</nav>

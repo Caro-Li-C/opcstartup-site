@@ -1,0 +1,268 @@
+---
+layout: default
+title: 关于加快打造青年友好型OPC创业社区的若干措施
+---
+
+<style>
+  :root {
+    --bg: #f5f5f5;
+    --bg-elevated: #ebebeb;
+    --border: #d8d8d8;
+    --text-primary: #1a1a1a;
+    --text-secondary: #4a4a4a;
+    --text-muted: #7a7a7a;
+    --accent: #c4a35a;
+    --accent-dim: rgba(196, 163, 90, 0.1);
+    --accent-border: rgba(196, 163, 90, 0.25);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    color: var(--text-primary);
+    line-height: 1.9;
+    font-size: 16px;
+  }
+  .article-container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+  .policy-header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 32px;
+    margin-bottom: 40px;
+  }
+  .policy-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .meta-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 4px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+  }
+  .meta-tag.category {
+    background: var(--accent-dim);
+    border-color: var(--accent-border);
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .policy-title {
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.45;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+    letter-spacing: -0.3px;
+  }
+  .policy-doc-no {
+    font-size: 15px;
+    color: var(--accent);
+    font-family: "SF Mono", "Fira Code", "Courier New", monospace;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+  }
+  .policy-source-bar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 13px;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+  }
+  .source-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .source-item svg {
+    width: 14px;
+    height: 14px;
+    opacity: 0.5;
+  }
+  .policy-body {
+    font-size: 16px;
+    line-height: 2;
+    color: var(--text-primary);
+  }
+  .policy-body p {
+    margin-bottom: 16px;
+    text-align: justify;
+  }
+  .policy-body h2 {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 44px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    letter-spacing: 0.3px;
+  }
+  .policy-body h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 28px 0 14px;
+    padding-left: 12px;
+    border-left: 3px solid var(--accent);
+  }
+  .responsible-unit {
+    display: inline;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  .meta-paragraph {
+    color: var(--text-secondary);
+    font-size: 15px;
+  }
+  .inline-signature {
+    margin: 24px 0 36px;
+  }
+  .inline-signature .sig-line {
+    text-align: right;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 2.4;
+    margin: 0;
+  }
+  .inline-signature .pub-note {
+    text-align: left;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 2.4;
+    margin: 0;
+  }
+  .publish-note {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 2;
+  }
+  .publish-note p {
+    margin: 0;
+    text-align: left;
+  }
+  .effective-date {
+    margin-top: 24px;
+    padding: 16px 20px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+  .effective-date strong {
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .article-nav {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 24px 60px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s;
+    background: var(--bg);
+  }
+  .nav-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .back-to-list {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .back-to-list a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+  }
+  .back-to-list a:hover { color: var(--accent); }
+  @media (max-width: 640px) {
+    .policy-title { font-size: 21px; }
+    .policy-body { font-size: 15px; }
+    .policy-body h2 { font-size: 17px; }
+    .nav-links { display: none; }
+  }
+</style>
+<base target="_blank">
+
+<article class="article-container">
+  <header class="policy-header">
+    <div class="policy-meta">
+      <span class="meta-tag category">政策解读</span>
+      <span class="meta-tag">政策原文</span>
+      
+    </div>
+    <h1 class="policy-title">关于加快打造青年友好型OPC创业社区的若干措施</h1>
+    
+    <div class="policy-source-bar">
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 2026-01-06</div>
+      
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> 来源：公众号OPC创业汇</div>
+    </div>
+  </header>
+  <div class="policy-body">
+    <p>为抢抓人工智能发展机遇，培育"AI+超级个体"新型创业生态，打造青年友好型OPC创业社区，结合常熟市"科产城人"融合发展实际，制定以下措施。</p>
+<h2>一、打造OPC专业社区矩阵</h2>
+<p>打造10个以上总面积超百万平方米的OPC专业社区，为创业者提供低成本、便利化、全要素的创业空间。社区配备独立办公室、开放工位、共享会议室、路演大厅、智能办公设施及餐饮、健身等生活配套，实现"拎包入驻、轻装上阵"。构建"10分钟办公生活圈"，完善人才公寓、商业综合体、餐饮休闲等配套，满足OPC创业者便捷生活需求。</p>
+<h2>二、提供零成本启动支持</h2>
+<p>为入驻OPC社区的创业者提供最长30天免费办公、住宿、餐饮等一站式创业体验，降低创业初期成本。对首次在常熟注册创办OPC的创业主体，给予一次性创业资助。支持OPC社区运营管理单位通过"工位号"登记、一址多照等方式，为OPC提供共享办公空间。</p>
+<h2>三、强化算力要素保障</h2>
+<p>依托常熟市算力基础设施，为OPC提供轻量化、低成本算力服务。对OPC开展自主研发或深度应用，按不超过算力合同执行金额的一定比例给予补助，单个主体年度算力补贴金额最高200万元。支持OPC使用智能算力资源，降低AI研发与技术攻关成本。</p>
+<h2>四、加强数据与模型工具供给</h2>
+<p>支持企业建设可信数据空间，推动数据开发利用流通。鼓励掌握高质量数据集、语料库的市场主体，为OPC提供数据资源，对完成建设并上架公共平台的，根据应用成效给予每个高质量数据集最高200万元奖励。支持国有单位、科研院所建设轻量化AI工具平台，集成主流大模型API、低代码开发工具、智能体框架等资源，面向OPC提供免费或低成本开放。</p>
+<h2>五、实施OPC人才强基行动</h2>
+<p>将OPC创业人才纳入全市人才政策体系，对符合条件的OPC创业者给予生活补贴、租房补贴、购房补贴等支持。对入选上级顶尖人才计划的OPC人才，给予最高1亿元支持。依托高校、龙头企业开展"专业+AI"融合培训，提升AI工具应用能力。支持中国科学技术大学、合肥工业大学等高校开设"人工智能+"交叉学科，培育复合型人才。</p>
+<h2>六、推动应用场景开放</h2>
+<p>聚焦智能制造、智慧城市、智慧文旅、智慧医疗等重点领域，定期发布市级AI应用场景清单，优先支持OPC参与场景项目建设。每年遴选一批创新性强、成功落地的项目作为场景示范，单个项目给予最高100万元补助。鼓励政府机关、企事业单位对OPC的新技术新产品首试首用。</p>
+<h2>七、完善金融综合服务</h2>
+<p>发挥政府引导基金作用，为种子期OPC项目提供投融资渠道。鼓励金融机构创新信贷产品，为OPC提供信用贷款、知识产权质押贷款等金融服务。对获得投资机构股权投资的OPC，按实际投资额的一定比例给予配套奖励。支持OPC创业者申请创业担保贷款，并享受财政贴息。</p>
+<h2>八、营造创新创业氛围</h2>
+<p>定期举办OPC创新创业大赛、论坛、技术沙龙、产业对接等活动，搭建人才展示与资源对接平台。组建创新创业导师团，为OPC配备技术、管理、投资导师，提供一对一专业辅导。鼓励OPC社区、高校院所、投资机构等共同发起成立OPC创新创业联盟，打造具有常熟辨识度的OPC创业品牌。</p>
+<h2>九、优化政务服务保障</h2>
+<p>在政务服务中心设立OPC服务专窗，提供企业开办、财税代理、法务咨询、知识产权、政策申报等一站式服务。推行OPC企业开办"一网通办""一日办结"，实现营业执照申领、印章刻制、发票领用等全流程集成服务。建立OPC诉求响应机制，实现诉求直达、快速办理。</p>
+<h2>十、实施包容审慎监管</h2>
+<p>对OPC实施包容审慎监管，推行服务型执法和柔性监管。在OPC社区内试点"沙盒监管"模式，对纳入沙盒的OPC给予1—3年观察期，观察期内以行政指导、风险提示为主。建立支持OPC创业容错纠错机制，进一步鼓励创新、宽容失败。</p>
+<div class="effective-date"><strong>施行说明：</strong>本措施自印发之日起施行，有效期至2028年12月31日。由常熟市相关部门负责解释。</div>
+<p>常熟市人民政府2026年1月6日常熟市"科产城人"融合发展大会发布。</p>
+  </div>
+</article>
+
+<div class="back-to-list">
+  <a href="./">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    返回政策原文列表
+  </a>
+</div>
+
+<nav class="article-nav">
+  <a href="#" class="nav-btn" style="visibility: hidden;">← 上一篇</a>
+  <a href="#" class="nav-btn">下一篇 →</a>
+</nav>

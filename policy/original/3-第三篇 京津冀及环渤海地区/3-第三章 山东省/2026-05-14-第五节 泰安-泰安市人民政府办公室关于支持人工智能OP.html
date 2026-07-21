@@ -1,0 +1,276 @@
+---
+layout: default
+title: 泰安市人民政府办公室关于支持人工智能OPC发展的实施意见
+---
+
+<style>
+  :root {
+    --bg: #f5f5f5;
+    --bg-elevated: #ebebeb;
+    --border: #d8d8d8;
+    --text-primary: #1a1a1a;
+    --text-secondary: #4a4a4a;
+    --text-muted: #7a7a7a;
+    --accent: #c4a35a;
+    --accent-dim: rgba(196, 163, 90, 0.1);
+    --accent-border: rgba(196, 163, 90, 0.25);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    color: var(--text-primary);
+    line-height: 1.9;
+    font-size: 16px;
+  }
+  .article-container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+  .policy-header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 32px;
+    margin-bottom: 40px;
+  }
+  .policy-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .meta-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 4px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+  }
+  .meta-tag.category {
+    background: var(--accent-dim);
+    border-color: var(--accent-border);
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .policy-title {
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.45;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+    letter-spacing: -0.3px;
+  }
+  .policy-doc-no {
+    font-size: 15px;
+    color: var(--accent);
+    font-family: "SF Mono", "Fira Code", "Courier New", monospace;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+  }
+  .policy-source-bar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 13px;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+  }
+  .source-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .source-item svg {
+    width: 14px;
+    height: 14px;
+    opacity: 0.5;
+  }
+  .policy-body {
+    font-size: 16px;
+    line-height: 2;
+    color: var(--text-primary);
+  }
+  .policy-body p {
+    margin-bottom: 16px;
+    text-align: justify;
+  }
+  .policy-body h2 {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 44px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    letter-spacing: 0.3px;
+  }
+  .policy-body h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 28px 0 14px;
+    padding-left: 12px;
+    border-left: 3px solid var(--accent);
+  }
+  .responsible-unit {
+    display: inline;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  .meta-paragraph {
+    color: var(--text-secondary);
+    font-size: 15px;
+  }
+  .inline-signature {
+    margin: 24px 0 36px;
+  }
+  .inline-signature .sig-line {
+    text-align: right;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 2.4;
+    margin: 0;
+  }
+  .inline-signature .pub-note {
+    text-align: left;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 2.4;
+    margin: 0;
+  }
+  .publish-note {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 2;
+  }
+  .publish-note p {
+    margin: 0;
+    text-align: left;
+  }
+  .effective-date {
+    margin-top: 24px;
+    padding: 16px 20px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+  .effective-date strong {
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .article-nav {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 24px 60px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s;
+    background: var(--bg);
+  }
+  .nav-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .back-to-list {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .back-to-list a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+  }
+  .back-to-list a:hover { color: var(--accent); }
+  @media (max-width: 640px) {
+    .policy-title { font-size: 21px; }
+    .policy-body { font-size: 15px; }
+    .policy-body h2 { font-size: 17px; }
+    .nav-links { display: none; }
+  }
+</style>
+<base target="_blank">
+
+<article class="article-container">
+  <header class="policy-header">
+    <div class="policy-meta">
+      <span class="meta-tag category">政策解读</span>
+      <span class="meta-tag">政策原文</span>
+      <span class="meta-tag">泰安</span>
+    </div>
+    <h1 class="policy-title">泰安市人民政府办公室关于支持人工智能OPC发展的实施意见</h1>
+    
+    <div class="policy-source-bar">
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 2026-05-14</div>
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg> 泰安市人民政府办公室</div>
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> 来源：公众号OPC创业汇</div>
+    </div>
+  </header>
+  <div class="policy-body">
+    <p>泰政办发〔2026〕1号</p>
+<p>各县、市、区人民政府，各功能区管委会，市政府各部门、直属单位，省属以上驻泰各单位：</p>
+<p>为深入贯彻落实国家、省关于推动人工智能全面深入融合发展的工作部署，抢抓人工智能产业发展机遇，激发全社会创新创业活力，经市委、市人民政府同意，结合我市实际，制定本实施意见。</p>
+<h2>一、发展目标</h2>
+<p>到2028年年底，全市人工智能OPC（即依托个人或微型团队的专业能力，运用大模型、AI编程、智能体等工具，独立完成设计、研发、生产、运营全流程的“AI+超级个体”新型创业组织，以下简称OPC）数量突破100家；建设市级综合服务平台，建成OPC社区不少于5个；着力打造算力普惠、模型赋能、数据支撑、空间集聚、服务高效的OPC发展新业态，推动OPC成为我市新质生产力培育的重要力量。</p>
+<h2>二、重点任务</h2>
+<h3>（一）优化空间载体，强化创业空间供给。</h3>
+<p>1.布局建设OPC社区。坚持试点先行、分步推进，支持泰山区、岱岳区开展试点工作，鼓励其他县（市、区）、功能区结合自身资源禀赋和产业基础，盘活现有闲置资源，布局建设一批集生产、生活、生态于一体的OPC社区。对入驻OPC社区并符合条件的OPC主体，提供办公工位，配套完善会议场地、共享实验设施、高速网络等基础保障，提供低成本、便利化的创业环境。支持符合条件的OPC社区申报省级现代服务业集聚区，落实财政扶持政策，推动更多资金、资源赋能OPC发展。〔责任单位：市发展改革委、市科技局、市财政局、市人力资源社会保障局，各县（市、区）人民政府、功能区管委会。以下各项任务均需各县（市、区）人民政府、功能区管委会落实，不再列出〕</p>
+<p>2.构建多元孵化体系。支持科技企业孵化器、众创空间、创业孵化示范基地（园区）、电商产业园、泰山创新谷等孵化载体，聚焦细分产业赛道，发挥资源禀赋优势，设立特色化OPC社区，提供全周期、专业化孵化服务。鼓励高校、科研院所、企业利用自身空间资源和要素优势，自主建设或联合所在县（市、区）、功能区共建专业化OPC社区，推动创新资源集聚，打造特色鲜明、活力充沛的新型创业生态。<span class="responsible-unit">（责任单位：市科技局、市教育局、市人力资源社会保障局、市商务局）</span></p>
+<h3>（二）强化算力支撑，推进数据开放共享。</h3>
+<p>3.优化算力资源供给。统筹整合全市算力资源，建好用好全市算力调度服务平台，为OPC主体提供算力协同支撑。落实国家、省有关政策，支持OPC主体购买智能算力，切实降低OPC研发运营成本。<span class="responsible-unit">（责任单位：市大数据局、市工业和信息化局、市财政局）</span></p>
+<p>4.畅通数据要素供给渠道。依托市公共数据开放网，依法合规开放政务、气象、地理、文旅、城市治理等领域可公开公共数据，丰富OPC主体可用公共数据资源，进一步降低数据获取门槛和使用成本，助力提升创新研发效率。支持OPC主体与公共数据授权运营方合作开发公共数据产品和服务。<span class="responsible-unit">（责任单位：市大数据局）</span></p>
+<h3>（三）提升服务效能，构建全周期保障体系。</h3>
+<p>5.打造综合服务平台。建设全市OPC综合服务平台，集成AI赋能、运营服务、订单撮合、成果转化、生态培育等核心功能。建立OPC任务与订单智能撮合机制，全面归集政府公共场景、重点企业需求及社会民生项目资源，推动供需高效对接，助力OPC主体承接业务、拓展市场。<span class="responsible-unit">（责任单位：市科技局、市发展改革委、市工业和信息化局、市大数据局）</span></p>
+<p>6.优化政务服务保障。设立OPC一站式注册服务窗口，整合政务服务与市场化服务资源，集中为OPC主体提供企业登记注册、政策咨询辅导、税务登记办理、银行开户等全流程便捷服务，优化办事流程、压缩办理时限，实现“一站式受理、全流程办结”。<span class="responsible-unit">（责任单位：市行政审批服务局、市市场监管局、市税务局）</span></p>
+<p>7.强化人才培育。构建OPC公共培训服务体系，组建专业讲师团和创业导师团，常态化开展OPC创业训练营、专题培训、产业沙龙及资源对接会，聚焦政策解读、运营管理、技术创新、市场拓展等重点内容开展精准辅导，加强多方资源对接，全面提升OPC主体运营能力和创新发展水平。<span class="responsible-unit">（责任单位：市科技局、市教育局、市人力资源社会保障局）</span></p>
+<h3>（四）开放应用场景，拓宽市场发展渠道。</h3>
+<p>8.建立场景需求对接机制。有序开放政务服务、城市治理、产业数字化、乡村振兴、文旅融合等领域轻量化应用场景，鼓励国有企业开放场景资源，引导OPC主体精准对接本地需求，推动技术成果就地转化应用。<span class="responsible-unit">（责任单位：市发展改革委、市科技局、市工业和信息化局、市国资委、市大数据局等有关部门）</span></p>
+<p>9.优化政府购买服务导向。在政府购买服务中，对软件开发、数据分析、设计创意、调研咨询等小额项目，破除注册资本、人员规模等限制，积极向OPC主体开放，为OPC主体提供更多市场机会。<span class="responsible-unit">（责任单位：市发展改革委、市科技局、市工业和信息化局、市大数据局等有关部门）</span></p>
+<p>10.构建协同发展生态。鼓励产业链链主企业向OPC主体开放研发场景、测试环境、供应链资源和品牌渠道，搭建“链主+OPC”协同创新模式，推动大中小企业融通发展，构建优势互补、协同共进的产业生态。<span class="responsible-unit">（责任单位：市工业和信息化局、市科技局）</span></p>
+<h3>（五）强化金融支撑，完善全链条服务。</h3>
+<p>11.优化创业担保贷款服务。积极运用创业担保贷款政策支持OPC主体发展，对符合条件的OPC创业主体，按规定落实财政贴息政策，缓解创业融资难题，降低融资成本。<span class="responsible-unit">（责任单位：市人力资源社会保障局、市财政局、中国人民银行泰安市分行）</span></p>
+<p>12.创新专属金融产品。鼓励金融机构聚焦OPC主体特点，推出信用贷款、“算力贷”等专属金融产品。引导金融机构拓宽OPC主体融资渠道，依托企业履约情况、能力等级实行无抵押、利率合理的贷款，精准匹配OPC主体融资需求。<span class="responsible-unit">（责任单位：泰安金融监管分局）</span></p>
+<p>13.强化基金扶持。整合市级产业基金资源，发挥市级政府投资基金引导作用，吸引社会资本，坚持“投早、投小、投资于人”，为优质OPC主体提供资本助力。<span class="responsible-unit">（责任单位：市财政局、市发展改革委、市科技局、市大数据局）</span></p>
+<h2>三、组织保障</h2>
+<p>市级层面要加强协调调度，统筹推进全市OPC发展各项工作，协调解决发展中的重大问题。试点区要先行先试，深入挖掘培树一批OPC标杆企业、示范案例和创新模式，为全市全面推动OPC发展提供可复制经验。各级各有关部门和单位要切实提高思想认识，加强对本区域、本领域OPC发展工作的指导支持，明确责任分工，细化工作举措，确保各项任务落地见效；要加强典型培育和宣传推介，营造鼓励创新、支持创业、宽容失败的良好社会氛围，推动全市OPC产业高质量发展。</p>
+<div class="inline-signature">
+  <p class="sig-line">泰安市人民政府办公室</p>
+  <p class="sig-line">2026年5月7日</p>
+</div>
+
+  </div>
+</article>
+
+<div class="back-to-list">
+  <a href="./">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    返回政策原文列表
+  </a>
+</div>
+
+<nav class="article-nav">
+  <a href="#" class="nav-btn" style="visibility: hidden;">← 上一篇</a>
+  <a href="#" class="nav-btn">下一篇 →</a>
+</nav>

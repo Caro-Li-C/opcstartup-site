@@ -1,0 +1,278 @@
+---
+layout: default
+title: 广州市番禺区支持OPC创业若干措施（征求意见稿）
+---
+
+<style>
+  :root {
+    --bg: #f5f5f5;
+    --bg-elevated: #ebebeb;
+    --border: #d8d8d8;
+    --text-primary: #1a1a1a;
+    --text-secondary: #4a4a4a;
+    --text-muted: #7a7a7a;
+    --accent: #c4a35a;
+    --accent-dim: rgba(196, 163, 90, 0.1);
+    --accent-border: rgba(196, 163, 90, 0.25);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    color: var(--text-primary);
+    line-height: 1.9;
+    font-size: 16px;
+  }
+  .article-container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+  .policy-header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 32px;
+    margin-bottom: 40px;
+  }
+  .policy-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .meta-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 4px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+  }
+  .meta-tag.category {
+    background: var(--accent-dim);
+    border-color: var(--accent-border);
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .policy-title {
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.45;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+    letter-spacing: -0.3px;
+  }
+  .policy-doc-no {
+    font-size: 15px;
+    color: var(--accent);
+    font-family: "SF Mono", "Fira Code", "Courier New", monospace;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+  }
+  .policy-source-bar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 13px;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+  }
+  .source-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .source-item svg {
+    width: 14px;
+    height: 14px;
+    opacity: 0.5;
+  }
+  .policy-body {
+    font-size: 16px;
+    line-height: 2;
+    color: var(--text-primary);
+  }
+  .policy-body p {
+    margin-bottom: 16px;
+    text-align: justify;
+  }
+  .policy-body h2 {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 44px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    letter-spacing: 0.3px;
+  }
+  .policy-body h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 28px 0 14px;
+    padding-left: 12px;
+    border-left: 3px solid var(--accent);
+  }
+  .responsible-unit {
+    display: inline;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  .meta-paragraph {
+    color: var(--text-secondary);
+    font-size: 15px;
+  }
+  .inline-signature {
+    margin: 24px 0 36px;
+  }
+  .inline-signature .sig-line {
+    text-align: right;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 2.4;
+    margin: 0;
+  }
+  .inline-signature .pub-note {
+    text-align: left;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 2.4;
+    margin: 0;
+  }
+  .publish-note {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 2;
+  }
+  .publish-note p {
+    margin: 0;
+    text-align: left;
+  }
+  .effective-date {
+    margin-top: 24px;
+    padding: 16px 20px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+  .effective-date strong {
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .article-nav {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 24px 60px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s;
+    background: var(--bg);
+  }
+  .nav-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .back-to-list {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .back-to-list a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+  }
+  .back-to-list a:hover { color: var(--accent); }
+  @media (max-width: 640px) {
+    .policy-title { font-size: 21px; }
+    .policy-body { font-size: 15px; }
+    .policy-body h2 { font-size: 17px; }
+    .nav-links { display: none; }
+  }
+</style>
+<base target="_blank">
+
+<article class="article-container">
+  <header class="policy-header">
+    <div class="policy-meta">
+      <span class="meta-tag category">政策解读</span>
+      <span class="meta-tag">政策原文</span>
+      <span class="meta-tag">广州</span>
+    </div>
+    <h1 class="policy-title">广州市番禺区支持OPC创业若干措施（征求意见稿）</h1>
+    
+    <div class="policy-source-bar">
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 2026-03-20</div>
+      
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> 来源：公众号OPC创业汇</div>
+    </div>
+  </header>
+  <div class="policy-body">
+    <p>为全面实施"人工智能+"行动，推动投资于物和投资于人紧密结合，认真落实全省、全市、全区高质量发展大会部署，番禺区依托"2104"现代化产业体系和广州大学城人才优势，抢抓"一人公司"（One Person Company，以下简称OPC）创新创业发展机遇，打造集生产服务与生活保障于一体的OPC主题创业社区，提供从创意孵化到产业落地、从安居保障到社群服务的全链条支持，激发全社会内生动力和创新活力。现结合我区实际，制定本措施。</p>
+<h2>一、适用范围</h2>
+<p>（一）本措施所称OPC，是指在人工智能技术的全面赋能下，个人创业者可独立完成从产品设计研发到市场投放运营的全链路闭环的新型创业组织形态，一般包含模式创新型、场景应用型、生态服务型、其他类型等四类OPC主体。</p>
+<p>模式创新型OPC。围绕文化娱乐、数字营销、文化创意、电子商务等领域开展人工智能生成内容（AIGC）创作，开展方案制作、图片设计、视频生成等应用开发。</p>
+<p>场景应用型OPC。专注于检验检测、制造、政务、医疗、金融、文旅等重点行业与公共服务领域垂直应用，提供数字化应用解决方案。</p>
+<p>生态服务型OPC。提供AI算力服务、数据服务、算法服务、开发工具、创业孵化等专业化服务。</p>
+<p>其他类型OPC。不局限于单一行业的应用，而是专注于技术交叉地带的"无人区"探索，旨在通过技术融合催生全新的产品形态与服务模式。</p>
+<h2>二、鼓励推出开源AI智能体</h2>
+<p>（二）开源AI智能体免费部署与开发支持。鼓励市场化、专业化平台载体提供开源AI智能体部署服务和开发推广支持，对向国际主流社区贡献关键代码、在技能交易平台开发上架我区优势产业相关技能包、开发与具身智能设备相结合的应用项目，经工信部或国家网信办认定后给予最高100万元补贴。</p>
+<p>（三）开源AI智能体应用示范支持。聚焦智能制造、智慧政务、智慧园区、智慧医疗等领域，每年在我区开源AI智能体深度应用项目中，遴选一批经工信部或国家网信办认定的创新性强、应用效果好的项目，按实际投入20%给予一次性最高50万元奖励。</p>
+<h2>三、建设高质量空间载体</h2>
+<p>（四）布局一批协同创新的OPC社区。先行依托万博商务区、广州大学城科技园等区域国有物业，面积原则上不少于1万平方米，形成资源聚合、功能清晰、产业集聚、有机联动的人工智能OPC创业生态试点。鼓励和支持区内众创空间、孵化器、产业园区、商务楼宇、区属国有企业及社会资本，利用存量物业改造或新建OPC主题创业社区，配备共享会议室、智能办公设施及餐饮、健身等生活配套，为创业者提供设施齐全、功能完善的办公生活圈，实现"拎包入驻、轻装上阵"。</p>
+<p>（五）依托国有物业构建"一张办公桌、一间办公室"的乐业办公体系。对入驻区属国有物业的OPC实施最高第一年租金全额减免，第二年、第三年租金减半的优惠支持措施，全程助力OPC企业从孵化到成熟的全周期发展。</p>
+<h2>四、强化人才服务保障</h2>
+<p>（六）大力吸引海内外人才来我区创办OPC，支持符合条件的OPC人才申报我区高层次人才。对作出杰出贡献的个人或团队，经认定后分档给予最高500万元人才发展补贴。支持OPC储备青年人才，对新引进在我区OPC企业全职工作的全日制博士学位人才，给予最高10万元落户补贴，并给予符合条件的引进单位最高15万元引才补贴。</p>
+<p>（七）构筑全要素人才安居生活圈。对OPC创业人才提供"一张床、一间房、一套房"分层安居保障。符合条件的新引进优质人才，可享受最长30天零租金住宿，实现"无忧起步"；符合条件的新引进青年人才，可享受优租支持，实现"高品质、低负担"安居；符合条件的高层次人才，可享受最长5年免租寓所，实现"扎根番禺、长期发展"。</p>
+<p>（八）对入驻OPC主题创业社区的OPC人才给予"一站式"人才服务保障，开通申领"番禺人才服务卡"承诺制绿色通道，持卡可对应享受子女入学、医疗服务、休闲旅游和智慧出行服务等服务待遇。</p>
+<p>（九）建设"OPC人才会客厅"，集成政策咨询、社群活动、休闲社交、项目落户等功能。对入驻OPC主题创业社区的人才及团队，免费提供会客厅场地预约使用服务。</p>
+<h2>五、加大政策支持力度</h2>
+<p>（十）加大对OPC创业主体的启动资金支持。谋划设立青年创新创业项目库，对入库的青年创新创业项目，给予最高5万元创新创业奖励、最高100万元研发资助。按规定落实创业担保贷款和租金优惠等扶持政策，降低创业主体启动成本和经营负担。对于OPC创业者创办初创型企业，可按规定申请最高50万元个人创业担保贷款、最高500万元小微企业创业担保贷款。</p>
+<h3>（十一）对于符合条件的OPC创业主体，给予1万元一次性创业资助（即自主创业奖励）。</h3>
+<p>（十二）组织举办青蓝国际创新创业大赛OPC分赛活动，探索以"补改投"方式对在我区实施转化的获奖项目按等级给予最高不超过100万元创业资助。对达到商业化条件的OPC项目，可放宽青蓝国际创新创业大赛报名条件和直接晋级决赛。</p>
+<p>（十三）鼓励各类创新主体开发适配OPC的轻量化AI开发工具与中间件、低代码平台及垂直领域模型工具，降低AI技术应用门槛。支持OPC申领国家人工智能券（算力券）。鼓励OPC使用广州人工智能公共算力中心算力服务。鼓励掌握行业语料资源的市场主体，提供面向OPC的高质量数据集、语料库。</p>
+<p>（十四）推动高价值应用场景培育开放和供需对接，助力OPC加快技术和商业化落地变现。支持区属政府部门、国企及有关机构围绕城市治理和公共服务领域，为OPC挖掘、梳理和对接场景需求，定期发布高价值应用场景机会清单，支持OPC打造标杆性应用场景。</p>
+<p>（十五）聚焦先进制造业、现代服务业等领域，深入开展千行百业场景供需对接活动，推动行业企业与人工智能创业企业开展场景应用合作；对具有推广价值的示范应用项目，给予最高100万元研发资助。</p>
+<p>（十六）支持相关企业、众创空间、孵化器、产业园区、行业协会在我区举办面向OPC领域的OPC主题展会、高端论坛、学术会议、创业沙龙等各类活动，提升番禺OPC创业品牌影响力。对于获国家、省、市级批复，并事先向我区相关部门报备的活动，对其承办企业或机构，按照不超过实际活动举办费用的50%给予奖励，同一举办单位全年最高不超过50万元。</p>
+<h2>六、健全生态服务体系</h2>
+<p>（十七）推行高效办结创业"一件事"，围绕OPC全生命周期需求，聚焦政策、技术、服务、市场等事项，打造线上、线下"一站式""OPC公共服务专区"，为创业者就地就近提供服务，提高服务便利化。支持将创业指导等服务纳入政府购买服务指导性目录，探索通过多种方式向创业者提供社会培训、咨询指导、检验检测、软件开发、研发设计、大模型备案辅导、安全测评等专业服务。鼓励社会力量参与创业服务，支持招募企业家、创业投资人、专家学者等组建创业导师库，为创业者提供创业辅导、管理咨询、创业融资等服务。</p>
+<p>（十八）鼓励OPC与区内高校、科研院所、新型研发机构聚焦检验检测、制造、文化娱乐、电子商务、文化创意、政务等领域，合作开展前沿技术和关键核心技术攻关。鼓励高校、科研院所、新型研发机构面向OPC开放共享科研仪器设备，降低OPC企业研发成本。</p>
+<p>（十九）坚持"投早、投小、投硬科技"的思路，强化长期耐心资本供给，鼓励区属国有资本加大对OPC创业企业全生命周期投（融）资支持力度。充分发挥国有资本的引导作用，撬动社会资本发展OPC创业领域的风险投资、天使投资和创业投资。鼓励金融机构设立面向OPC专项信贷产品，降低企业融资门槛。鼓励各类资本设立市场化运作的OPC产业发展基金，重点关注和投向高成长性OPC项目。推动常态化举办OPC项目投融资路演和对接活动，提供种子、天使、创投、并购、产投等全周期的融资对接服务，切实满足各类OPC融资需求。</p>
+<p>（二十）营造创新创业文化氛围。深入校区、园区、社区进行政策宣传和创业讲座，提升公众对OPC创业的认知度和接受度。加强OPC创业典型的宣传报道，选树OPC创业先进典型和工作亮点，讲好创业故事，弘扬创业精神，形成"小而美""小而精"创业案例集，开展全媒体宣传，引导全社会理解、关心和支持OPC创业，营造鼓励创业、宽容失败的良好文化氛围。</p>
+<div class="effective-date"><strong>施行说明：</strong>本措施自2026年X月X日起施行，有效期2年。</div>
+<p>广州市番禺区科技工业商务和信息化局2026年3月20日发布，征求意见期限2026年3月20日至4月19日</p>
+  </div>
+</article>
+
+<div class="back-to-list">
+  <a href="./">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    返回政策原文列表
+  </a>
+</div>
+
+<nav class="article-nav">
+  <a href="#" class="nav-btn" style="visibility: hidden;">← 上一篇</a>
+  <a href="#" class="nav-btn">下一篇 →</a>
+</nav>

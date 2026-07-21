@@ -1,0 +1,267 @@
+---
+layout: default
+title: 杭州市萧山区支持OpenClaw&OPC发展的若干措施（征求意见稿）
+---
+
+<style>
+  :root {
+    --bg: #f5f5f5;
+    --bg-elevated: #ebebeb;
+    --border: #d8d8d8;
+    --text-primary: #1a1a1a;
+    --text-secondary: #4a4a4a;
+    --text-muted: #7a7a7a;
+    --accent: #c4a35a;
+    --accent-dim: rgba(196, 163, 90, 0.1);
+    --accent-border: rgba(196, 163, 90, 0.25);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    color: var(--text-primary);
+    line-height: 1.9;
+    font-size: 16px;
+  }
+  .article-container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+  .policy-header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 32px;
+    margin-bottom: 40px;
+  }
+  .policy-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .meta-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 4px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+  }
+  .meta-tag.category {
+    background: var(--accent-dim);
+    border-color: var(--accent-border);
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .policy-title {
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.45;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+    letter-spacing: -0.3px;
+  }
+  .policy-doc-no {
+    font-size: 15px;
+    color: var(--accent);
+    font-family: "SF Mono", "Fira Code", "Courier New", monospace;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+  }
+  .policy-source-bar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 13px;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+  }
+  .source-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .source-item svg {
+    width: 14px;
+    height: 14px;
+    opacity: 0.5;
+  }
+  .policy-body {
+    font-size: 16px;
+    line-height: 2;
+    color: var(--text-primary);
+  }
+  .policy-body p {
+    margin-bottom: 16px;
+    text-align: justify;
+  }
+  .policy-body h2 {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 44px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    letter-spacing: 0.3px;
+  }
+  .policy-body h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 28px 0 14px;
+    padding-left: 12px;
+    border-left: 3px solid var(--accent);
+  }
+  .responsible-unit {
+    display: inline;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  .meta-paragraph {
+    color: var(--text-secondary);
+    font-size: 15px;
+  }
+  .inline-signature {
+    margin: 24px 0 36px;
+  }
+  .inline-signature .sig-line {
+    text-align: right;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 2.4;
+    margin: 0;
+  }
+  .inline-signature .pub-note {
+    text-align: left;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 2.4;
+    margin: 0;
+  }
+  .publish-note {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 2;
+  }
+  .publish-note p {
+    margin: 0;
+    text-align: left;
+  }
+  .effective-date {
+    margin-top: 24px;
+    padding: 16px 20px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+  .effective-date strong {
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .article-nav {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 24px 60px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s;
+    background: var(--bg);
+  }
+  .nav-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .back-to-list {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .back-to-list a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+  }
+  .back-to-list a:hover { color: var(--accent); }
+  @media (max-width: 640px) {
+    .policy-title { font-size: 21px; }
+    .policy-body { font-size: 15px; }
+    .policy-body h2 { font-size: 17px; }
+    .nav-links { display: none; }
+  }
+</style>
+<base target="_blank">
+
+<article class="article-container">
+  <header class="policy-header">
+    <div class="policy-meta">
+      <span class="meta-tag category">政策解读</span>
+      <span class="meta-tag">政策原文</span>
+      <span class="meta-tag">杭州</span>
+    </div>
+    <h1 class="policy-title">杭州市萧山区支持OpenClaw&OPC发展的若干措施（征求意见稿）</h1>
+    
+    <div class="policy-source-bar">
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 2026-03-10</div>
+      
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> 来源：公众号OPC创业汇</div>
+    </div>
+  </header>
+  <div class="policy-body">
+    <p>为深入贯彻中央、省、市关于新一代人工智能发展的决策部署，抢占人工智能发展新机遇，全力打造人工智能创新发展第一城主阵地，构建具有萧山特色的人工智能产业生态、创业生态，制定本措施。</p>
+<p>提供OpenClaw免费部署与开发。</p>
+<p>鼓励市场化、专业化的创新平台载体设立"OpenClaw类智能体服务区"，免费部署OpenClaw类智能体，提供技术指导、市场推广等一站式服务，对于符合条件的创新平台载体给予一定补助。</p>
+<p>支持Token消耗补贴。</p>
+<p>对符合条件的OPC-STC企业，使用OpenClaw类智能体调用国内多模态大模型开展AIGC创作与生产所实际支付的模型调用费用，按30%给予补贴，单家企业每年补贴最高10万元。</p>
+<p>支持OpenClaw算力供给。</p>
+<p>对OPC-STC企业租用符合条件的算力服务开展OpenClaw类智能体技术研发，经评审，按照智算服务金额的50%给予算力券补贴，单个主体年度算力券补贴金额最高2000万元。</p>
+<p>支持开源智能体生态建设。</p>
+<p>对符合条件的运营主体，面向公众或开发者提供基于OpenClaw类智能体搭建的免费AI助手，或运营支持OpenClaw类智能体项目在技术交流、技能共享、应用展示等领域的开源社区，经认定后，按其年度实际产生的模型调用、平台运维及社区运营费用，给予最高30%的补贴，单个主体每年补贴金额最高50万元。</p>
+<p>支持OPC-STC企业采购高质量数据集。</p>
+<p>鼓励OPC-STC企业通过数据交易平台或可信数据空间，采购非关联方行业高质量数据集，用于模型训练和智能体开发，对于符合条件的，按成交金额的30%予以补助，最高200万元。</p>
+<p>支持培育场景示范。</p>
+<p>鼓励OPC-STC企业基于OpenClaw类智能体打造标杆场景示范，聚焦重点产业、城市治理、公共服务等领域，每年遴选一批创新性强、成功落地的项目作为场景示范，单个项目给予最高补助100万元。</p>
+<p>提供免费办公空间与居住空间。</p>
+<p>经认定后，对符合条件的OPC-STC企业提供免费办公空间，最长可享受6个月免费办公；提供总量100间的居住空间，最长可享受3个月免费住宿。</p>
+<p>支持OPC-STC人才享受补贴。</p>
+<p>经认定后，对OPC-STC企业的应届全日制博士、硕士、本科人才，分档给予最高15万元生活补贴及3.6万元租房补贴。对获评相应层次的人才，给予5年最高24万元的租房补贴。</p>
+<p>支持OPC-STC项目发展。</p>
+<p>聚焦我区产业转型发展重点需求领域，通过"以赛代评"专项赛事机制，重点发掘并培育深度应用OpenClaw类开源智能体的优质OPC-STC项目，单个项目给予最高450万元补助。</p>
+<p>支持基金融资需求。</p>
+<p>发挥萧山"潮启航"天使引导基金引导作用，设立总规模5000万元的OpenClaw类开源智能体领域专项基金，精准布局人工智能新赛道，为OpenClaw类开源智能体项目提供多元化融资渠道。</p>
+<p>2026年3月10日发布于微信公众号萧山发布。</p>
+  </div>
+</article>
+
+<div class="back-to-list">
+  <a href="./">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    返回政策原文列表
+  </a>
+</div>
+
+<nav class="article-nav">
+  <a href="#" class="nav-btn" style="visibility: hidden;">← 上一篇</a>
+  <a href="#" class="nav-btn">下一篇 →</a>
+</nav>

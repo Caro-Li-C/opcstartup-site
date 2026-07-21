@@ -1,0 +1,271 @@
+---
+layout: default
+title: 永州市支持OpenClaw等开源社区项目与OPC社区融合发展十条措施
+---
+
+<style>
+  :root {
+    --bg: #f5f5f5;
+    --bg-elevated: #ebebeb;
+    --border: #d8d8d8;
+    --text-primary: #1a1a1a;
+    --text-secondary: #4a4a4a;
+    --text-muted: #7a7a7a;
+    --accent: #c4a35a;
+    --accent-dim: rgba(196, 163, 90, 0.1);
+    --accent-border: rgba(196, 163, 90, 0.25);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    color: var(--text-primary);
+    line-height: 1.9;
+    font-size: 16px;
+  }
+  .article-container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+  .policy-header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 32px;
+    margin-bottom: 40px;
+  }
+  .policy-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .meta-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 4px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+  }
+  .meta-tag.category {
+    background: var(--accent-dim);
+    border-color: var(--accent-border);
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .policy-title {
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.45;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+    letter-spacing: -0.3px;
+  }
+  .policy-doc-no {
+    font-size: 15px;
+    color: var(--accent);
+    font-family: "SF Mono", "Fira Code", "Courier New", monospace;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+  }
+  .policy-source-bar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 13px;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+  }
+  .source-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .source-item svg {
+    width: 14px;
+    height: 14px;
+    opacity: 0.5;
+  }
+  .policy-body {
+    font-size: 16px;
+    line-height: 2;
+    color: var(--text-primary);
+  }
+  .policy-body p {
+    margin-bottom: 16px;
+    text-align: justify;
+  }
+  .policy-body h2 {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 44px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    letter-spacing: 0.3px;
+  }
+  .policy-body h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 28px 0 14px;
+    padding-left: 12px;
+    border-left: 3px solid var(--accent);
+  }
+  .responsible-unit {
+    display: inline;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  .meta-paragraph {
+    color: var(--text-secondary);
+    font-size: 15px;
+  }
+  .inline-signature {
+    margin: 24px 0 36px;
+  }
+  .inline-signature .sig-line {
+    text-align: right;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 2.4;
+    margin: 0;
+  }
+  .inline-signature .pub-note {
+    text-align: left;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 2.4;
+    margin: 0;
+  }
+  .publish-note {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 2;
+  }
+  .publish-note p {
+    margin: 0;
+    text-align: left;
+  }
+  .effective-date {
+    margin-top: 24px;
+    padding: 16px 20px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+  .effective-date strong {
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .article-nav {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 24px 60px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s;
+    background: var(--bg);
+  }
+  .nav-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .back-to-list {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .back-to-list a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+  }
+  .back-to-list a:hover { color: var(--accent); }
+  @media (max-width: 640px) {
+    .policy-title { font-size: 21px; }
+    .policy-body { font-size: 15px; }
+    .policy-body h2 { font-size: 17px; }
+    .nav-links { display: none; }
+  }
+</style>
+<base target="_blank">
+
+<article class="article-container">
+  <header class="policy-header">
+    <div class="policy-meta">
+      <span class="meta-tag category">政策解读</span>
+      <span class="meta-tag">政策原文</span>
+      <span class="meta-tag">永州</span>
+    </div>
+    <h1 class="policy-title">永州市支持OpenClaw等开源社区项目与OPC社区融合发展十条措施</h1>
+    
+    <div class="policy-source-bar">
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 2026-04-18</div>
+      
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> 来源：公众号OPC创业汇</div>
+    </div>
+  </header>
+  <div class="policy-body">
+    <p>当前，人工智能、开源生态、轻量化创新创业已成为数字经济发展的重要趋势。为 抢抓人工智能产业发展机遇，充分发挥永州经开区国产 GPU算力集群优势，精准对接OPC社区（一人公司社区）低成本、高效率、轻量化创业需求，破解小微创业主体在算力、空间、资金、场景、服务等方面的现实难题，永州市数据局与永州经开区联合制定并印发了《十条措施》</p>
+<h2>一、免费算力保障</h2>
+<p>为经认定的OPC社区新入驻企业、大学生双创团队提供按需申领、限额调配的免费算力（涵盖边缘/云端/本地算力），给予最长2个月免费使用期限，为轻量化开发、模型训练、产品测试等需求提供支撑。</p>
+<h2>二、平台开放赋能</h2>
+<p>一键部署OpenClaw，免费开放四大平台，构建“开发－工具－数据－交易”一体化支撑体系：</p>
+<p>智能体平台：Agent IDE低代码开发平台（含百余种预置MCP工具、可视化画布工作流），支持1小时快速搭建专属智能体。</p>
+<p>AI工具平台：全品类零代码/低代码工具集（视觉创作、视频剪辑、AI创意生成等）。</p>
+<p>公域营销数据平台：提供电商品类洞察、短视频内容洞察服务。</p>
+<p>数据要素服务平台：依托永州数据要素服务中心，为企业提供数据资源供给、数据资源加工、应用场景打造、数据交易流通、数据要素政策咨询等服务。</p>
+<h2>三、创客空间支持</h2>
+<p>由永州经开区免费提供线下物理空间（含开放式办公区、会议室、路演厅、技术测试区），配套办公设备、网络资源，实现“拎包创业”，给予不低于12个月的免费使用期。符合要求的优质OPC企业，还可享受市区相关创业政策支持。</p>
+<h2>四、创业指导培育</h2>
+<p>构建由高校双创导师、AI行业技术专家、企业运营高管、创投机构投资经理组成的导师团队，提供技术、商业、产品、市场一对一咨询。定期开展AI工具使用、OPC创业模式、商业计划书撰写、路演技巧等专项培训（线上课程+线下实训）。定期组织项目路演、闭门评审、行业交流等活动，持续优化打磨项目产品与商业模型。</p>
+<h2>五、应用场景开放</h2>
+<p>整合社会治理、行业、企业需求，开放产业、民生等多领域应用场景，支持项目“创意对接需求、产品快速验证”，实现“创意+场景需求”精准匹配。联动本地创投机构、产业园区、行业龙头及高校科研团队，对接资本、供应链、市场渠道及技术资源，实现“创意+科研+资本+市场”融合。</p>
+<h2>六、算力入股孵化</h2>
+<p>对符合技术创新性（聚焦国产化方向）、场景适配性（具备本地落地潜力）、团队稳定性（组织架构完整）、商业成长性（拥有清晰盈利模型）要求的企业，经企业申请，由永州经开区下属产业投资集团组织评审委员会综合评估后，可以算力资源价值（按市场价核算）入股，入股比例原则上不超过20%，且不参与企业日常经营管理。入股后为企业提供升级孵化服务，包括增配算力、对接优质资源、拓展市场场景、提供商业运营指导等。</p>
+<h2>七、基金融资支持</h2>
+<p>用好永州经开区产业投资基金，对成长性好的种子期OPC项目给予单个最高500万元股权投资，重点支持技术突破与市场拓展。</p>
+<h2>八、政务服务优化</h2>
+<p>在永州经开区注册并入驻OPC社区的企业或团队，公司注册等政务服务由“永周到”帮代办团队全程帮办代办。</p>
+<h2>九、合规安全护航</h2>
+<p>为企业提供数据流动、知识产权保护、数据安全评估、算力使用合规监测、漏洞扫描修复等专项服务，筑牢合规底线与安全屏障。</p>
+<h2>十、人才政策支持</h2>
+<p>对落地发展的OPC企业优秀成员，符合永州市“人才新政36条”的，按规定提供综合资助、安家补贴、专项经费、子女入学等方面支持。</p>
+<p>2026年4月18日，永州市数据局（营商环境建设局）、永州经开区联合召开新闻发布会，正式对外发布。根据官方发布内容整理。</p>
+  </div>
+</article>
+
+<div class="back-to-list">
+  <a href="./">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    返回政策原文列表
+  </a>
+</div>
+
+<nav class="article-nav">
+  <a href="#" class="nav-btn" style="visibility: hidden;">← 上一篇</a>
+  <a href="#" class="nav-btn">下一篇 →</a>
+</nav>

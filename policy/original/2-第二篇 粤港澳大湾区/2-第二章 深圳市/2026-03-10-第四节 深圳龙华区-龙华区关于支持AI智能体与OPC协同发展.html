@@ -1,0 +1,267 @@
+---
+layout: default
+title: 龙华区关于支持AI智能体与OPC协同发展十大行动（征求意见稿）
+---
+
+<style>
+  :root {
+    --bg: #f5f5f5;
+    --bg-elevated: #ebebeb;
+    --border: #d8d8d8;
+    --text-primary: #1a1a1a;
+    --text-secondary: #4a4a4a;
+    --text-muted: #7a7a7a;
+    --accent: #c4a35a;
+    --accent-dim: rgba(196, 163, 90, 0.1);
+    --accent-border: rgba(196, 163, 90, 0.25);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    color: var(--text-primary);
+    line-height: 1.9;
+    font-size: 16px;
+  }
+  .article-container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+  .policy-header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 32px;
+    margin-bottom: 40px;
+  }
+  .policy-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .meta-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 4px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+  }
+  .meta-tag.category {
+    background: var(--accent-dim);
+    border-color: var(--accent-border);
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .policy-title {
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.45;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+    letter-spacing: -0.3px;
+  }
+  .policy-doc-no {
+    font-size: 15px;
+    color: var(--accent);
+    font-family: "SF Mono", "Fira Code", "Courier New", monospace;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+  }
+  .policy-source-bar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 13px;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+  }
+  .source-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .source-item svg {
+    width: 14px;
+    height: 14px;
+    opacity: 0.5;
+  }
+  .policy-body {
+    font-size: 16px;
+    line-height: 2;
+    color: var(--text-primary);
+  }
+  .policy-body p {
+    margin-bottom: 16px;
+    text-align: justify;
+  }
+  .policy-body h2 {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 44px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    letter-spacing: 0.3px;
+  }
+  .policy-body h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 28px 0 14px;
+    padding-left: 12px;
+    border-left: 3px solid var(--accent);
+  }
+  .responsible-unit {
+    display: inline;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  .meta-paragraph {
+    color: var(--text-secondary);
+    font-size: 15px;
+  }
+  .inline-signature {
+    margin: 24px 0 36px;
+  }
+  .inline-signature .sig-line {
+    text-align: right;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 2.4;
+    margin: 0;
+  }
+  .inline-signature .pub-note {
+    text-align: left;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 2.4;
+    margin: 0;
+  }
+  .publish-note {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 2;
+  }
+  .publish-note p {
+    margin: 0;
+    text-align: left;
+  }
+  .effective-date {
+    margin-top: 24px;
+    padding: 16px 20px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+  .effective-date strong {
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .article-nav {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 24px 60px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s;
+    background: var(--bg);
+  }
+  .nav-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .back-to-list {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .back-to-list a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+  }
+  .back-to-list a:hover { color: var(--accent); }
+  @media (max-width: 640px) {
+    .policy-title { font-size: 21px; }
+    .policy-body { font-size: 15px; }
+    .policy-body h2 { font-size: 17px; }
+    .nav-links { display: none; }
+  }
+</style>
+<base target="_blank">
+
+<article class="article-container">
+  <header class="policy-header">
+    <div class="policy-meta">
+      <span class="meta-tag category">政策解读</span>
+      <span class="meta-tag">政策原文</span>
+      
+    </div>
+    <h1 class="policy-title">龙华区关于支持AI智能体与OPC协同发展十大行动（征求意见稿）</h1>
+    
+    <div class="policy-source-bar">
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 2026-03-10</div>
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg> 龙华区</div>
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> 来源：公众号OPC创业汇</div>
+    </div>
+  </header>
+  <div class="policy-body">
+    <p>为贯彻落实《广东省支持人工智能OPC创新发展行动方案（2026—2028年）》《深圳市打造人工智能OPC创业生态引领地行动计划（2026—2027年）》，抢抓AI智能体发展机遇，充分发挥龙华区产业基础雄厚、应用场景丰富、创新要素集聚的核心优势，推动AI智能体与OPC创业生态协同发展，加快形成智能经济新形态，制定本行动。</p>
+<h2>一、布局一批算力新型基础设施</h2>
+<p>强化人工智能发展的算力底座支撑，布局一批算力新型基础设施，为企业提供普惠、高效、安全的算力服务。对符合条件的企业，最高给予300万元的算力券补贴，降低企业创新成本，让企业将有限的资金投入到核心算法的打磨上。</p>
+<h2>二、开放100个AI智能体应用场景</h2>
+<p>依托龙华区作为产业大区、人口大区丰富的城市治理和产业应用场景，为AI智能体提供"首试首用"的试验场。开放100个AI智能体应用场景，实施"揭榜挂帅"机制，对成功揭榜并落地应用的项目，最高给予400万元资助，推动AI智能体从实验室走向真实场景。</p>
+<h2>三、打造一批AI智能体产业创新生态基地</h2>
+<p>推动AI智能体产业集聚发展，打造一批AI智能体产业创新生态基地，为人才与企业提供交流合作平台。对参与OPC社区建设运营的主体，最高给予200万元的运营费用补贴，构建"政府搭台、企业唱戏"的协同创新模式。</p>
+<h2>四、举办一场AI智能体专题创新创业大赛</h2>
+<p>以赛促创、以赛引才，举办AI智能体专题创新创业大赛，挖掘培育优秀创新创业人才和项目。对获得比赛前三等次的主体，最高给予80万元奖励，激发全社会参与AI智能体创新创业的热情。</p>
+<h2>五、培育一批AI智能体优质企业</h2>
+<p>支持企业开展智能体核心技术攻关，提升自主创新能力。对开展智能体核心技术攻关的企业，给予研发费用的50%支持，最高100万元资助，推动企业突破关键核心技术瓶颈。</p>
+<h2>六、组建一支AI智能体产业专项基金</h2>
+<p>发挥财政资金的引导撬动作用，组建AI智能体产业专项基金，以资本为纽带孵化培育创新主体。对获得投资机构投资的科技企业，给予最高200万元资助，重点支持OPC等适应人工智能时代的"一人公司"和"超级个体"。</p>
+<h2>七、构建一个智能体产业协同平台</h2>
+<p>加强产业公共服务平台建设，构建智能体产业协同平台，为行业发展提供基础支撑。针对公共服务平台建设的项目，最高给予2000万元资助；对主导制定行业标准的企业、机构，给予最高100万元奖励，提升行业话语权。</p>
+<h2>八、建立一套AI智能体赋能体系</h2>
+<p>鼓励企业加强算法研发与备案，推动AI智能体合规发展。对开发的算法纳入国家互联网信息办公室《境内深度合成服务算法备案清单》的企业，最高给予500万元奖励；对获批国家人工智能领域创新任务揭榜优胜单位的牵头单位，给予200万元奖励。</p>
+<h2>九、组建一支AI智能体人才队伍</h2>
+<p>强化人才引育，打造高素质AI智能体人才队伍。针对高层次人才，最高给予300万元支持；实施"优秀青年人才培育百人计划"，最高给予85万元支持，夯实产业发展的智力基础。</p>
+<h2>十、推出一套全民智能体素养提升计划</h2>
+<p>推动智能体知识普及，提升全民数字素养。对在龙华区组织智能体素养提升培训课程的企业、机构，最高给予50万元支持，夯实产业发展的群众基础，营造全社会支持AI智能体发展的良好氛围。</p>
+<p>深圳市龙华区科技创新局2026年3月10日发布</p>
+  </div>
+</article>
+
+<div class="back-to-list">
+  <a href="./">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    返回政策原文列表
+  </a>
+</div>
+
+<nav class="article-nav">
+  <a href="#" class="nav-btn" style="visibility: hidden;">← 上一篇</a>
+  <a href="#" class="nav-btn">下一篇 →</a>
+</nav>

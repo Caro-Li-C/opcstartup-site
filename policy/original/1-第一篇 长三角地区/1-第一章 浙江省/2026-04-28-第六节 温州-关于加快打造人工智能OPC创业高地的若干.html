@@ -1,0 +1,268 @@
+---
+layout: default
+title: 关于加快打造人工智能OPC创业高地的若干举措
+---
+
+<style>
+  :root {
+    --bg: #f5f5f5;
+    --bg-elevated: #ebebeb;
+    --border: #d8d8d8;
+    --text-primary: #1a1a1a;
+    --text-secondary: #4a4a4a;
+    --text-muted: #7a7a7a;
+    --accent: #c4a35a;
+    --accent-dim: rgba(196, 163, 90, 0.1);
+    --accent-border: rgba(196, 163, 90, 0.25);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    color: var(--text-primary);
+    line-height: 1.9;
+    font-size: 16px;
+  }
+  .article-container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+  .policy-header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 32px;
+    margin-bottom: 40px;
+  }
+  .policy-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .meta-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 4px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+  }
+  .meta-tag.category {
+    background: var(--accent-dim);
+    border-color: var(--accent-border);
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .policy-title {
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.45;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+    letter-spacing: -0.3px;
+  }
+  .policy-doc-no {
+    font-size: 15px;
+    color: var(--accent);
+    font-family: "SF Mono", "Fira Code", "Courier New", monospace;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+  }
+  .policy-source-bar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 13px;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+  }
+  .source-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .source-item svg {
+    width: 14px;
+    height: 14px;
+    opacity: 0.5;
+  }
+  .policy-body {
+    font-size: 16px;
+    line-height: 2;
+    color: var(--text-primary);
+  }
+  .policy-body p {
+    margin-bottom: 16px;
+    text-align: justify;
+  }
+  .policy-body h2 {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 44px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    letter-spacing: 0.3px;
+  }
+  .policy-body h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 28px 0 14px;
+    padding-left: 12px;
+    border-left: 3px solid var(--accent);
+  }
+  .responsible-unit {
+    display: inline;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  .meta-paragraph {
+    color: var(--text-secondary);
+    font-size: 15px;
+  }
+  .inline-signature {
+    margin: 24px 0 36px;
+  }
+  .inline-signature .sig-line {
+    text-align: right;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 2.4;
+    margin: 0;
+  }
+  .inline-signature .pub-note {
+    text-align: left;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 2.4;
+    margin: 0;
+  }
+  .publish-note {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 2;
+  }
+  .publish-note p {
+    margin: 0;
+    text-align: left;
+  }
+  .effective-date {
+    margin-top: 24px;
+    padding: 16px 20px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+  .effective-date strong {
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .article-nav {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 24px 60px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s;
+    background: var(--bg);
+  }
+  .nav-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .back-to-list {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .back-to-list a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+  }
+  .back-to-list a:hover { color: var(--accent); }
+  @media (max-width: 640px) {
+    .policy-title { font-size: 21px; }
+    .policy-body { font-size: 15px; }
+    .policy-body h2 { font-size: 17px; }
+    .nav-links { display: none; }
+  }
+</style>
+<base target="_blank">
+
+<article class="article-container">
+  <header class="policy-header">
+    <div class="policy-meta">
+      <span class="meta-tag category">政策解读</span>
+      <span class="meta-tag">政策原文</span>
+      
+    </div>
+    <h1 class="policy-title">关于加快打造人工智能OPC创业高地的若干举措</h1>
+    
+    <div class="policy-source-bar">
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 2026-04-28</div>
+      
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> 来源：公众号OPC创业汇</div>
+    </div>
+  </header>
+  <div class="policy-body">
+    <p>为深入贯彻国家"人工智能+"行动战略，抢抓人工智能时代万众创新创业新机遇，构建人工智能OPC创业新生态，助力温州打造"人工智能OPC创业高地"，特制定以下17条举措。</p>
+<h2>一、支持对象</h2>
+<p>本政策适用于在温州市依法登记注册的人工智能OPC，以及按本政策可享受扶持政策的OPC社区运营主体及其他支持对象。</p>
+<h2>二、政策内容</h2>
+<p>1. 布局OPC社区矩阵。支持在温州市重点园区、楼宇嵌入式布局OPC专区，引导龙头企业打造OPC生态平台。鼓励社区提供低成本"AI工位"和普惠算力、数据资源、场景对接等专业服务，以及登记注册、财务代账、税务申报等公共服务。到2028年底，打造市级OPC社区10个以上，全市集聚OPC创业者超过10000人。</p>
+<p>2. 提供创业空间支持。为入驻OPC社区的创业者提供首年免收场地租金、物业管理费、水电费及网络宽带费服务，第2年、第3年场地租金五折。</p>
+<p>3. 加大普惠算力支持。统筹全市算力基础设施建设，依托温州人工智能超算中心和城市算力网，为OPC提供轻量化、低成本算力服务。支持OPC开展自主研发或深度应用，按不超过算力、语料、模型合同执行金额的30%、最高800万元的标准给予补助。</p>
+<p>4. 加强模型工具供给。支持国有单位、科研院所等各类机构建设轻量化AI工具平台，集成主流大模型API、低代码开发工具、智能体框架等资源，面向OPC提供智能体工具部署等服务，实行免费或低成本开放。</p>
+<p>5. 强化数据要素流通。依托市公共数据开放平台和授权运营平台，有序开放医疗、交通、文旅、政务等领域高质量脱敏公共数据。</p>
+<p>6. 扩大场景资源开放。聚焦新兴产业创新应用、未来产业培育发展等重点领域，积极向OPC开放政府、国有企业和龙头企业场景资源。</p>
+<p>7. 优化人才科技支撑。支持OPC创业者申报市级人才工程创业人才项目，对入选项目给予最高100万元的资助。</p>
+<p>8. 完善金融综合服务。鼓励创新OPC创业信贷产品，支持试点OPC社区批量授信模式。为符合条件的OPC人才提供最高50万元创业担保贷款。</p>
+<p>9. 实施包容审慎监管。在OPC社区内试点"沙盒监管"模式。对纳入沙盒的OPC给予1-3年观察期，观察期内以行政指导、风险提示为主。</p>
+<p>10. 营造创新创业氛围。支持OPC社区运营管理单位通过"工位号"登记、一址多照等方式，为OPC提供共享办公空间。</p>
+<p>11. 发放专属"Token券"。支持OPC向人工智能产业创新生态伙伴企业采购算力、模型等要素资源，给予最高60%的补助，单家OPC最高每年补助100万元。</p>
+<p>12. 支持开源智能体生态建设。对运营支持OpenClaw类智能体项目的开源社区，按其年度实际产生的模型调用、平台运维及社区运营费用，给予最高30%的补贴，单个主体每年补贴金额最高50万元。</p>
+<p>13. 支持培育场景示范。鼓励OPC基于开源智能体打造标杆场景示范，聚焦重点产业、城市治理、公共服务等领域，每年遴选一批创新性强、成功落地的项目作为场景示范，单个项目给予最高补助100万元。</p>
+<p>14. 支持OPC人才享受补贴。对OPC企业的应届全日制博士、硕士、本科人才，分档给予最高15万元生活补贴及3.6万元租房补贴。</p>
+<p>15. 支持OPC项目发展。通过"以赛代评"专项赛事机制，重点发掘并培育深度应用开源智能体的优质OPC项目，单个项目给予最高450万元补助。</p>
+<p>16. 提供无忧助企服务。依托政务服务中心OPC专窗，提供OPC企业开办全流程"一窗办理"服务；为入驻的OPC提供首年免费财税代账及基础法务服务。</p>
+<p>17. 强化知识产权保护。完善OPC知识产权保护"一站式"服务模式，开辟专利审查绿色通道，支持符合条件的OPC享受专利优先审查政策。</p>
+<div class="effective-date"><strong>施行说明：</strong>本政策自印发之日起施行，有效期至2028年12月31日。</div>
+<p>温州市委教育科技人才一体化委员会办公室2026年3月中旬印发</p>
+  </div>
+</article>
+
+<div class="back-to-list">
+  <a href="./">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    返回政策原文列表
+  </a>
+</div>
+
+<nav class="article-nav">
+  <a href="#" class="nav-btn" style="visibility: hidden;">← 上一篇</a>
+  <a href="#" class="nav-btn">下一篇 →</a>
+</nav>

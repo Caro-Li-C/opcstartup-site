@@ -1,0 +1,285 @@
+---
+layout: default
+title: 辽宁省人工智能OPC培育发展实施方案（2026-2028年）
+---
+
+<style>
+  :root {
+    --bg: #f5f5f5;
+    --bg-elevated: #ebebeb;
+    --border: #d8d8d8;
+    --text-primary: #1a1a1a;
+    --text-secondary: #4a4a4a;
+    --text-muted: #7a7a7a;
+    --accent: #c4a35a;
+    --accent-dim: rgba(196, 163, 90, 0.1);
+    --accent-border: rgba(196, 163, 90, 0.25);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    color: var(--text-primary);
+    line-height: 1.9;
+    font-size: 16px;
+  }
+  .article-container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+  .policy-header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 32px;
+    margin-bottom: 40px;
+  }
+  .policy-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .meta-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 4px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+  }
+  .meta-tag.category {
+    background: var(--accent-dim);
+    border-color: var(--accent-border);
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .policy-title {
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.45;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+    letter-spacing: -0.3px;
+  }
+  .policy-doc-no {
+    font-size: 15px;
+    color: var(--accent);
+    font-family: "SF Mono", "Fira Code", "Courier New", monospace;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+  }
+  .policy-source-bar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 13px;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+  }
+  .source-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .source-item svg {
+    width: 14px;
+    height: 14px;
+    opacity: 0.5;
+  }
+  .policy-body {
+    font-size: 16px;
+    line-height: 2;
+    color: var(--text-primary);
+  }
+  .policy-body p {
+    margin-bottom: 16px;
+    text-align: justify;
+  }
+  .policy-body h2 {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 44px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    letter-spacing: 0.3px;
+  }
+  .policy-body h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 28px 0 14px;
+    padding-left: 12px;
+    border-left: 3px solid var(--accent);
+  }
+  .responsible-unit {
+    display: inline;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  .meta-paragraph {
+    color: var(--text-secondary);
+    font-size: 15px;
+  }
+  .inline-signature {
+    margin: 24px 0 36px;
+  }
+  .inline-signature .sig-line {
+    text-align: right;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 2.4;
+    margin: 0;
+  }
+  .inline-signature .pub-note {
+    text-align: left;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 2.4;
+    margin: 0;
+  }
+  .publish-note {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 2;
+  }
+  .publish-note p {
+    margin: 0;
+    text-align: left;
+  }
+  .effective-date {
+    margin-top: 24px;
+    padding: 16px 20px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+  .effective-date strong {
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .article-nav {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 24px 60px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s;
+    background: var(--bg);
+  }
+  .nav-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .back-to-list {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .back-to-list a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+  }
+  .back-to-list a:hover { color: var(--accent); }
+  @media (max-width: 640px) {
+    .policy-title { font-size: 21px; }
+    .policy-body { font-size: 15px; }
+    .policy-body h2 { font-size: 17px; }
+    .nav-links { display: none; }
+  }
+</style>
+<base target="_blank">
+
+<article class="article-container">
+  <header class="policy-header">
+    <div class="policy-meta">
+      <span class="meta-tag category">政策解读</span>
+      <span class="meta-tag">政策原文</span>
+      
+    </div>
+    <h1 class="policy-title">辽宁省人工智能OPC培育发展实施方案（2026-2028年）</h1>
+    
+    <div class="policy-source-bar">
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 2026-05-12</div>
+      
+      <div class="source-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> 来源：公众号OPC创业汇</div>
+    </div>
+  </header>
+  <div class="policy-body">
+    <h2>一、核心定义</h2>
+<p>人工智能OPC，指个人在人工智能技术的协同支持下，独立完成从产品设计、研发、生产到市场投放、用户运营与客服响应的全链路业务闭环，并具备快速响应市场、低成本试错和网络化协作特征的新型组织形态。</p>
+<h2>二、总体目标</h2>
+<p>到2028年，全省打造重点OPC社区20个以上，培育OPC企业300家，集聚OPC人才超3000名，推动辽宁成为国内外OPC人才创业首选区和创新发展新高地。</p>
+<h2>三、三类培育主体</h2>
+<h3>（一）模式创新型：深耕文案创作、视觉设计、数字内容、智能教学等领域。</h3>
+<h3>（二）场景应用型：聚焦工业设计、数智医疗、车载系统、车路协同等辽宁优势产业赛道。</h3>
+<h3>（三）生态服务型：围绕算力租赁、数据治理、模型优化、数据安全等基础产业环节重点发力。</h3>
+<h2>四、八大重点任务</h2>
+<h3>（一）打造专业化OPC社区</h3>
+<p>重点依托沈阳市、大连市，发挥高新区、青年科创基地、商贸集聚区、高校创业服务中心的牵引作用，打造专业化OPC社区。目前，大连高新区海创OPC社区、金普新区大连数谷OPC社区的整体布局已基本成形。</p>
+<p>省科技厅将依托沈阳浑南科技城、大连英歌石科学城及各级高新区等创新平台，统筹布局建设OPC生态社区，鼓励各类创新主体打造专业化孵化器、加速器，提供低成本办公空间、算力支撑、模型工具、创业指导及投融资对接等一站式服务，构建"种子—苗圃—孵化—加速"全链条培育体系，对运行成效突出的孵化器给予最高200万元资金奖励。</p>
+<h3>（二）加大OPC招引力度</h3>
+<p>充分利用辽宁省"兴辽英才计划"，大力引进国内外人工智能OPC。省科技厅出台专项扶持政策，对落地园区的OPC创业项目给予最高3万元一次性创业奖励；通过"未来产业研发计划""揭榜挂帅"等省级科研项目，加大对OPC团队的政策倾斜。</p>
+<h3>（三）夯实基础支撑</h3>
+<p>在算力方面，鼓励算力供应商针对OPC创业特点推出"轻量化算力套餐"；省数据局构建沈阳、大连"双核"算力高地，辽西地区绿色算力"增长极"算力中心布局，全省算力规模达3000P，较2025年初增长86.3%，今年以来已成功推动沈阳、大连、阜新、抚顺等地算力中心项目陆续开工建设。</p>
+<p>在数据方面，有序推进公共数据授权运营，丰富数据产品供给，打造107款公共数据产品，推动公共数据市场化开发。</p>
+<p>在检验检测方面，完善人工智能检验检测体系，搭建公共技术服务平台。</p>
+<h3>（四）推动应用场景开放</h3>
+<p>推动各级政府、企业发布"专而精"的适配人工智能场景应用需求，搭建场景供需对接机制，拓宽省内外市场渠道。大连将支持符合条件的OPC主体平等参与政府采购，开放文案设计、课题调研、城市运维、政务宣传策划等多元化应用场景。支持OPC作为项目承担单位或主要参与单位，申报省级科技攻关项目。</p>
+<h3>（五）开展梯度培育</h3>
+<p>鼓励各地区因地制宜建立OPC分级培育库，围绕信用等级、营业收入、净利润等维度，建立"意向型—初创型—成长型—成熟型"四级培育体系，分层孵化不同发展阶段的主体。</p>
+<h3>（六）加大人才培养</h3>
+<p>推动省内高校、重点科研院所及社会培训机构针对OPC发展需求，调整培训内容，统筹推动创新创业与人才培养。目前全省已有11所高校设立人工智能学院。沈阳将常态化开设"OPC训练营""AI创业实训班"。省人社厅深入推进"马兰花"创业培训计划，围绕数字经济、银发经济、网红经济等新兴领域，创新"技能+创业""直播+创业"等培训模式。</p>
+<h3>（七）营造创新生态</h3>
+<p>举办行业交流活动，落实算力券、模型券、工具券等惠企补贴。省人社厅探索"算力券、模型券、工具券"三券合一的积分制发放模式，切实降低创业成本。鼓励各地积极营造OPC创新生态，支持OPC积极参与政府购买服务。</p>
+<h3>（八）强化OPC服务</h3>
+<p>依托"一网通办"平台，为新设OPC提供登记注册、公章刻制、发票票种核定、银行预约开户、社保登记、医保登记、公积金登记等事项一站式办理。</p>
+<p>省市场监管局升级"一站式"集成服务，OPC企业在申办营业执照的同时，可以自主选择联办公章制作、发票和税控设备申领、社保、医保、住房公积金以及银行预约开户等业务，切实解决"多头跑、反复跑"问题。同时优化OPC企业跨区域迁移登记调档环节，由迁入地登记机关主动商请迁出地登记机关协同办理档案调档，企业无需自行往返两地。</p>
+<p>支持各地区完善OPC社区内餐饮、便利店、休闲健身等生活业态，打造OPC"10分钟办公生活圈"；鼓励各地通过人才公寓、发放生活补贴等方式，降低OPC人才创业成本。积极推进模型备案和登记工作，加强知识产权保护。</p>
+<h2>五、省直部门配套措施</h2>
+<h3>（一）省科技厅</h3>
+<p>扩容科创载体，依托沈阳浑南科技城、大连英歌石科学城及各级高新区等创新平台，统筹布局建设OPC生态社区，对落地园区的OPC创业项目给予最高3万元一次性创业奖励，对运行成效突出的孵化器给予最高200万元资金奖励。升级科技成果转化服务平台，开设OPC服务专区，提供企业注册、税务代理、知识产权申报等基础服务，并引入法律、财务、人力资源、跨境服务等专业机构，提供全流程陪伴式服务。</p>
+<h3>（二）省人社厅</h3>
+<p>落实创业场地补贴、一次性创业补贴、最高30万元个人创业担保贷款贴息等扶持政策。全省已建成6个OPC创业社区，入驻创业者100余名。联合东北大学建设"辽宁省超级个体创业生态服务平台"，计划5月在沈阳地区试运行、6月向全省推广，平台面向OPC创业者、创业导师、高校、企业与金融机构等主体，设置"揭榜领题""机会清单""许愿池"等模块，实现需求对接、资源共享、交流协作等"一站式"服务。探索建立孵化基地积分制动态管理体系，对孵化成果显著、带动就业成效突出的基地加大奖补力度。</p>
+<h3>（三）省市场监管局</h3>
+<p>落实"全国一张清单"管理模式，坚持"清单之外无禁区"原则，对市场准入负面清单以外、法律法规未明确禁止限制的领域，保障OPC企业与其他市场主体依法平等准入，打破各类隐性壁垒。升级"一站式"集成服务与跨区域迁移协同办理。完善人工智能检验检测体系，搭建公共技术服务平台，推行智慧信用监管。</p>
+<h3>（四）省数据局</h3>
+<p>夯实算力数据底座，构建沈阳大连双核引领、辽西绿色算力协同发展的算力格局，常态化举办算力供需对接活动；有序推进公共数据授权运营，丰富数据产品供给，大力发展绿色算力，持续强化产业要素保障。</p>
+<p>2026年5月12日，辽宁省人民政府发布，内容是根据发布会内容整理。</p>
+  </div>
+</article>
+
+<div class="back-to-list">
+  <a href="./">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    返回政策原文列表
+  </a>
+</div>
+
+<nav class="article-nav">
+  <a href="#" class="nav-btn" style="visibility: hidden;">← 上一篇</a>
+  <a href="#" class="nav-btn">下一篇 →</a>
+</nav>
