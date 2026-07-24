@@ -635,7 +635,7 @@ for region in structure['regions']:
             "</style>\n"
             "\n"
             "<div class=\"top-bar\">\n"
-            "    <a href=\"../\">← 返回 全国OPC政策汇编</a>\n"
+            "    <a href=\"/policy/original/">← 返回 全国OPC政策汇编</a>\n"
             "</div>\n"
             "\n"
             "<div class=\"article-container\">\n"
@@ -645,7 +645,7 @@ for region in structure['regions']:
             + (p_html if p_html else "<div style='color:#888;font-size:14px;'>暂无政策文件</div>") +
             "    </div>\n"
             "    <div class=\"back\">\n"
-            "        <a href=\"../../\">← 返回 全国OPC政策汇编</a>\n"
+            "        <a href=\"/policy/original/">← 返回 全国OPC政策汇编</a>\n"
             "    </div>\n"
             "</div>\n"
         )
