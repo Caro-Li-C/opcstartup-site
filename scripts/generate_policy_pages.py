@@ -3,6 +3,7 @@ import os
 import json
 import re
 import yaml
+import shutil
 from pathlib import Path
 
 with open('_tmp_source/structure.json', 'r', encoding='utf-8') as f:
@@ -48,6 +49,12 @@ ZERO_WIDTH_CHARS = '\u200b\u200c\u200d\ufeff\u2060\u2061\u2062\u2063\u2064\u206a
 
 def clean_text(text):
     return ''.join(c for c in text if c not in ZERO_WIDTH_CHARS)
+
+def clean_title(text):
+    """与 convert_word.py 保持一致，去除所有空格和零宽字符"""
+    text = clean_text(text)
+    text = re.sub(r'\s+', '', text)
+    return text.strip()
 
 def parse_front_matter(text):
     if not text.startswith('---'):
@@ -432,21 +439,107 @@ SKIP_REGIONS = ['卷首语', '编制说明', 'OPC创业汇', '附录']
 
 policies_data = []
 
-# 关键修改：建立 region_name 到实际文件夹的映射
+# 关键修改：建立 region_name 到实际文件夹的映射，自动合并重复文件夹
 policy_base = Path('_tmp_source/policy')
-region_folder_map = {}
 
-# 扫描实际存在的文件夹，建立映射
-if policy_base.exists():
-    for folder in policy_base.iterdir():
-        if folder.is_dir() and not folder.name.startswith('_') and not folder.name.startswith('.'):
-            # 尝试匹配：文件夹名如 "4-第一篇 长三角" 对应 region['name'] = "第一篇 长三角地区"
-            for r in structure.get('regions', []):
-                r_name = r['name']
-                # 匹配逻辑：文件夹名包含 region name 的核心部分
-                if r_name.replace('地区', '').replace('区域', '') in folder.name or folder.name in r_name:
-                    region_folder_map[r_name] = folder
-                    break
+def resolve_region_folders_for_pages(base_path, structure_regions):
+    """
+    扫描 policy/ 下所有文件夹，按 region_name 分组，选择主文件夹。
+    优先匹配 structure.json 中的 id 字段。
+    """
+    if not base_path.exists():
+        return {}
+    
+    # 收集所有非特殊文件夹
+    folders = []
+    for folder in base_path.iterdir():
+        if not folder.is_dir():
+            continue
+        name = folder.name
+        if name.startswith('_') or name.startswith('.'):
+            continue
+        
+        # 提取数字前缀和 region_name
+        m = re.match(r'^(\d+)[\-_\s]+(.+)$', name)
+        if m:
+            prefix = int(m.group(1))
+            region_name_raw = m.group(2).strip()
+        else:
+            prefix = 0
+            region_name_raw = name.strip()
+        
+        # 统计 .md 文件数
+        md_count = len(list(folder.glob('*.md')))
+        folders.append({
+            'path': folder,
+            'name': name,
+            'prefix': prefix,
+            'region_name_raw': region_name_raw,
+            'md_count': md_count
+        })
+    
+    region_folder_map = {}
+    
+    for r in structure_regions:
+        r_name = r['name']
+        r_id = r.get('id', '')
+        # 提取 id 中的数字前缀
+        id_prefix = ''
+        m = re.match(r'^(\d+)[\-_\s]+', r_id)
+        if m:
+            id_prefix = m.group(1)
+        
+        # 找所有匹配的文件夹
+        matches = []
+        for f in folders:
+            # 优先按 id 前缀精确匹配
+            if id_prefix and f['name'].startswith(id_prefix + '-'):
+                matches.append(f)
+            # 再按名称模糊匹配（clean_title 后比较）
+            elif clean_title(r_name) == clean_title(f['region_name_raw']):
+                matches.append(f)
+            elif r_name.replace('地区', '').replace('区域', '') in f['name'] or f['name'] in r_name:
+                matches.append(f)
+        
+        if matches:
+            # 选主文件夹：文件数最多者为主；相同则选数字前缀最大者
+            matches.sort(key=lambda x: (x['md_count'], x['prefix']), reverse=True)
+            primary = matches[0]
+            region_folder_map[r_name] = primary['path']
+            
+            # 合并其他匹配文件夹到主文件夹
+            for other in matches[1:]:
+                print(f"  合并文件夹: {other['name']} -> {primary['name']}")
+                for md_file in other['path'].glob('*.md'):
+                    target = primary['path'] / md_file.name
+                    if not target.exists():
+                        shutil.move(str(md_file), str(target))
+                        print(f"    移动: {md_file.name}")
+                    else:
+                        existing_content = target.read_text(encoding='utf-8')
+                        new_content = md_file.read_text(encoding='utf-8')
+                        if existing_content == new_content:
+                            md_file.unlink()
+                            print(f"    删除重复: {md_file.name}")
+                        else:
+                            migrated_name = f"{md_file.stem}_migrated.md"
+                            migrated_target = primary['path'] / migrated_name
+                            counter = 1
+                            while migrated_target.exists():
+                                migrated_name = f"{md_file.stem}_migrated_{counter}.md"
+                                migrated_target = primary['path'] / migrated_name
+                                counter += 1
+                            shutil.move(str(md_file), str(migrated_target))
+                            print(f"    重命名移动: {md_file.name} -> {migrated_name}")
+                
+                remaining = list(other['path'].iterdir())
+                if not remaining:
+                    other['path'].rmdir()
+                    print(f"    删除空文件夹: {other['name']}")
+    
+    return region_folder_map
+
+region_folder_map = resolve_region_folders_for_pages(policy_base, structure.get('regions', []))
 
 print("Region 文件夹映射:")
 for k, v in region_folder_map.items():
@@ -549,7 +642,7 @@ for region in structure['regions']:
     region_dir = output_base / region['id']
     region_dir.mkdir(parents=True, exist_ok=True)
     
-    # 关键修改：找到对应的实际源文件夹
+    # 关键修改：找到对应的实际源文件夹（主文件夹）
     source_region_folder = region_folder_map.get(region['name'])
     if not source_region_folder:
         print(f"警告: 找不到 region '{region['name']}' 对应的源文件夹")
@@ -563,7 +656,7 @@ for region in structure['regions']:
         for fname in ch.get('files', []):
             md = fname if fname.endswith(".md") else fname + ".md"
             
-            # 关键修改：在对应的子目录下查找文件
+            # 关键修改：在主文件夹下查找文件
             mp = source_region_folder / md
             if not mp.exists():
                 print(f"跳过: {mp}")
