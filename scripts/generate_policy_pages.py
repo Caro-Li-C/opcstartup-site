@@ -13,11 +13,9 @@ with open('_tmp_source/structure.json', 'r', encoding='utf-8') as f:
 if isinstance(structure, list):
     new_structure = {'regions': []}
     for i, region in enumerate(structure):
-        # 关键修改：用完整 name，不截断
         region_id = f"{i+1}-{region['name']}"
         chapters = []
         for j, prov in enumerate(region.get('provinces', [])):
-            # 关键修改：用完整 name，不截断
             ch_id = f"{j+1}-{prov['name']}"
             files = []
             for f in prov.get('files', []):
@@ -728,7 +726,7 @@ for region in structure['regions']:
             "</style>\n"
             "\n"
             "<div class=\"top-bar\">\n"
-            "    <a href=\"/policy/original/">← 返回 全国OPC政策汇编</a>\n"
+            "    <a href=\"/policy/original/\">← 返回 全国OPC政策汇编</a>\n"
             "</div>\n"
             "\n"
             "<div class=\"article-container\">\n"
@@ -738,7 +736,7 @@ for region in structure['regions']:
             + (p_html if p_html else "<div style='color:#888;font-size:14px;'>暂无政策文件</div>") +
             "    </div>\n"
             "    <div class=\"back\">\n"
-            "        <a href=\"/policy/original/">← 返回 全国OPC政策汇编</a>\n"
+            "        <a href=\"/policy/original/\">← 返回 全国OPC政策汇编</a>\n"
             "    </div>\n"
             "</div>\n"
         )
