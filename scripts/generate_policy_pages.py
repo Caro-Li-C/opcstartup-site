@@ -440,10 +440,17 @@ policies_data = []
 # 关键修改：建立 region_name 到实际文件夹的映射，自动合并重复文件夹
 policy_base = Path('_tmp_source/policy')
 
+def normalize_region_name(name):
+    """标准化 region 名称：去数字前缀、去空格、去'地区'/'区域'后缀"""
+    name = re.sub(r'^\d+[\-_\s]+', '', name)
+    name = re.sub(r'\s+', '', name)
+    name = name.replace('地区', '').replace('区域', '')
+    return name
+
 def resolve_region_folders_for_pages(base_path, structure_regions):
     """
-    扫描 policy/ 下所有文件夹，按 region_name 分组，选择主文件夹。
-    优先匹配 structure.json 中的 id 字段。
+    扫描 policy/ 下所有文件夹，按"纯 region 名"分组，选择主文件夹。
+    原则：除了数字前缀不同，其他必须一致才合并。
     """
     if not base_path.exists():
         return {}
@@ -457,14 +464,9 @@ def resolve_region_folders_for_pages(base_path, structure_regions):
         if name.startswith('_') or name.startswith('.'):
             continue
         
-        # 提取数字前缀和 region_name
-        m = re.match(r'^(\d+)[\-_\s]+(.+)$', name)
-        if m:
-            prefix = int(m.group(1))
-            region_name_raw = m.group(2).strip()
-        else:
-            prefix = 0
-            region_name_raw = name.strip()
+        # 提取数字前缀
+        m = re.match(r'^(\d+)[\-_\s]+', name)
+        prefix = int(m.group(1)) if m else 0
         
         # 统计 .md 文件数
         md_count = len(list(folder.glob('*.md')))
@@ -472,7 +474,6 @@ def resolve_region_folders_for_pages(base_path, structure_regions):
             'path': folder,
             'name': name,
             'prefix': prefix,
-            'region_name_raw': region_name_raw,
             'md_count': md_count
         })
     
@@ -480,23 +481,15 @@ def resolve_region_folders_for_pages(base_path, structure_regions):
     
     for r in structure_regions:
         r_name = r['name']
-        r_id = r.get('id', '')
-        # 提取 id 中的数字前缀
-        id_prefix = ''
-        m = re.match(r'^(\d+)[\-_\s]+', r_id)
-        if m:
-            id_prefix = m.group(1)
+        region_norm = normalize_region_name(r_name)
         
-        # 找所有匹配的文件夹
+        # 找所有"除了数字前缀，其他都对"的文件夹
         matches = []
         for f in folders:
-            # 优先按 id 前缀精确匹配
-            if id_prefix and f['name'].startswith(id_prefix + '-'):
+            folder_norm = normalize_region_name(f['name'])
+            if folder_norm == region_norm:
                 matches.append(f)
-            # 再按名称模糊匹配（clean_title 后比较）
-            elif clean_title(r_name) == clean_title(f['region_name_raw']):
-                matches.append(f)
-            elif r_name.replace('地区', '').replace('区域', '') in f['name'] or f['name'] in r_name:
+            elif folder_norm in region_norm or region_norm in folder_norm:
                 matches.append(f)
         
         if matches:
@@ -507,6 +500,10 @@ def resolve_region_folders_for_pages(base_path, structure_regions):
             
             # 合并其他匹配文件夹到主文件夹
             for other in matches[1:]:
+                # 跳过已被其他 region 合并删除的文件夹
+                if not other['path'].exists():
+                    print(f"    跳过已不存在的文件夹: {other['name']}")
+                    continue
                 print(f"  合并文件夹: {other['name']} -> {primary['name']}")
                 for md_file in other['path'].glob('*.md'):
                     target = primary['path'] / md_file.name
